@@ -1,0 +1,13 @@
+# Imágenes y discos (demasiado grandes para Git)
+ISOS/
+*.iso
+*.vdi
+*.vmdk
+*.img
+*.zip
+*.ova
+
+# Notas locales con credenciales (nunca al repositorio)
+Untitled
+*credenciales*
+*.secret

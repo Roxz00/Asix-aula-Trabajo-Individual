@@ -1,0 +1,63 @@
+# Evidencia R3-Debian-nftables · 17/11/2026 09:40
+
+$ ip -br -4 a
+lo               UNKNOWN        127.0.0.1/8 
+enp0s3           UP             10.0.2.15/24 
+enp0s8           UP             192.168.30.3/24 
+
+$ ip route
+default via 10.0.2.2 dev enp0s3 onlink 
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 
+192.168.30.0/24 dev enp0s8 proto kernel scope link src 192.168.30.3 
+
+$ sysctl net.ipv4.ip_forward
+net.ipv4.ip_forward = 1
+
+$ cat /etc/resolv.conf
+# /etc/resolv.conf · DNS del centro
+nameserver 172.16.222.1
+
+$ ping -c2 172.16.222.1
+2 packets transmitted, 2 received, 0% packet loss, time 1017ms
+rtt min/avg/max/mdev = 0.689/0.811/0.933/0.122 ms
+
+$ getent ahostsv4 deb.debian.org
+151.101.134.132 STREAM debian.map.fastlydns.net
+151.101.134.132 DGRAM  
+
+$ sudo nft list ruleset
+table inet filtro {
+	chain input {
+		type filter hook input priority filter; policy drop;
+		ct state established,related accept
+		ct state invalid drop
+		iif "lo" accept
+		ip protocol icmp accept
+		tcp dport 22 accept comment "SSH (LAN y gestión desde el anfitrión por NAT)"
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy drop;
+		ct state established,related accept
+		ct state invalid drop
+		iifname "enp0s8" oifname "enp0s3" ip saddr 192.168.30.0/24 accept comment "LAN -> Internet"
+	}
+
+	chain output {
+		type filter hook output priority filter; policy accept;
+	}
+}
+table ip nat {
+	chain postrouting {
+		type nat hook postrouting priority srcnat; policy accept;
+		oifname "enp0s3" ip saddr 192.168.30.0/24 masquerade comment "NAT LAN -> WAN"
+	}
+}
+
+## Pruebas de NAT a través de cada router (HTTP a 151.101.134.132, deb.debian.org)
+# (el ICMP hacia Internet está filtrado en la red del aula, por eso se usa TCP/80)
+Directo por R3 Debian: HTTP/1.1 200 OK
+R3 -> vía R1 MikroTik 192.168.30.1: HTTP/1.1 200 OK
+R3 -> vía R2 OPNsense 192.168.30.2: HTTP/1.1 200 OK
+R1 MikroTik -> vía R3 Debian 192.168.30.3 (/tool fetch):
+      status: finished
