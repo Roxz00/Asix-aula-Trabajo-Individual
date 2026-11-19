@@ -1,0 +1,128 @@
+# Clúster Proxmox cluster-g3 · verificación (19/11/2026)
+
+### pvecm status (pve1)
+Cluster information
+-------------------
+Name:             cluster-g3
+Config Version:   3
+Transport:        knet
+Secure auth:      on
+
+Quorum information
+------------------
+Date:             Thu Nov 19 11:00:04 2026
+Quorum provider:  corosync_votequorum
+Nodes:            3
+Node ID:          0x00000001
+Ring ID:          1.d
+Quorate:          Yes
+
+Votequorum information
+----------------------
+Expected votes:   3
+Highest expected: 3
+Total votes:      3
+Quorum:           2  
+Flags:            Quorate 
+
+Membership information
+----------------------
+    Nodeid      Votes Name
+0x00000001          1 192.168.30.32 (local)
+0x00000002          1 192.168.30.33
+0x00000003          1 192.168.30.34
+
+### pvecm nodes
+
+Membership information
+----------------------
+    Nodeid      Votes Name
+         1          1 pve1 (local)
+         2          1 pve2
+         3          1 pve3
+
+### /etc/pve/corosync.conf
+logging {
+  debug: off
+  to_syslog: yes
+}
+
+nodelist {
+  node {
+    name: pve1
+    nodeid: 1
+    quorum_votes: 1
+    ring0_addr: 192.168.30.32
+  }
+  node {
+    name: pve2
+    nodeid: 2
+    quorum_votes: 1
+    ring0_addr: 192.168.30.33
+  }
+  node {
+    name: pve3
+    nodeid: 3
+    quorum_votes: 1
+    ring0_addr: 192.168.30.34
+  }
+}
+
+quorum {
+  provider: corosync_votequorum
+}
+
+totem {
+  cluster_name: cluster-g3
+  config_version: 3
+  interface {
+    linknumber: 0
+  }
+  ip_version: ipv4-6
+  link_mode: passive
+  secauth: on
+  token_coefficient: 125
+  version: 2
+}
+
+
+
+### pve1.grupo3.lan · red
+vmbr0            UP             192.168.30.32/24 fe80::a00:27ff:fe91:4ab6/64 
+default via 192.168.30.1 dev vmbr0 proto kernel onlink 
+192.168.30.0/24 dev vmbr0 proto kernel scope link src 192.168.30.32 
+nameserver 172.16.222.1
+2 packets transmitted, 2 received, 0% packet loss, time 1033ms
+rtt min/avg/max/mdev = 0.424/0.507/0.590/0.083 ms
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 1.187/1.286/1.386/0.099 ms
+2a04:4e42:45::644 debian.map.fastlydns.net deb.debian.org
+HTTP/1.1 200 OK
+
+
+### pve2.grupo3.lan · red
+vmbr0            UP             192.168.30.33/24 fe80::a00:27ff:fe55:6a5b/64 
+default via 192.168.30.1 dev vmbr0 proto kernel onlink 
+192.168.30.0/24 dev vmbr0 proto kernel scope link src 192.168.30.33 
+nameserver 172.16.222.1
+2 packets transmitted, 2 received, 0% packet loss, time 1051ms
+rtt min/avg/max/mdev = 0.298/0.318/0.339/0.020 ms
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 1.175/1.272/1.369/0.097 ms
+2a04:4e42:45::644 debian.map.fastlydns.net deb.debian.org
+HTTP/1.1 200 OK
+
+
+### pve3.grupo3.lan · red
+vmbr0            UP             192.168.30.34/24 fe80::a00:27ff:fefc:478d/64 
+default via 192.168.30.1 dev vmbr0 proto kernel onlink 
+192.168.30.0/24 dev vmbr0 proto kernel scope link src 192.168.30.34 
+nameserver 172.16.222.1
+2 packets transmitted, 2 received, 0% packet loss, time 1009ms
+rtt min/avg/max/mdev = 0.256/0.398/0.541/0.142 ms
+2 packets transmitted, 2 received, 0% packet loss, time 1021ms
+rtt min/avg/max/mdev = 0.931/0.945/0.959/0.014 ms
+2a04:4e42:45::644 debian.map.fastlydns.net deb.debian.org
+HTTP/1.1 200 OK
+
+

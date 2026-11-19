@@ -26,13 +26,15 @@ Red `192.168.30.0/24` · máscara `255.255.255.0` · puerta de enlace `192.168.3
 | R1-MikroTik-CHR (LAN) | 192.168.30.1/24 | Manual | ✅ |
 | R2-OPNsense (LAN) | 192.168.30.2/24 | Manual | ✅ |
 | R3-Debian-nftables (LAN) | 192.168.30.3/24 | Manual | ✅ |
-| Anfitrión | 192.168.30.15/24 | Manual | — |
-| NAS/SAN TrueNAS | 192.168.30.20/24 | Manual | Pendiente |
-| VM Windows Server 2025 | 192.168.30.21/24 | Manual | Pendiente |
-| VM Debian · servicios | 192.168.30.22/24 | Manual | Pendiente |
-| VM Debian · datos | 192.168.30.23/24 | Manual | Pendiente |
-| Nodos Proxmox VE 1 / 2 / 3 | 192.168.30.32 / .33 / .34 /24 | Manual | Pendiente |
-| Clientes (Dirección, Administración, Comercial, Producción, Informática, portátil) | .100 – .200 | Manual | Pendiente |
+| Anfitrión | 192.168.30.15/24 | Manual | No se usa: en el entorno individual el anfitrión no tiene interfaz en `LAN_G3` (se gestiona saltando por R3) |
+| NAS/SAN TrueNAS | 192.168.30.20/24 | Manual | ✅ |
+| VM Windows Server 2025 (fuera del clúster) | 192.168.30.21/24 | Manual | ✅ |
+| VM Debian · servicios | 192.168.30.22/24 | Manual | Solo en el grupo |
+| VM Debian · datos | 192.168.30.23/24 | Manual | Solo en el grupo |
+| Nodos Proxmox VE 1 / 2 / 3 | 192.168.30.32 / .33 / .34 /24 | Manual | ✅ (clúster vacío) |
+| Cliente W11 · Dirección | 192.168.30.100/24 | Manual | ✅ |
+| Cliente Debian GNOME · Producción | 192.168.30.101/24 | Manual | ✅ |
+| Resto de clientes del grupo (Administración, Comercial, Informática, portátil) | .102 – .200 | Manual | No se montan en el entorno individual |
 
 ### Método de asignación: todo manual, sin DHCP
 

@@ -1,0 +1,21 @@
+# TrueNAS SCALE · verificación (19/11/2026) · consultas a la API REST desde pve1
+
+### Ping desde pve1 (192.168.30.32) a TrueNAS
+2 packets transmitted, 2 received, 0% packet loss, time 1041ms
+rtt min/avg/max/mdev = 0.421/0.473/0.525/0.052 ms
+### Sistema
+versión: 25.10.7 | hostname: nas | RAM: 2.91 GiB | núcleos: 2 | zona: Europe/Madrid
+### Red
+dominio: grupo3.lan | gateway: 192.168.30.1 | DNS: 172.16.222.1
+interfaz: enp0s3 | DHCP: False | IP: ['192.168.30.20/24']
+### Discos
+sda 16 GiB VBOX_HARDDISK
+sdb 20 GiB VBOX_HARDDISK
+### Pools
+copias ONLINE sano: True /mnt/copias ['sdb']
+boot-pool: boot-pool ONLINE
+### Usuario de administración
+truenas_admin | uid: 950 | grupos: [40] | sudo: ['ALL']
+### Salida a Internet del NAS (vía 192.168.30.1)
+true
+

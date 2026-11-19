@@ -1,0 +1,47 @@
+# Prueba de quórum del clúster cluster-g3 (19/11/2026)
+# Se apagan nodos uno a uno desde VirtualBox (botón ACPI) y se consulta pvecm status en pve1.
+
+### 1) Los 3 nodos encendidos
+Nodes:            3
+Quorate:          Yes
+Expected votes:   3
+Total votes:      3
+Quorum:           2  
+Flags:            Quorate 
+Escritura en /etc/pve: OK
+
+### 2) PVE-3 apagado (quedan 2 de 3)
+Nodes:            2
+Quorate:          Yes
+Expected votes:   3
+Total votes:      2
+Quorum:           2  
+Flags:            Quorate 
+Escritura en /etc/pve: OK
+
+### 3) PVE-2 y PVE-3 apagados (queda 1 de 3)
+Nodes:            1
+Quorate:          No
+Expected votes:   3
+Total votes:      1
+Quorum:           2 Activity blocked
+Flags:            
+touch: cannot touch '/etc/pve/prueba-escritura': Permission denied
+Escritura en /etc/pve: BLOQUEADA
+
+
+### 4) PVE-2 y PVE-3 encendidos de nuevo (recuperación)
+Nodes:            3
+Quorate:          Yes
+Expected votes:   3
+Total votes:      3
+Quorum:           2  
+Flags:            Quorate 
+
+Membership information
+----------------------
+    Nodeid      Votes Name
+         1          1 pve1 (local)
+         2          1 pve2
+         3          1 pve3
+

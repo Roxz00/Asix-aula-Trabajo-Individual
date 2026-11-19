@@ -10,4 +10,5 @@ ISOS/
 # Notas locales con credenciales (nunca al repositorio)
 Untitled
 *credenciales*
+*CREDENCIALES*
 *.secret
