@@ -1,0 +1,290 @@
+
+=================== CONDICIONES AL EMPEZAR ===================
+Fecha: 21/11/2026 21:40:22
+Equipo: casa · uptime: up 15 minutes · carga: 0.45 0.74 0.53
+VMs en marcha: 0
+RAM libre: 12101 MB disponibles de 15927 MB
+Package id 0:  +34.0°C  (high = +82.0°C, crit = +100.0°C)
+Composite:    +36.9°C  (low  = -40.1°C, high = +83.8°C)
+
+=================== MEMORIA · memtester 1 GB, 1 pasada ===================
+Herramienta: memtester memory · prueba desde el sistema en marcha (no sustituye a MemTest86+ en el arranque)
+memtester version 4.6.0 (64-bit)
+Copyright (C) 2001-2020 Charles Cazabon.
+Licensed under the GNU General Public License version 2 (only).
+pagesize is 4096
+pagesizemask is 0xfffffffffffff000
+want 1024MB (1073741824 bytes)
+got  1024MB (1073741824 bytes), trying mlock ...locked.
+Loop 1/1:
+  Random Value        :   ok
+  Compare XOR         : ok
+  Compare SUB         : ok
+  Compare MUL         : ok
+  Compare DIV         : ok
+  Compare OR          : ok
+  Compare AND         : ok
+  Sequential Increment: ok
+  8-bit Writes        :   ok
+  16-bit Writes       :   ok
+Done.
+Duración: 201 s
+
+=================== MEMORIA · ancho de banda (sysbench) ===================
+$ sysbench memory --memory-block-size=1M --memory-total-size=20G --threads=1 run
+sysbench 1.0.20 (using system LuaJIT 2.1.0-beta3)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Running memory speed test with the following options:
+  block size: 1024KiB
+  total size: 20480MiB
+  operation: write
+  scope: global
+
+Initializing worker threads...
+
+Threads started!
+
+Total operations: 20480 (25353.80 per second)
+
+20480.00 MiB transferred (25353.80 MiB/sec)
+
+
+General statistics:
+    total time:                          0.8066s
+    total number of events:              20480
+
+Latency (ms):
+         min:                                    0.04
+         avg:                                    0.04
+         max:                                    0.10
+         95th percentile:                        0.04
+         sum:                                  802.81
+
+Threads fairness:
+    events (avg/stddev):           20480.0000/0.00
+    execution time (avg/stddev):   0.8028/0.00
+
+
+$ sysbench memory --memory-block-size=1M --memory-total-size=40G --threads=12 run
+sysbench 1.0.20 (using system LuaJIT 2.1.0-beta3)
+
+Running the test with following options:
+Number of threads: 12
+Initializing random number generator from current time
+
+
+Running memory speed test with the following options:
+  block size: 1024KiB
+  total size: 40960MiB
+  operation: write
+  scope: global
+
+Initializing worker threads...
+
+Threads started!
+
+Total operations: 40956 (114919.33 per second)
+
+40956.00 MiB transferred (114919.33 MiB/sec)
+
+
+General statistics:
+    total time:                          0.3551s
+    total number of events:              40956
+
+Latency (ms):
+         min:                                    0.04
+         avg:                                    0.10
+         max:                                   16.43
+         95th percentile:                        0.11
+         sum:                                 3965.50
+
+Threads fairness:
+    events (avg/stddev):           3413.0000/0.00
+    execution time (avg/stddev):   0.3305/0.01
+
+
+
+=================== CPU · sysbench (referencia para la virtualización) ===================
+$ sysbench cpu --cpu-max-prime=20000 --threads=1 --time=15 run
+sysbench 1.0.20 (using system LuaJIT 2.1.0-beta3)
+
+Running the test with following options:
+Number of threads: 1
+Initializing random number generator from current time
+
+
+Prime numbers limit: 20000
+
+Initializing worker threads...
+
+Threads started!
+
+CPU speed:
+    events per second:   576.76
+
+General statistics:
+    total time:                          15.0016s
+    total number of events:              8653
+
+Latency (ms):
+         min:                                    1.63
+         avg:                                    1.73
+         max:                                    2.45
+         95th percentile:                        1.82
+         sum:                                14998.96
+
+Threads fairness:
+    events (avg/stddev):           8653.0000/0.00
+    execution time (avg/stddev):   14.9990/0.00
+
+
+$ sysbench cpu --cpu-max-prime=20000 --threads=12 --time=15 run
+sysbench 1.0.20 (using system LuaJIT 2.1.0-beta3)
+
+Running the test with following options:
+Number of threads: 12
+Initializing random number generator from current time
+
+
+Prime numbers limit: 20000
+
+Initializing worker threads...
+
+Threads started!
+
+CPU speed:
+    events per second:  5375.19
+
+General statistics:
+    total time:                          15.0020s
+    total number of events:              80645
+
+Latency (ms):
+         min:                                    1.74
+         avg:                                    2.23
+         max:                                   69.01
+         95th percentile:                        2.26
+         sum:                               179996.08
+
+Threads fairness:
+    events (avg/stddev):           6720.4167/28.02
+    execution time (avg/stddev):   14.9997/0.00
+
+
+
+=================== DISCO · lectura secuencial sin caché (hdparm, solo lectura) ===================
+$ hdparm -t /dev/sda
+
+/dev/sda:
+ Timing buffered disk reads: 724 MB in  3.00 seconds = 241.19 MB/sec
+
+$ hdparm -t /dev/sdb
+
+/dev/sdb:
+ Timing buffered disk reads: 1036 MB in  3.00 seconds = 344.94 MB/sec
+
+$ hdparm -t /dev/nvme0n1
+
+/dev/nvme0n1:
+ Timing buffered disk reads: 6270 MB in  3.00 seconds = 2089.62 MB/sec
+
+
+=================== DISCO EXTERNO (donde están las VMs) · fio sobre ~/.t2-fio-test ===================
+Fichero de prueba de 1 GB, E/S directa (sin caché de página).
+ seq-lectura (read, bloque 1M) 
+  read: IOPS=429, BW=430MiB/s (451MB/s)(8606MiB/20015msec)
+    slat (usec): min=204, max=4720, avg=2307.02, stdev=174.94
+    clat (usec): min=12748, max=45657, avg=34878.09, stdev=866.34
+     lat (usec): min=15185, max=47908, avg=37185.11, stdev=892.22
+ seq-escritura (write, bloque 1M) 
+  write: IOPS=402, BW=403MiB/s (422MB/s)(8060MiB/20016msec); 0 zone resets
+    slat (usec): min=26, max=16528, avg=2465.20, stdev=637.76
+    clat (usec): min=13930, max=50127, avg=37244.67, stdev=1537.18
+     lat (usec): min=19393, max=53224, avg=39709.87, stdev=1595.68
+ aleat-lectura-4k (randread, bloque 4k) 
+  read: IOPS=20.5k, BW=80.2MiB/s (84.1MB/s)(1604MiB/20001msec)
+    slat (usec): min=2, max=2612, avg=46.38, stdev=41.60
+    clat (usec): min=184, max=3532, avg=732.26, stdev=195.42
+     lat (usec): min=211, max=3539, avg=778.65, stdev=197.55
+ aleat-escritura-4k (randwrite, bloque 4k) 
+  write: IOPS=30.2k, BW=118MiB/s (124MB/s)(2356MiB/20001msec); 0 zone resets
+    clat (usec): min=135, max=59157, avg=498.75, stdev=878.59
+     lat (usec): min=154, max=59182, avg=529.86, stdev=906.75
+    clat percentiles (usec):
+
+=================== RED · enlace ===================
+enp4s0: velocidad 1000 Mb/s · duplex full · errores rx/tx 0/0
+
+=================== RED · latencia a la puerta de enlace (192.168.1.1), 20 pings ===================
+$ ping -c20 -i0.2 192.168.1.1
+PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
+64 bytes from 192.168.1.1: icmp_seq=1 ttl=64 time=0.399 ms
+64 bytes from 192.168.1.1: icmp_seq=2 ttl=64 time=0.339 ms
+64 bytes from 192.168.1.1: icmp_seq=3 ttl=64 time=0.296 ms
+64 bytes from 192.168.1.1: icmp_seq=4 ttl=64 time=0.307 ms
+64 bytes from 192.168.1.1: icmp_seq=5 ttl=64 time=0.257 ms
+64 bytes from 192.168.1.1: icmp_seq=6 ttl=64 time=0.300 ms
+64 bytes from 192.168.1.1: icmp_seq=7 ttl=64 time=0.269 ms
+64 bytes from 192.168.1.1: icmp_seq=8 ttl=64 time=0.283 ms
+64 bytes from 192.168.1.1: icmp_seq=9 ttl=64 time=0.317 ms
+64 bytes from 192.168.1.1: icmp_seq=10 ttl=64 time=0.287 ms
+64 bytes from 192.168.1.1: icmp_seq=11 ttl=64 time=0.258 ms
+64 bytes from 192.168.1.1: icmp_seq=12 ttl=64 time=0.325 ms
+64 bytes from 192.168.1.1: icmp_seq=13 ttl=64 time=0.243 ms
+64 bytes from 192.168.1.1: icmp_seq=14 ttl=64 time=0.203 ms
+64 bytes from 192.168.1.1: icmp_seq=15 ttl=64 time=0.235 ms
+64 bytes from 192.168.1.1: icmp_seq=16 ttl=64 time=0.245 ms
+64 bytes from 192.168.1.1: icmp_seq=17 ttl=64 time=0.317 ms
+64 bytes from 192.168.1.1: icmp_seq=18 ttl=64 time=0.312 ms
+64 bytes from 192.168.1.1: icmp_seq=19 ttl=64 time=0.241 ms
+64 bytes from 192.168.1.1: icmp_seq=20 ttl=64 time=0.349 ms
+
+ 192.168.1.1 ping statistics 
+20 packets transmitted, 20 received, 0% packet loss, time 3946ms
+rtt min/avg/max/mdev = 0.203/0.289/0.399/0.045 ms
+
+
+=================== RED · latencia a Internet (1.1.1.1), 10 pings ===================
+$ ping -c10 -i0.5 1.1.1.1
+PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.
+64 bytes from 1.1.1.1: icmp_seq=1 ttl=56 time=10.0 ms
+64 bytes from 1.1.1.1: icmp_seq=2 ttl=56 time=9.63 ms
+64 bytes from 1.1.1.1: icmp_seq=3 ttl=56 time=9.79 ms
+64 bytes from 1.1.1.1: icmp_seq=4 ttl=56 time=9.72 ms
+64 bytes from 1.1.1.1: icmp_seq=5 ttl=56 time=9.83 ms
+64 bytes from 1.1.1.1: icmp_seq=6 ttl=56 time=9.79 ms
+64 bytes from 1.1.1.1: icmp_seq=7 ttl=56 time=9.72 ms
+64 bytes from 1.1.1.1: icmp_seq=8 ttl=56 time=9.83 ms
+64 bytes from 1.1.1.1: icmp_seq=9 ttl=56 time=9.77 ms
+64 bytes from 1.1.1.1: icmp_seq=10 ttl=56 time=9.85 ms
+
+ 1.1.1.1 ping statistics 
+10 packets transmitted, 10 received, 0% packet loss, time 4512ms
+rtt min/avg/max/mdev = 9.627/9.791/9.998/0.093 ms
+
+
+=================== RED · resolución DNS ===================
+deb.debian.org: ok en 30 ms
+github.com: ok en 43 ms
+
+=================== RED · descarga de 100 MB (speed.cloudflare.com) ===================
+HTTP 403 · 1 bytes en 0.092789 s · 10 B/s
+(Cloudflare rechaza la petición automatizada. Se repitió a mano a las ~21:50 con otro servidor:)
+=================== RED · descarga de 100 MiB (proof.ovh.net), 3 pasadas ===================
+Pasada 1: HTTP 200 · 104857600 bytes en 1.295710 s · 80926750 B/s
+Pasada 2: HTTP 200 · 104857600 bytes en 1.269977 s · 82566534 B/s
+Pasada 3: HTTP 200 · 104857600 bytes en 1.268548 s · 82659544 B/s
+
+=================== CONDICIONES AL ACABAR ===================
+Fecha: 21/11/2026 21:46:08
+Equipo: casa · uptime: up 21 minutes · carga: 1.51 1.37 0.87
+VMs en marcha: 0
+RAM libre: 12188 MB disponibles de 15927 MB
+Package id 0:  +40.0°C  (high = +82.0°C, crit = +100.0°C)
+Composite:    +43.9°C  (low  = -40.1°C, high = +83.8°C)

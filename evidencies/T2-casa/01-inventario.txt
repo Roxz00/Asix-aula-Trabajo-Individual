@@ -1,0 +1,709 @@
+
+=================== CONDICIONES ===================
+Fecha: 21/11/2026 21:40:20
+Equipo: casa · uptime: up 15 minutes · carga: 0.45 0.74 0.53
+VMs en marcha: 0
+RAM libre: 12173 MB disponibles de 15927 MB
+Package id 0:  +35.0°C  (high = +82.0°C, crit = +100.0°C)
+Composite:    +36.9°C  (low  = -40.1°C, high = +83.8°C)
+
+=================== RESUMEN (inxi) ===================
+$ inxi -Fxxz -c0
+System:
+  Kernel: 6.8.0-138-generic arch: x86_64 bits: 64 compiler: gcc v: 13.3.0
+  Desktop: Cinnamon v: 6.6.9 tk: GTK v: 3.24.41 wm: Muffin dm: LightDM
+    Distro: Linux Mint 22.3 Zena base: Ubuntu 24.04 noble
+Machine:
+  Type: Desktop Mobo: ASUSTeK model: PRIME Z370-P v: Rev X.0x serial: <oculto>
+    part-nu: SKU UEFI: American Megatrends v: 3004 date: 07/12/2021
+Battery:
+  Device-1: ps-controller-battery-<mac> model: N/A serial: <oculto>
+    charge: N/A status: full
+CPU:
+  Info: 6-core model: Intel Core i7-8700 bits: 64 type: MT MCP
+    arch: Coffee Lake rev: A cache: L1: 384 KiB L2: 1.5 MiB L3: 12 MiB
+  Speed (MHz): avg: 800 high: 801 min/max: 800/4600 cores: 1: 800 2: 800
+    3: 800 4: 800 5: 800 6: 800 7: 800 8: 800 9: 800 10: 800 11: 800 12: 801
+    bogomips: 76799
+  Flags: avx avx2 ht lm nx pae sse sse2 sse3 sse4_1 sse4_2 ssse3 vmx
+Graphics:
+  Device-1: NVIDIA TU116 [GeForce GTX 1660 SUPER] vendor: ZOTAC driver: nvidia
+    v: 595.91.07 arch: Turing pcie: speed: 5 GT/s lanes: 16 ports: active: none
+    off: DP-2,HDMI-A-1 empty: DP-1,DP-3 bus-ID: 01:00.0 chip-ID: 10de:21c4
+  Device-2: A4Tech HD Pro Webcam driver: snd-usb-audio,uvcvideo type: USB
+    rev: 2.0 speed: 480 Mb/s lanes: 1 bus-ID: 1-6:3 chip-ID: 09da:2692
+  Display: server: X.Org v: 21.1.11 with: Xwayland v: 23.2.6 driver: X:
+    loaded: nvidia unloaded: fbdev,modesetting,nouveau,vesa
+    gpu: nv_platform,nvidia,nvidia-nvswitch display-ID: :0 screens: 1
+  Screen-1: 0 s-res: 3840x1080 s-dpi: 92
+  Monitor-1: DP-2 note: disabled pos: primary,left model: AOC 24G2W1G4
+    res: 1920x1080 dpi: 93 diag: 604mm (23.8")
+  Monitor-2: HDMI-A-1 mapped: HDMI-0 note: disabled pos: right
+    model: BenQ G2420HD res: 1920x1080 dpi: 92 diag: 609mm (24")
+  API: EGL v: 1.5 platforms: device: 0 drv: nvidia device: 2 drv: swrast
+    gbm: drv: nvidia surfaceless: drv: nvidia x11: drv: nvidia
+    inactive: wayland,device-1
+  API: OpenGL v: 4.6.0 compat-v: 4.5 vendor: nvidia mesa v: 595.91.07
+    glx-v: 1.4 direct-render: yes renderer: NVIDIA GeForce GTX 1660
+    SUPER/PCIe/SSE2
+  API: Vulkan v: 1.3.275 surfaces: xcb,xlib device: 0 type: discrete-gpu
+    driver: N/A device-ID: 10de:21c4 device: 1 type: cpu driver: N/A
+    device-ID: 10005:0000
+Audio:
+  Device-1: Intel 200 Series PCH HD Audio vendor: ASUSTeK
+    driver: snd_hda_intel v: kernel bus-ID: 00:1f.3 chip-ID: 8086:a2f0
+  Device-2: NVIDIA TU116 High Definition Audio vendor: ZOTAC
+    driver: snd_hda_intel v: kernel pcie: speed: 8 GT/s lanes: 16
+    bus-ID: 01:00.1 chip-ID: 10de:1aeb
+  Device-3: Sony DualShock 4 [CUH-ZCT2x]
+    driver: playstation,snd-usb-audio,usbhid type: USB rev: 2.0 speed: 12 Mb/s
+    lanes: 1 bus-ID: 1-14:6 chip-ID: 054c:09cc
+  Device-4: A4Tech HD Pro Webcam driver: snd-usb-audio,uvcvideo type: USB
+    rev: 2.0 speed: 480 Mb/s lanes: 1 bus-ID: 1-6:3 chip-ID: 09da:2692
+  Device-5: JMTek LLC. MC5 driver: hid-generic,snd-usb-audio,usbhid
+    type: USB rev: 1.1 speed: 12 Mb/s lanes: 1 bus-ID: 1-9:5 chip-ID: 0c76:2885
+  API: ALSA v: k6.8.0-138-generic status: kernel-api
+  Server-1: PipeWire v: 1.0.5 status: n/a (root, process) with:
+    1: pipewire-pulse status: active 2: wireplumber status: active
+    3: pipewire-alsa type: plugin
+Network:
+  Device-1: Realtek RTL8111/8168/8211/8411 PCI Express Gigabit Ethernet
+    vendor: ASUSTeK RTL8111H driver: r8169 v: kernel pcie: speed: 2.5 GT/s
+    lanes: 1 port: d000 bus-ID: 04:00.0 chip-ID: 10ec:8168
+  IF: enp4s0 state: up speed: 1000 Mbps duplex: full mac: <filter>
+  IF-ID-1: docker0 state: down mac: <filter>
+Drives:
+  Local Storage: total: 1.81 TiB used: 198.17 GiB (10.7%)
+  ID-1: /dev/nvme0n1 vendor: Western Digital model: WD BLACK SN770 1TB
+    size: 931.51 GiB speed: 63.2 Gb/s lanes: 4 serial: <oculto>
+  ID-2: /dev/sda vendor: Kingston model: SA400S37480G size: 447.13 GiB
+    speed: 6.0 Gb/s serial: <oculto>
+  ID-3: /dev/sdb model: SSD 512GB size: 476.94 GiB type: USB rev: 3.2
+    spd: 5 Gb/s lanes: 1 serial: <oculto>
+Partition:
+  ID-1: / size: 57.36 GiB used: 28.39 GiB (49.5%) fs: ext4 dev: /dev/sdb2
+  ID-2: /boot/efi size: 508 MiB used: 16.1 MiB (3.2%) fs: vfat
+    dev: /dev/sdb1
+  ID-3: /home size: 380.89 GiB used: 169.76 GiB (44.6%) fs: ext4
+    dev: /dev/sdb3
+Swap:
+  ID-1: swap-1 type: file size: 8 GiB used: 0 KiB (0.0%) priority: -2
+    file: /swapfile
+  ID-2: swap-2 type: zram size: 3.89 GiB used: 0 KiB (0.0%) priority: 100
+    dev: /dev/zram0
+Sensors:
+  System Temperatures: cpu: 32.0 C mobo: N/A gpu: nvidia temp: 36 C
+  Fan Speeds (rpm): N/A gpu: nvidia fan: 32%
+Info:
+  Memory: total: 16 GiB available: 15.55 GiB used: 3.75 GiB (24.1%)
+  Processes: 376 Power: uptime: 15m wakeups: 0 Init: systemd v: 255
+    target: graphical (5) default: graphical
+  Packages: 2296 pm: dpkg pkgs: 2290 pm: flatpak pkgs: 6 Compilers:
+    gcc: 13.3.0 Shell: Bash v: 5.2.21 running-in: gnome-terminal inxi: 3.3.34
+
+
+=================== PLACA, FIRMWARE Y ARRANQUE ===================
+$ dmidecode -t system -t baseboard -t bios -t chassis
+# dmidecode 3.5
+Getting SMBIOS data from sysfs.
+SMBIOS 3.0.0 present.
+
+Handle 0x0000, DMI type 0, 24 bytes
+BIOS Information
+	Vendor: American Megatrends Inc.
+	Version: 3004
+	Release Date: 07/12/2021
+	Address: 0xF0000
+	Runtime Size: 64 kB
+	ROM Size: 16 MB
+	Characteristics:
+		PCI is supported
+		APM is supported
+		BIOS is upgradeable
+		BIOS shadowing is allowed
+		Boot from CD is supported
+		Selectable boot is supported
+		BIOS ROM is socketed
+		EDD is supported
+		5.25"/1.2 MB floppy services are supported (int 13h)
+		3.5"/720 kB floppy services are supported (int 13h)
+		3.5"/2.88 MB floppy services are supported (int 13h)
+		Print screen service is supported (int 5h)
+		8042 keyboard services are supported (int 9h)
+		Serial services are supported (int 14h)
+		Printer services are supported (int 17h)
+		ACPI is supported
+		USB legacy is supported
+		BIOS boot specification is supported
+		Targeted content distribution is supported
+		UEFI is supported
+	BIOS Revision: 5.12
+
+Handle 0x0001, DMI type 1, 27 bytes
+System Information
+	Manufacturer: System manufacturer
+	Product Name: System Product Name
+	Version: System Version
+	Serial Number: <oculto>
+	UUID: <oculto>
+	Wake-up Type: Power Switch
+	SKU Number: SKU
+	Family: To be filled by O.E.M.
+
+Handle 0x0002, DMI type 2, 15 bytes
+Base Board Information
+	Manufacturer: ASUSTeK COMPUTER INC.
+	Product Name: PRIME Z370-P
+	Version: Rev X.0x
+	Serial Number: <oculto>
+	Asset Tag: <oculto>
+	Features:
+		Board is a hosting board
+		Board is replaceable
+	Location In Chassis: Default string
+	Chassis Handle: 0x0003
+	Type: Motherboard
+	Contained Object Handles: 0
+
+Handle 0x0003, DMI type 3, 22 bytes
+Chassis Information
+	Manufacturer: Default string
+	Type: Desktop
+	Lock: Not Present
+	Version: Default string
+	Serial Number: <oculto>
+	Asset Tag: <oculto>
+	Boot-up State: Safe
+	Power Supply State: Safe
+	Thermal State: Safe
+	Security Status: None
+	OEM Information: 0x00000000
+	Height: Unspecified
+	Number Of Power Cords: 1
+	Contained Elements: 0
+	SKU Number: Default string
+
+Handle 0x0021, DMI type 10, 6 bytes
+On Board Device Information
+	Type: Video
+	Status: Enabled
+	Description:    To Be Filled By O.E.M.
+
+Handle 0x0023, DMI type 12, 5 bytes
+System Configuration Options
+	Option 1: SMI:00B29C05
+	Option 2: DSN:                               <oculto>
+	Option 3: DSN:                               <oculto>
+	Option 4: DSN:                               <oculto>
+
+Handle 0x0024, DMI type 32, 20 bytes
+System Boot Information
+	Status: No errors detected
+
+Handle 0x003B, DMI type 41, 11 bytes
+Onboard Device
+	Reference Designation:  Onboard IGD
+	Type: Video
+	Status: Enabled
+	Type Instance: 1
+	Bus Address: 0000:00:02.0
+
+Handle 0x003C, DMI type 41, 11 bytes
+Onboard Device
+	Reference Designation:  Onboard LAN
+	Type: Ethernet
+	Status: Enabled
+	Type Instance: 1
+	Bus Address: 0000:00:19.0
+
+Handle 0x003D, DMI type 41, 11 bytes
+Onboard Device
+	Reference Designation:  Onboard 1394
+	Type: Other
+	Status: Enabled
+	Type Instance: 1
+	Bus Address: 0000:03:1c.2
+
+
+Modo de arranque: UEFI
+$ mokutil --sb-state
+SecureBoot enabled
+
+
+=================== CPU Y VIRTUALIZACIÓN ===================
+$ lscpu
+Arquitectura:                             x86_64
+modo(s) de operación de las CPUs:         32-bit, 64-bit
+Tamaños de las direcciones:               39 bits physical, 48 bits virtual
+Orden de los bytes:                       Little Endian
+CPU(s):                                   12
+Lista de la(s) CPU(s) en línea:           0-11
+ID de fabricante:                         GenuineIntel
+ID de fabricante de BIOS:                 Intel(R) Corporation
+Nombre del modelo:                        Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz
+Nombre del modelo de BIOS:                Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz To Be Filled By O.E.M. CPU @ 3.2GHz
+Familia de CPU BIOS:                      198
+Familia de CPU:                           6
+Modelo:                                   158
+Hilo(s) de procesamiento por núcleo:      2
+Núcleo(s) por «socket»:                   6
+«Socket(s)»:                              1
+Revisión:                                 10
+CPU(s) factor de escala MHz:              93%
+CPU MHz máx.:                             4600,0000
+CPU MHz mín.:                             800,0000
+BogoMIPS:                                 6399,96
+Indicadores:                              fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb pti ssbd ibrs ibpb stibp tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp vnmi md_clear flush_l1d arch_capabilities ibpb_exit_to_user
+Virtualización:                           VT-x
+Caché L1d:                                192 KiB (6 instancias)
+Caché L1i:                                192 KiB (6 instancias)
+Caché L2:                                 1,5 MiB (6 instancias)
+Caché L3:                                 12 MiB (1 instancia)
+Modo(s) NUMA:                             1
+CPU(s) del nodo NUMA 0:                   0-11
+Vulnerabilidad Gather data sampling:      Mitigation; Microcode
+Vulnerabilidad Indirect target selection: Not affected
+Vulnerabilidad Itlb multihit:             KVM: Mitigation: VMX disabled
+Vulnerabilidad L1tf:                      Mitigation; PTE Inversion; VMX conditional cache flushes, SMT vulnerable
+Vulnerabilidad Mds:                       Mitigation; Clear CPU buffers; SMT vulnerable
+Vulnerabilidad Meltdown:                  Mitigation; PTI
+Vulnerabilidad Mmio stale data:           Mitigation; Clear CPU buffers; SMT vulnerable
+Vulnerabilidad Reg file data sampling:    Not affected
+Vulnerabilidad Retbleed:                  Mitigation; IBRS
+Vulnerabilidad Spec rstack overflow:      Not affected
+Vulnerabilidad Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl
+Vulnerabilidad Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerabilidad Spectre v2:                Mitigation; IBRS; IBPB conditional; STIBP conditional; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected
+Vulnerabilidad Srbds:                     Mitigation; Microcode
+Vulnerabilidad Tsa:                       Not affected
+Vulnerabilidad Tsx async abort:           Mitigation; TSX disabled
+Vulnerabilidad Vmscape:                   Mitigation; IBPB before exit to userspace
+
+Flags de virtualización:      24 vmx
+EPT/NPT: ept 
+Módulos KVM/VirtualBox cargados: vboxnetadp vboxnetflt vboxdrv kvm_intel kvm 
+
+=================== RAM Y AMPLIACIÓN ===================
+$ dmidecode -t memory
+# dmidecode 3.5
+Getting SMBIOS data from sysfs.
+SMBIOS 3.0.0 present.
+
+Handle 0x003E, DMI type 16, 23 bytes
+Physical Memory Array
+	Location: System Board Or Motherboard
+	Use: System Memory
+	Error Correction Type: None
+	Maximum Capacity: 64 GB
+	Error Information Handle: Not Provided
+	Number Of Devices: 4
+
+Handle 0x003F, DMI type 17, 40 bytes
+Memory Device
+	Array Handle: 0x003E
+	Error Information Handle: Not Provided
+	Total Width: Unknown
+	Data Width: Unknown
+	Size: No Module Installed
+	Form Factor: Unknown
+	Set: None
+	Locator: ChannelA-DIMM1
+	Bank Locator: BANK 0
+	Type: Unknown
+	Type Detail: None
+
+Handle 0x0040, DMI type 17, 40 bytes
+Memory Device
+	Array Handle: 0x003E
+	Error Information Handle: Not Provided
+	Total Width: 64 bits
+	Data Width: 64 bits
+	Size: 8 GB
+	Form Factor: DIMM
+	Set: None
+	Locator: ChannelA-DIMM2
+	Bank Locator: BANK 1
+	Type: DDR4
+	Type Detail: Synchronous Unbuffered (Unregistered)
+	Speed: 2667 MT/s
+	Manufacturer: CRUCIAL
+	Serial Number: <oculto>
+	Asset Tag: <oculto>
+	Part Number: BLS8G4D26BFSTK.8FD  
+	Rank: 1
+	Configured Memory Speed: 2667 MT/s
+	Minimum Voltage: Unknown
+	Maximum Voltage: Unknown
+	Configured Voltage: 1.2 V
+
+Handle 0x0041, DMI type 17, 40 bytes
+Memory Device
+	Array Handle: 0x003E
+	Error Information Handle: Not Provided
+	Total Width: Unknown
+	Data Width: Unknown
+	Size: No Module Installed
+	Form Factor: Unknown
+	Set: None
+	Locator: ChannelB-DIMM1
+	Bank Locator: BANK 2
+	Type: Unknown
+	Type Detail: None
+
+Handle 0x0042, DMI type 17, 40 bytes
+Memory Device
+	Array Handle: 0x003E
+	Error Information Handle: Not Provided
+	Total Width: 64 bits
+	Data Width: 64 bits
+	Size: 8 GB
+	Form Factor: DIMM
+	Set: None
+	Locator: ChannelB-DIMM2
+	Bank Locator: BANK 3
+	Type: DDR4
+	Type Detail: Synchronous Unbuffered (Unregistered)
+	Speed: 2667 MT/s
+	Manufacturer: CRUCIAL
+	Serial Number: <oculto>
+	Asset Tag: <oculto>
+	Part Number: BLS8G4D26BFSBK.8FD  
+	Rank: 1
+	Configured Memory Speed: 2667 MT/s
+	Minimum Voltage: Unknown
+	Maximum Voltage: Unknown
+	Configured Voltage: 1.2 V
+
+
+$ free -h
+               total       usado       libre  compartido   búf/caché  disponible
+Mem:            15Gi       3,7Gi       9,4Gi        64Mi       2,8Gi        11Gi
+Inter:          11Gi          0B        11Gi
+
+
+=================== DISCOS Y ESTADO ===================
+$ lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINT,MODEL,TRAN,ROTA
+NAME          SIZE TYPE FSTYPE    MOUNTPOINT MODEL                 TRAN   ROTA
+sda         447,1G disk                      KINGSTON SA400S37480G sata      0
+├─sda1        200M part vfat                                                 0
+├─sda2         16M part                                                      0
+├─sda3        446G part BitLocker                                            0
+└─sda4        930M part ntfs                                                 0
+sdb         476,9G disk                      SSD 512GB             usb       1
+├─sdb1        509M part vfat      /boot/efi                                  1
+├─sdb2       58,6G part ext4      /                                          1
+└─sdb3        388G part ext4      /home                                      1
+zram0         3,9G disk           [SWAP]                                     0
+nvme0n1     931,5G disk                      WD_BLACK SN770 1TB    nvme      0
+└─nvme0n1p1 931,5G part BitLocker                                  nvme      0
+
+$ df -hT -x tmpfs -x devtmpfs -x squashfs
+S.ficheros     Tipo     Tamaño Usados  Disp Uso% Montado en
+efivarfs       efivarfs   128K    93K   31K  76% /sys/firmware/efi/efivars
+/dev/sdb2      ext4        58G    29G   27G  53% /
+/dev/sdb3      ext4       381G   170G  192G  47% /home
+/dev/sdb1      vfat       508M    17M  492M   4% /boot/efi
+
+--- SMART /dev/sda ---
+smartctl 7.4 2023-08-01 r5530 [x86_64-linux-6.8.0-138-generic] (local build)
+Copyright (C) 2002-23, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF INFORMATION SECTION ===
+Model Family:     Phison Driven SSDs
+Device Model:     KINGSTON SA400S37480G
+Serial Number:    <oculto>
+LU WWN Device Id: <oculto>
+Firmware Version: SBFKB1D1
+User Capacity:    480.103.981.056 bytes [480 GB]
+Sector Size:      512 bytes logical/physical
+Rotation Rate:    Solid State Device
+Form Factor:      2.5 inches
+TRIM Command:     Available
+Device is:        In smartctl database 7.3/5528
+ATA Version is:   ACS-4 (minor revision not indicated)
+SATA Version is:  SATA 3.2, 6.0 Gb/s (current: 6.0 Gb/s)
+Local Time is:    Sat Nov 21 21:40:22 2026 CET
+SMART support is: Available - device has SMART capability.
+SMART support is: Enabled
+
+=== START OF READ SMART DATA SECTION ===
+SMART overall-health self-assessment test result: PASSED
+
+SMART Attributes Data Structure revision number: 16
+Vendor Specific SMART Attributes with Thresholds:
+ID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE
+  1 Raw_Read_Error_Rate     0x0032   000   100   000    Old_age   Always       -       0
+  9 Power_On_Hours          0x0032   100   100   000    Old_age   Always       -       13443
+ 12 Power_Cycle_Count       0x0032   100   100   000    Old_age   Always       -       2759
+148 Unknown_Attribute       0x0000   100   100   000    Old_age   Offline      -       0
+149 Unknown_Attribute       0x0000   100   100   000    Old_age   Offline      -       0
+167 Write_Protect_Mode      0x0000   100   100   000    Old_age   Offline      -       0
+168 SATA_Phy_Error_Count    0x0012   100   100   000    Old_age   Always       -       0
+169 Bad_Block_Rate          0x0000   100   100   000    Old_age   Offline      -       14
+170 Bad_Blk_Ct_Lat/Erl      0x0000   100   100   010    Old_age   Offline      -       0/10
+172 Erase_Fail_Count        0x0032   100   100   000    Old_age   Always       -       0
+173 MaxAvgErase_Ct          0x0000   100   100   000    Old_age   Offline      -       230 (Average 184)
+181 Program_Fail_Count      0x0032   100   100   000    Old_age   Always       -       0
+182 Erase_Fail_Count        0x0000   100   100   000    Old_age   Offline      -       0
+187 Reported_Uncorrect      0x0032   100   100   000    Old_age   Always       -       0
+192 Unsafe_Shutdown_Count   0x0012   100   100   000    Old_age   Always       -       164
+194 Temperature_Celsius     0x0022   074   051   000    Old_age   Always       -       26 (Min/Max 15/49)
+196 Reallocated_Event_Count 0x0032   100   100   000    Old_age   Always       -       0
+199 SATA_CRC_Error_Count    0x0032   100   100   000    Old_age   Always       -       0
+218 CRC_Error_Count         0x0032   100   100   000    Old_age   Always       -       0
+231 SSD_Life_Left           0x0000   019   019   000    Old_age   Offline      -       81
+233 Flash_Writes_GiB        0x0032   100   100   000    Old_age   Always       -       87730
+241 Lifetime_Writes_GiB     0x0032   100   100   000    Old_age   Always       -       51409
+242 Lifetime_Reads_GiB      0x0032   100   100   000    Old_age   Always       -       69405
+244 Average_Erase_Count     0x0000   100   100   000    Old_age   Offline      -       184
+245 Max_Erase_Count         0x0000   100   100   000    Old_age   Offline      -       230
+246 Total_Erase_Count       0x0000   100   100   000    Old_age   Offline      -       2826976
+
+--- SMART /dev/sdb ---
+smartctl 7.4 2023-08-01 r5530 [x86_64-linux-6.8.0-138-generic] (local build)
+Copyright (C) 2002-23, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF INFORMATION SECTION ===
+Device Model:     SSD 512GB
+Serial Number:    <oculto>
+Firmware Version: X0905A0
+User Capacity:    512.110.190.592 bytes [512 GB]
+Sector Size:      512 bytes logical/physical
+Rotation Rate:    Solid State Device
+Form Factor:      M.2
+TRIM Command:     Available
+Device is:        Not in smartctl database 7.3/5528
+ATA Version is:   ACS-2 T13/2015-D revision 3
+SATA Version is:  SATA 3.2, 6.0 Gb/s (current: 6.0 Gb/s)
+Local Time is:    Sat Nov 21 21:40:22 2026 CET
+SMART support is: Available - device has SMART capability.
+SMART support is: Enabled
+
+=== START OF READ SMART DATA SECTION ===
+SMART overall-health self-assessment test result: PASSED
+
+SMART Attributes Data Structure revision number: 1
+Vendor Specific SMART Attributes with Thresholds:
+ID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE
+  1 Raw_Read_Error_Rate     0x0032   100   100   050    Old_age   Always       -       0
+  5 Reallocated_Sector_Ct   0x0032   100   100   050    Old_age   Always       -       0
+  9 Power_On_Hours          0x0032   100   100   050    Old_age   Always       -       475
+ 12 Power_Cycle_Count       0x0032   100   100   050    Old_age   Always       -       396
+160 Unknown_Attribute       0x0032   100   100   050    Old_age   Always       -       0
+161 Unknown_Attribute       0x0033   100   100   050    Pre-fail  Always       -       100
+163 Unknown_Attribute       0x0032   100   100   050    Old_age   Always       -       45
+164 Unknown_Attribute       0x0032   100   100   050    Old_age   Always       -       50736
+165 Unknown_Attribute       0x0032   100   100   050    Old_age   Always       -       70
+166 Unknown_Attribute       0x0032   100   100   050    Old_age   Always       -       3
+167 Unknown_Attribute       0x0032   100   100   050    Old_age   Always       -       16
+168 Unknown_Attribute       0x0032   100   100   050    Old_age   Always       -       5050
+169 Unknown_Attribute       0x0032   100   100   050    Old_age   Always       -       100
+175 Program_Fail_Count_Chip 0x0032   100   100   050    Old_age   Always       -       0
+176 Erase_Fail_Count_Chip   0x0032   100   100   050    Old_age   Always       -       0
+177 Wear_Leveling_Count     0x0032   100   100   050    Old_age   Always       -       0
+178 Used_Rsvd_Blk_Cnt_Chip  0x0032   100   100   050    Old_age   Always       -       0
+181 Program_Fail_Cnt_Total  0x0032   100   100   050    Old_age   Always       -       0
+182 Erase_Fail_Count_Total  0x0032   100   100   050    Old_age   Always       -       0
+192 Power-Off_Retract_Count 0x0032   100   100   050    Old_age   Always       -       218
+194 Temperature_Celsius     0x0022   100   100   050    Old_age   Always       -       40
+195 Hardware_ECC_Recovered  0x0032   100   100   050    Old_age   Always       -       0
+196 Reallocated_Event_Count 0x0032   100   100   050    Old_age   Always       -       0
+197 Current_Pending_Sector  0x0032   100   100   050    Old_age   Always       -       0
+198 Offline_Uncorrectable   0x0032   100   100   050    Old_age   Always       -       0
+199 UDMA_CRC_Error_Count    0x0032   100   100   050    Old_age   Always       -       9
+232 Available_Reservd_Space 0x0032   100   100   050    Old_age   Always       -       100
+241 Total_LBAs_Written      0x0030   100   100   050    Old_age   Offline      -       76995
+242 Total_LBAs_Read         0x0030   100   100   050    Old_age   Offline      -       66612
+245 Unknown_Attribute       0x0032   100   100   050    Old_age   Always       -       75683
+
+--- SMART /dev/nvme0n1 ---
+smartctl 7.4 2023-08-01 r5530 [x86_64-linux-6.8.0-138-generic] (local build)
+Copyright (C) 2002-23, Bruce Allen, Christian Franke, www.smartmontools.org
+
+=== START OF INFORMATION SECTION ===
+Model Number:                       WD_BLACK SN770 1TB
+Serial Number:                      <oculto>
+Firmware Version:                   731100WD
+PCI Vendor/Subsystem ID:            0x15b7
+IEEE OUI Identifier:                0x001b44
+Total NVM Capacity:                 1.000.204.886.016 [1,00 TB]
+Unallocated NVM Capacity:           0
+Controller ID:                      0
+NVMe Version:                       1.4
+Number of Namespaces:               1
+Namespace 1 Size/Capacity:          1.000.204.886.016 [1,00 TB]
+Namespace 1 Formatted LBA Size:     512
+Namespace 1 IEEE EUI-64:            001b44 8b4c147661
+Local Time is:                      Sat Nov 21 21:40:22 2026 CET
+
+=== START OF SMART DATA SECTION ===
+SMART overall-health self-assessment test result: PASSED
+
+SMART/Health Information (NVMe Log 0x02)
+Critical Warning:                   0x00
+Temperature:                        37 Celsius
+Available Spare:                    100%
+Available Spare Threshold:          10%
+Percentage Used:                    1%
+Data Units Read:                    44.220.705 [22,6 TB]
+Data Units Written:                 28.800.820 [14,7 TB]
+Host Read Commands:                 121.349.113
+Host Write Commands:                126.716.065
+Controller Busy Time:               335
+Power Cycles:                       1.036
+Power On Hours:                     5.410
+Unsafe Shutdowns:                   38
+Media and Data Integrity Errors:    0
+Error Information Log Entries:      1
+Warning  Comp. Temperature Time:    0
+Critical Comp. Temperature Time:    0
+Temperature Sensor 1:               57 Celsius
+Temperature Sensor 2:               32 Celsius
+
+
+=================== INTERFACES DE RED ===================
+$ ip -br link
+lo               UNKNOWN        <mac> <LOOPBACK,UP,LOWER_UP> 
+enp4s0           UP             <mac> <BROADCAST,MULTICAST,UP,LOWER_UP> 
+docker0          DOWN           <mac> <NO-CARRIER,BROADCAST,MULTICAST,UP> 
+
+$ ip -br addr
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enp4s0           UP             192.168.1.137/24 fe80::ea0f:4950:c73f:101c/64 
+docker0          DOWN           172.17.0.1/16 
+
+$ ethtool enp4s0
+Settings for enp4s0:
+	Supported ports: [ TP	 MII ]
+	Supported link modes:   10baseT/Half 10baseT/Full
+	                        100baseT/Half 100baseT/Full
+	                        1000baseT/Full
+	Supported pause frame use: Symmetric Receive-only
+	Supports auto-negotiation: Yes
+	Supported FEC modes: Not reported
+	Advertised link modes:  10baseT/Half 10baseT/Full
+	                        100baseT/Half 100baseT/Full
+	                        1000baseT/Full
+	Advertised pause frame use: Symmetric Receive-only
+	Advertised auto-negotiation: Yes
+	Advertised FEC modes: Not reported
+	Link partner advertised link modes:  10baseT/Half 10baseT/Full
+	                                     100baseT/Half 100baseT/Full
+	                                     1000baseT/Half 1000baseT/Full
+	Link partner advertised pause frame use: No
+	Link partner advertised auto-negotiation: Yes
+	Link partner advertised FEC modes: Not reported
+	Speed: 1000Mb/s
+	Duplex: Full
+	Auto-negotiation: on
+	master-slave cfg: preferred slave
+	master-slave status: slave
+	Port: Twisted Pair
+	PHYAD: 0
+	Transceiver: external
+	MDI-X: Unknown
+	Supports Wake-on: pumbg
+	Wake-on: d
+	Link detected: yes
+
+$ lspci -nn
+00:00.0 Host bridge [0600]: Intel Corporation 8th Gen Core Processor Host Bridge/DRAM Registers [8086:3ec2] (rev 07)
+00:01.0 PCI bridge [0604]: Intel Corporation 6th-10th Gen Core Processor PCIe Controller (x16) [8086:1901] (rev 07)
+00:14.0 USB controller [0c03]: Intel Corporation 200 Series/Z370 Chipset Family USB 3.0 xHCI Controller [8086:a2af]
+00:16.0 Communication controller [0780]: Intel Corporation 200 Series PCH CSME HECI #1 [8086:a2ba]
+00:17.0 SATA controller [0106]: Intel Corporation 200 Series PCH SATA controller [AHCI mode] [8086:a282]
+00:1b.0 PCI bridge [0604]: Intel Corporation 200 Series PCH PCI Express Root Port #17 [8086:a2e7] (rev f0)
+00:1c.0 PCI bridge [0604]: Intel Corporation 200 Series PCH PCI Express Root Port #1 [8086:a290] (rev f0)
+00:1c.3 PCI bridge [0604]: Intel Corporation 200 Series PCH PCI Express Root Port #4 [8086:a293] (rev f0)
+00:1d.0 PCI bridge [0604]: Intel Corporation 200 Series PCH PCI Express Root Port #9 [8086:a298] (rev f0)
+00:1f.0 ISA bridge [0601]: Intel Corporation Z370 Chipset LPC/eSPI Controller [8086:a2c9]
+00:1f.2 Memory controller [0580]: Intel Corporation 200 Series/Z370 Chipset Family Power Management Controller [8086:a2a1]
+00:1f.3 Audio device [0403]: Intel Corporation 200 Series PCH HD Audio [8086:a2f0]
+00:1f.4 SMBus [0c05]: Intel Corporation 200 Series/Z370 Chipset Family SMBus Controller [8086:a2a3]
+01:00.0 VGA compatible controller [0300]: NVIDIA Corporation TU116 [GeForce GTX 1660 SUPER] [10de:21c4] (rev a1)
+01:00.1 Audio device [0403]: NVIDIA Corporation TU116 High Definition Audio Controller [10de:1aeb] (rev a1)
+01:00.2 USB controller [0c03]: NVIDIA Corporation TU116 USB 3.1 Host Controller [10de:1aec] (rev a1)
+01:00.3 Serial bus controller [0c80]: NVIDIA Corporation TU116 USB Type-C UCSI Controller [10de:1aed] (rev a1)
+02:00.0 Non-Volatile memory controller [0108]: Sandisk Corp WD Black SN770 / PC SN740 256GB / PC SN560 (DRAM-less) NVMe SSD [15b7:5017] (rev 01)
+04:00.0 Ethernet controller [0200]: Realtek Semiconductor Co., Ltd. RTL8111/8168/8211/8411 PCI Express Gigabit Ethernet Controller [10ec:8168] (rev 15)
+
+
+=================== USB Y PERIFÉRICOS ===================
+$ lsusb
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 001 Device 002: ID 3233:6311 Ducky Ducky One 3 Mini RGB
+Bus 001 Device 003: ID 09da:2692 A4Tech Co., Ltd. HD Pro Webcam
+Bus 001 Device 004: ID 1532:0094 Razer USA, Ltd Orochi V2
+Bus 001 Device 005: ID 0c76:2885 JMTek, LLC. MC5
+Bus 001 Device 006: ID 054c:09cc Sony Corp. DualShock 4 [CUH-ZCT2x]
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 002 Device 002: ID 2109:0716 VIA Labs, Inc. TX100
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+
+$ lsusb -t
+/:  Bus 001.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/16p, 480M
+    |__ Port 005: Dev 002, If 0, Class=Human Interface Device, Driver=usbhid, 12M
+    |__ Port 005: Dev 002, If 1, Class=Human Interface Device, Driver=usbhid, 12M
+    |__ Port 005: Dev 002, If 2, Class=Human Interface Device, Driver=usbhid, 12M
+    |__ Port 005: Dev 002, If 3, Class=Human Interface Device, Driver=usbhid, 12M
+    |__ Port 005: Dev 002, If 4, Class=Human Interface Device, Driver=usbhid, 12M
+    |__ Port 006: Dev 003, If 0, Class=Video, Driver=uvcvideo, 480M
+    |__ Port 006: Dev 003, If 1, Class=Video, Driver=uvcvideo, 480M
+    |__ Port 006: Dev 003, If 2, Class=Audio, Driver=snd-usb-audio, 480M
+    |__ Port 006: Dev 003, If 3, Class=Audio, Driver=snd-usb-audio, 480M
+    |__ Port 007: Dev 004, If 0, Class=Human Interface Device, Driver=usbhid, 12M
+    |__ Port 007: Dev 004, If 1, Class=Human Interface Device, Driver=usbhid, 12M
+    |__ Port 007: Dev 004, If 2, Class=Human Interface Device, Driver=usbhid, 12M
+    |__ Port 007: Dev 004, If 3, Class=Human Interface Device, Driver=usbhid, 12M
+    |__ Port 007: Dev 004, If 4, Class=Human Interface Device, Driver=usbhid, 12M
+    |__ Port 009: Dev 005, If 0, Class=Audio, Driver=snd-usb-audio, 12M
+    |__ Port 009: Dev 005, If 1, Class=Audio, Driver=snd-usb-audio, 12M
+    |__ Port 009: Dev 005, If 2, Class=Audio, Driver=snd-usb-audio, 12M
+    |__ Port 009: Dev 005, If 3, Class=Human Interface Device, Driver=usbhid, 12M
+    |__ Port 014: Dev 006, If 0, Class=Audio, Driver=snd-usb-audio, 12M
+    |__ Port 014: Dev 006, If 1, Class=Audio, Driver=snd-usb-audio, 12M
+    |__ Port 014: Dev 006, If 2, Class=Audio, Driver=snd-usb-audio, 12M
+    |__ Port 014: Dev 006, If 3, Class=Human Interface Device, Driver=usbhid, 12M
+/:  Bus 002.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/10p, 5000M
+    |__ Port 001: Dev 002, If 0, Class=Mass Storage, Driver=uas, 5000M
+/:  Bus 003.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/2p, 480M
+/:  Bus 004.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/4p, 10000M
+
+Monitors: 2
+ 0: +*DP-2 1920/527x1080/296+0+0  DP-2
+ 1: +HDMI-0 1920/531x1080/299+1920+0  HDMI-0
+
+=================== ALIMENTACIÓN ===================
+$ upower -d
+Device: /org/freedesktop/UPower/devices/battery_ps_controller_battery_<mac>
+  native-path:          ps-controller-battery-<mac>
+  model:                Sony Interactive Entertainment Wireless Controller
+  serial:               <oculto>
+  power supply:         no
+  updated:              sáb 21 nov 2026 21:40:14 (8 seconds ago)
+  has history:          yes
+  has statistics:       yes
+  audio-device
+    warning-level:       none
+    percentage:          100%
+    icon-name:          'battery-full-charged-symbolic'
+
+Device: /org/freedesktop/UPower/devices/DisplayDevice
+  power supply:         no
+  updated:              sáb 21 nov 2026 21:24:43 (939 seconds ago)
+  has history:          no
+  has statistics:       no
+  unknown
+    warning-level:       none
+    percentage:          0%
+    icon-name:          'battery-missing-symbolic'
+
+Daemon:
+  daemon-version:  1.90.3
+  on-battery:      no
+  lid-is-closed:   no
+  lid-is-present:  no
+  critical-action: PowerOff
+
+(La fuente de alimentación de un PC de sobremesa no se puede leer por software: anotar el modelo y la potencia de la etiqueta.)

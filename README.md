@@ -15,7 +15,7 @@ que se arranca tanto en el PC de clase como en el de casa.
 | PREDICE | Predicciones iniciales | [docs/00-prediccions.md](docs/00-prediccions.md) | ✏️ Por rellenar |
 | 0 | Entorno de pruebas en el equipo propio, documentado en Git (VMs, recursos, problemas y solución) | [docs/00-entorno-pruebas.md](docs/00-entorno-pruebas.md) · [docs/05-recursos.md](docs/05-recursos.md) | ✅ Hecha |
 | 1 | Requisitos y estudio de sistemas (grupal) | `docs/01-requisits.md` · `docs/03-sistemes.md` | — |
-| 2 | Inventario y comparativa del PC de clase y el de casa, cuellos de botella y tests | `docs/02-inventari.md` | ⏳ Pendiente |
+| 2 | Inventario y comparativa del PC de clase y el de casa, cuellos de botella y tests | [docs/02-inventari.md](docs/02-inventari.md) · [script](scripts/inventario-diagnostico.sh) | ✅ Hecha (tests solo en casa; clase con datos del montaje) |
 | 4 | Esquema de red, montaje en VirtualBox y verificación de la conectividad | [docs/04-disseny.md](docs/04-disseny.md) · [diagrames/](diagrames/) | 🟡 Montaje y conectividad hechos (falta traceroute, Apte+) |
 | 5 | Mismos sistemas que el grupo (comunicaciones, TrueNAS, Proxmox, WS2025, Debian, clientes) | [docs/06-servidores-comunicaciones.md](docs/06-servidores-comunicaciones.md) | 🟡 Sistemas instalados; faltan dominio, copias y pruebas de fallo |
 | 6 | Tres tipos de RAID | `docs/07-raid.md` | ⏳ Pendiente |
@@ -29,6 +29,7 @@ que se arranca tanto en el PC de clase como en el de casa.
 | [`diagrames/`](diagrames/) | Esquemas de red (lógico individual y referencia del grupo) |
 | [`evidencies/`](evidencies/) | Capturas y salidas de comandos comentadas |
 | [`configs/`](configs/) | Configuraciones reales exportadas de cada equipo |
+| [`scripts/`](scripts/) | Scripts propios (inventario y diagnóstico de la Tasca 2) |
 
 ## Máquinas virtuales (grupo `/SOX-G3` de VirtualBox)
 
