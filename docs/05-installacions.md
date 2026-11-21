@@ -147,11 +147,11 @@ Al acabar cada prueba se borró la ruta temporal.
 > `172.16.222.1`.
 
 Evidencias:
-- ![R1 verificación](../evidencies/R1-01-verificacion-ip-ruta-ping-dns.png)
-- ![R2 asignación de interfaces](../evidencies/R2-02-asignacion-interfaces.png)
-- ![R2 IPs en consola](../evidencies/R2-03-consola-ips.png)
-- ![R2 verificación](../evidencies/R2-04-verificacion-ping-dns.png)
-- [R3 · salida completa de la verificación](../evidencies/R3-01-verificacion.txt)
+- ![R1 verificación](../evidencies/t5-r1-mikrotik-verificacion-ip-ruta-ping-dns.png)
+- ![R2 asignación de interfaces](../evidencies/t5-r2-opnsense-02-asignacion-interfaces.png)
+- ![R2 IPs en consola](../evidencies/t5-r2-opnsense-03-consola-ips.png)
+- ![R2 verificación](../evidencies/t5-r2-opnsense-04-verificacion-ping-dns.png)
+- [R3 · salida completa de la verificación](../evidencies/t5-r3-debian-nftables-verificacion.txt)
 
 ## 6. Problemas encontrados y solución
 

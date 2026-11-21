@@ -1,0 +1,111 @@
+# Tasca 4 · Conectividad del entorno individual · 21/11/2026 (PC de casa)
+# VMs encendidas: R1-MikroTik-CHR, R3-Debian-nftables y CLI-Debian-Produccion (R2-OPNsense apagado)
+
+=================== CLIENTE CLI-Debian-Produccion (192.168.30.101) ===================
+### Interfaces
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enp0s3           UP             192.168.30.101/24 
+
+### Tabla de rutas
+default via 192.168.30.1 dev enp0s3 proto static metric 100 
+192.168.30.0/24 dev enp0s3 proto kernel scope link src 192.168.30.101 metric 100 
+
+### DNS
+nameserver 172.16.222.1
+
+### ping a los routers de la LAN (.1 MikroTik, .2 OPNsense apagado, .3 Debian)
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 0.258/0.647/1.036/0.389 ms
+2 packets transmitted, 0 received, 100% packet loss, time 1027ms
+
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 0.847/0.958/1.070/0.111 ms
+
+### ping a Internet por IP
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 11.424/11.573/11.749/0.133 ms
+
+### Resolución DNS
+FALLA: 172.16.222.1 no responde fuera del aula
+
+### Camino elegido para 1.1.1.1
+1.1.1.1 via 192.168.30.1 dev enp0s3 src 192.168.30.101 uid 1000 
+    cache 
+
+### traceroute ICMP a 1.1.1.1 (por R1)
+traceroute to 1.1.1.1 (1.1.1.1), 12 hops max, 60 byte packets
+ 1  192.168.30.1  0.521 ms
+ 2  *
+ 3  *
+ 4  *
+ 5  *
+ 6  *
+ 7  *
+ 8  *
+ 9  *
+10  1.1.1.1  11.042 ms
+
+### Ruta temporal: 1.0.0.1 por R3 (192.168.30.3)
+1.0.0.1 via 192.168.30.3 dev enp0s3 src 192.168.30.101 uid 1000 
+    cache 
+traceroute to 1.0.0.1 (1.0.0.1), 12 hops max, 60 byte packets
+ 1  192.168.30.3  0.308 ms
+ 2  1.0.0.1  10.251 ms
+ruta temporal borrada
+
+
+=================== ROUTERS ===================
+### R1-MikroTik · interfaces, rutas, NAT y traceroute
+Columns: ADDRESS, NETWORK, INTERFACE, VRF
+# ADDRESS          NETWORK       INTERFACE   VRF 
+;;; WAN - VirtualBox NAT
+0 10.0.2.15/24     10.0.2.0      ether1-WAN  main
+;;; LAN G3
+1 192.168.30.1/24  192.168.30.0  ether2-LAN  main
+
+Flags: D - DYNAMIC; A - ACTIVE; c - CONNECT, s - STATIC
+Columns: DST-ADDRESS, GATEWAY, ROUTING-TABLE, DISTANCE
+#     DST-ADDRESS      GATEWAY     ROUTING-TABLE  DISTANCE
+;;; Default via NAT VirtualBox
+0  As 0.0.0.0/0        10.0.2.2    main                  1
+  DAc 10.0.2.0/24      ether1-WAN  main                  0
+  DAc 192.168.30.0/24  ether2-LAN  main                  0
+
+0  ;;; NAT LAN -> WAN
+   chain=srcnat action=masquerade out-interface=ether1-WAN
+
+Columns: ADDRESS, LOSS, SENT, LAST, AVG, BEST, WORST, STD-DEV
+#  ADDRESS  LOSS  SENT  LAST    AVG   BEST  WORST  STD-DEV
+0  1.1.1.1  0%       1  10.1ms  10.1  10.1  10.1         0
+
+
+### R3-Debian-nftables · interfaces, rutas y reenvío
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+enp0s3           UP             10.0.2.15/24 fe80::a00:27ff:fe4d:9ff8/64 
+enp0s8           UP             192.168.30.3/24 fe80::a00:27ff:fefe:e06/64 
+
+default via 10.0.2.2 dev enp0s3 onlink 
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 
+192.168.30.0/24 dev enp0s8 proto kernel scope link src 192.168.30.3 
+
+ip_forward = 1
+
+2 packets transmitted, 2 received, 0% packet loss, time 1032ms
+rtt min/avg/max/mdev = 0.248/0.586/0.925/0.338 ms
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 10.575/10.781/10.988/0.206 ms
+/usr/bin/traceroute
+
+
+=================== ANFITRIÓN ===================
+### Anfitrión · no tiene interfaz ni ruta en LAN_G3 (192.168.30.0/24)
+enp4s0           UP             192.168.1.137/24 fe80::ea0f:4950:c73f:101c/64 
+
+default via 192.168.1.1 dev enp4s0 proto dhcp src 192.168.1.137 metric 100 
+172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown 
+192.168.1.0/24 dev enp4s0 proto kernel scope link src 192.168.1.137 metric 100 
+
+Ruta del anfitrión hacia la LAN: 192.168.30.101 via 192.168.1.1 dev enp4s0 src 192.168.1.137 uid 1001 
+    cache 
+2 packets transmitted, 0 received, 100% packet loss, time 1028ms
+

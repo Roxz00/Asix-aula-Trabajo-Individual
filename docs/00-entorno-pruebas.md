@@ -2,16 +2,15 @@
 
 > Grupo 3 · Red interna `192.168.30.0/24` · Fechas de montaje: 17/11/2026 (routers) y 19/11/2026 (resto)
 
-## 1. Qué pide la tarea
+## 1. Qué pedía la Tasca 0 y dónde está
 
-- **Apte:** preparar un entorno de pruebas en el equipo propio que simule *"més o menys (no tot ni
-  exactament igual)"* el entorno del grupo. Según el equipo, se podrán arrancar o no todas las máquinas
-  a la vez.
-- **Apte+:** documentarlo en Markdown y publicarlo en un repositorio Git personal, con el esquema de
-  máquinas virtuales, los recursos de cada una y los problemas encontrados con su solución.
+| Lo que se pide | Nivel | Dónde está | Estado |
+|---|---|---|---|
+| Preparar el entorno propio de pruebas, que simule *"més o menys"* el del grupo | Apte | Apartados 3 a 7 | ✅ Hecho |
+| Identificar los recursos físicos y justificar sus limitaciones | Apte | Apartados 2 y 8 · [05-recursos.md](05-recursos.md) · [02-inventari.md](02-inventari.md) | ✅ Hecho |
+| Documentar el entorno en Markdown y Git: esquema de VMs, recursos y problemas resueltos | Apte+ | Apartados 4, 5 y 9 · este repositorio | ✅ Hecho |
 
-Este documento recoge el montaje completo. Los detalles de cada router están en
-[06-servidores-comunicaciones.md](06-servidores-comunicaciones.md).
+Los detalles de cada router están en [05-installacions.md](05-installacions.md).
 
 ## 2. Equipo anfitrión
 
@@ -83,7 +82,7 @@ DNS `172.16.222.1` (el del centro), dominio de nombres `grupo3.lan`.
 
 ### 6.1 Routers (17/11/2026)
 
-Detallado en [06-servidores-comunicaciones.md § 4](06-servidores-comunicaciones.md#4-implementación).
+Detallado en [05-installacions.md § 4](05-installacions.md#4-implementación).
 Cada router tiene el adaptador 1 en NAT (WAN) y el adaptador 2 en la red interna `LAN_G3`.
 
 ### 6.2 TrueNAS SCALE (.20)
@@ -165,15 +164,15 @@ ssh -p 2203 -L 8443:192.168.30.20:443  asix@127.0.0.1      # web de TrueNAS en h
 
 | Prueba | Resultado | Evidencia |
 |---|---|---|
-| Routers: IP, ruta, DNS y NAT | ✅ | [06 § 5](06-servidores-comunicaciones.md#5-verificación) |
-| TrueNAS: IP fija, gateway, DNS, pool `copias` ONLINE, salida a Internet | ✅ | [NAS-02-verificacion.txt](../evidencies/NAS-02-verificacion.txt) · [NAS-01](../evidencies/NAS-01-instalacion-completada.png) |
-| Nodos Proxmox: IP fija, ping a `.1` y a `172.16.222.1`, DNS, HTTP 200 por R1 | ✅ (×3) | [PVE-03-cluster-y-red.txt](../evidencies/PVE-03-cluster-y-red.txt) |
-| Clúster `cluster-g3`: 3 nodos, 3 votos, quórum 2, *Quorate: Yes*, 0 VMs | ✅ | [PVE-03-cluster-y-red.txt](../evidencies/PVE-03-cluster-y-red.txt) |
-| Prueba de quórum (apagar nodos uno a uno y recuperar) | ✅ | [PVE-04-prueba-quorum.txt](../evidencies/PVE-04-prueba-quorum.txt) |
-| WS2025: IP `.21`, gateway, DNS, resolución y ping al router | ✅ | [WS-02-verificacion-red.png](../evidencies/WS-02-verificacion-red.png) · [WS-01](../evidencies/WS-01-escritorio-instalado.png) |
-| W11: IP `.100`, gateway, DNS, resolución y ping al router | ✅ | [W11-02-verificacion-red.png](../evidencies/W11-02-verificacion-red.png) · [W11-01](../evidencies/W11-01-escritorio-instalado.png) |
-| Debian GNOME: IP `.101` manual, DNS, ping a TrueNAS, HTTP 200 por R1 | ✅ | [DEB-02-verificacion.txt](../evidencies/DEB-02-verificacion.txt) · [DEB-01](../evidencies/DEB-01-gnome-pantalla-login.png) |
-| Ningún DHCP en la LAN | ✅ | Todas las IPs son manuales; los routers no tienen servidor DHCP ([06 § 5](06-servidores-comunicaciones.md#5-verificación)) |
+| Routers: IP, ruta, DNS y NAT | ✅ | [06 § 5](05-installacions.md#5-verificación) |
+| TrueNAS: IP fija, gateway, DNS, pool `copias` ONLINE, salida a Internet | ✅ | [t5-truenas-02-verificacion.txt](../evidencies/t5-truenas-02-verificacion.txt) · [captura](../evidencies/t5-truenas-01-instalacion-completada.png) |
+| Nodos Proxmox: IP fija, ping a `.1` y a `172.16.222.1`, DNS, HTTP 200 por R1 | ✅ (×3) | [t5-proxmox-03-cluster-y-red.txt](../evidencies/t5-proxmox-03-cluster-y-red.txt) |
+| Clúster `cluster-g3`: 3 nodos, 3 votos, quórum 2, *Quorate: Yes*, 0 VMs | ✅ | [t5-proxmox-03-cluster-y-red.txt](../evidencies/t5-proxmox-03-cluster-y-red.txt) |
+| Prueba de quórum (apagar nodos uno a uno y recuperar) | ✅ | [t5-proxmox-04-prueba-quorum.txt](../evidencies/t5-proxmox-04-prueba-quorum.txt) |
+| WS2025: IP `.21`, gateway, DNS, resolución y ping al router | ✅ | [t5-ws2025-02-verificacion-red.png](../evidencies/t5-ws2025-02-verificacion-red.png) · [captura](../evidencies/t5-ws2025-01-escritorio-instalado.png) |
+| W11: IP `.100`, gateway, DNS, resolución y ping al router | ✅ | [t5-w11-02-verificacion-red.png](../evidencies/t5-w11-02-verificacion-red.png) · [captura](../evidencies/t5-w11-01-escritorio-instalado.png) |
+| Debian GNOME: IP `.101` manual, DNS, ping a TrueNAS, HTTP 200 por R1 | ✅ | [t5-cliente-debian-02-verificacion.txt](../evidencies/t5-cliente-debian-02-verificacion.txt) · [captura](../evidencies/t5-cliente-debian-01-gnome-pantalla-login.png) |
+| Ningún DHCP en la LAN | ✅ | Todas las IPs son manuales; los routers no tienen servidor DHCP ([06 § 5](05-installacions.md#5-verificación)) |
 
 ### Prueba de quórum
 
@@ -214,12 +213,12 @@ trabaja por escenarios:
 | C · Clúster y copias | R1 + R3 (salto) + PVE-1/2/3 + TrueNAS | ~7,1 GB | ✅ |
 | D · Todo a la vez | Las 10 VMs | ~15–16 GB | ❌ solo en clase |
 
-El análisis detallado (CPU, disco y saturación) se hará en la Tasca 7 ([08-rendimiento.md](08-rendimiento.md)).
+El análisis detallado (CPU, disco y saturación) se hará en la Tasca 7 ([07-rendiment.md](07-rendiment.md)).
 
 ## 9. Problemas encontrados y solución
 
 Los problemas 1 a 8 son de los routers y están en
-[06-servidores-comunicaciones.md § 6](06-servidores-comunicaciones.md#6-problemas-encontrados-y-solución).
+[05-installacions.md § 6](05-installacions.md#6-problemas-encontrados-y-solución).
 
 | # | Problema | Causa | Solución |
 |---|---|---|---|

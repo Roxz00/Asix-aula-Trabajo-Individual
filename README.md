@@ -16,10 +16,10 @@ que se arranca tanto en el PC de clase como en el de casa.
 | 0 | Entorno de pruebas en el equipo propio, documentado en Git (VMs, recursos, problemas y solución) | [docs/00-entorno-pruebas.md](docs/00-entorno-pruebas.md) · [docs/05-recursos.md](docs/05-recursos.md) | ✅ Hecha |
 | 1 | Requisitos y estudio de sistemas (grupal) | `docs/01-requisits.md` · `docs/03-sistemes.md` | — |
 | 2 | Inventario y comparativa del PC de clase y el de casa, cuellos de botella y tests | [docs/02-inventari.md](docs/02-inventari.md) · [script](scripts/inventario-diagnostico.sh) | ✅ Hecha (tests solo en casa; clase con datos del montaje) |
-| 4 | Esquema de red, montaje en VirtualBox y verificación de la conectividad | [docs/04-disseny.md](docs/04-disseny.md) · [diagrames/](diagrames/) | 🟡 Montaje y conectividad hechos (falta traceroute, Apte+) |
-| 5 | Mismos sistemas que el grupo (comunicaciones, TrueNAS, Proxmox, WS2025, Debian, clientes) | [docs/06-servidores-comunicaciones.md](docs/06-servidores-comunicaciones.md) | 🟡 Sistemas instalados; faltan dominio, copias y pruebas de fallo |
-| 6 | Tres tipos de RAID | `docs/07-raid.md` | ⏳ Pendiente |
-| 7 | Análisis de recursos de la máquina física | [docs/05-recursos.md](docs/05-recursos.md) · `docs/08-rendimiento.md` | ⏳ Pendiente |
+| 4 | Esquema de red, montaje en VirtualBox y verificación de la conectividad | [docs/04-disseny.md](docs/04-disseny.md) · [diagrames/](diagrames/) | ✅ Hecha (con ping, traceroute y rutas) |
+| 5 | Mismos sistemas que el grupo (comunicaciones, TrueNAS, Proxmox, WS2025, Debian, clientes) | [docs/05-installacions.md](docs/05-installacions.md) | 🟡 Sistemas instalados; faltan dominio, copias y pruebas de fallo |
+| 6 | Tres tipos de RAID | `docs/06-recuperacio.md` | ⏳ Pendiente |
+| 7 | Análisis de recursos de la máquina física | [docs/05-recursos.md](docs/05-recursos.md) · `docs/07-rendiment.md` | ⏳ Pendiente |
 
 ## Estructura del repositorio
 
@@ -27,9 +27,10 @@ que se arranca tanto en el PC de clase como en el de casa.
 |---|---|
 | [`docs/`](docs/) | Documentación de cada tarea |
 | [`diagrames/`](diagrames/) | Esquemas de red (lógico individual y referencia del grupo) |
-| [`evidencies/`](evidencies/) | Capturas y salidas de comandos comentadas |
+| [`evidencies/`](evidencies/) | Capturas y salidas de comandos, con el prefijo de su tarea (`t2-…`, `t4-…`, `t5-…`) |
 | [`configs/`](configs/) | Configuraciones reales exportadas de cada equipo |
-| [`scripts/`](scripts/) | Scripts propios (inventario y diagnóstico de la Tasca 2) |
+| [`scripts/`](scripts/) | Scripts propios: inventario y diagnóstico (Tasca 2) y generador de los PDF de entrega |
+| [`lliuraments/`](lliuraments/) | **PDF de entrega de cada tarea** (`TascaN_Lliurament_Individual.pdf`), generados desde los `.md` |
 
 ## Máquinas virtuales (grupo `/SOX-G3` de VirtualBox)
 

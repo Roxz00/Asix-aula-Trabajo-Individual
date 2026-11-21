@@ -3,15 +3,16 @@
 # Uso:   sudo bash scripts/inventario-diagnostico.sh casa      (o: clase)
 # Paquetes necesarios (una vez):
 #   sudo apt install smartmontools nvme-cli fio memtester sysbench
-# Resultado: evidencies/T2-<equipo>/  (los números de serie, UUID y MAC se ocultan)
+# Resultado: evidencies/t2-<equipo>-inventario.txt y evidencies/t2-<equipo>-tests.txt
+# (los números de serie, UUID y MAC se ocultan)
 # Duración aproximada: 10-15 minutos. Mejor sin VMs encendidas y sin otros programas pesados.
 
 set -u
 EQUIPO="${1:?Indica el equipo: casa o clase}"
 [ "$(id -u)" -eq 0 ] || { echo "Ejecuta con sudo"; exit 1; }
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
-OUT="$REPO/evidencies/T2-$EQUIPO"
-mkdir -p "$OUT"
+OUT="$REPO/evidencies"
+INV="$OUT/t2-$EQUIPO-inventario.txt"; TST="$OUT/t2-$EQUIPO-tests.txt"
 USUARIO="${SUDO_USER:-root}"
 HOME_USR="$(getent passwd "$USUARIO" | cut -d: -f6)"
 FIOFILE="$HOME_USR/.t2-fio-test"     # en /home → disco externo, donde están las VMs
@@ -72,8 +73,8 @@ command -v xrandr >/dev/null && sudo -u "$USUARIO" DISPLAY=:0 xrandr --listmonit
 sec "ALIMENTACIÓN"
 run upower -d
 echo "(La fuente de alimentación de un PC de sobremesa no se puede leer por software: anotar el modelo y la potencia de la etiqueta.)"
-} > "$OUT/01-inventario.txt"
-echo "✔ Inventario guardado en $OUT/01-inventario.txt"
+} > "$INV"
+echo "✔ Inventario guardado en $INV"
 
 ########################## 2. TESTS ##########################
 {
@@ -121,7 +122,7 @@ for i in 1 2 3; do
 done
 
 sec "CONDICIONES AL ACABAR"; condiciones
-} > "$OUT/02-tests.txt" 2>&1
-echo "✔ Tests guardados en $OUT/02-tests.txt"
+} > "$TST" 2>&1
+echo "✔ Tests guardados en $TST"
 
-chown -R "$USUARIO": "$OUT"
+chown "$USUARIO": "$INV" "$TST"
