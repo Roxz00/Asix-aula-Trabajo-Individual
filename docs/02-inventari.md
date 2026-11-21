@@ -1,10 +1,12 @@
-# Tasca 2 · Inventario y diagnóstico de los equipos (individual)
+# 02 · Inventario y diagnóstico de los equipos
+
+Tasca 2 «Equips i perifèrics» · RA principales: FDM RA1 a-h y RA4 h-i · **Parte individual**.
 
 > Grupo 3 · Equipos: **PC de casa** y **PC de clase** · Fecha: 21/11/2026
 > Herramienta de recogida: [scripts/inventario-diagnostico.sh](../scripts/inventario-diagnostico.sh)
 > (inxi, dmidecode, lscpu, smartctl, ethtool, lsusb, memtester, sysbench, hdparm, fio, ping, curl).
-> Evidencias completas: [evidencies/t2-casa-inventario.txt](../evidencies/t2-casa-inventario.txt) ·
-> [evidencies/t2-casa-tests.txt](../evidencies/t2-casa-tests.txt).
+> Evidencias completas: [evidencies/t2-inventario-pc-casa-20261121.txt](../evidencies/t2-inventario-pc-casa-20261121.txt) ·
+> [evidencies/t2-diagnostico-pc-casa-20261121.txt](../evidencies/t2-diagnostico-pc-casa-20261121.txt).
 > Los números de serie, UUID y MAC se ocultan porque el repositorio es público.
 
 ## 1. Qué pedía la Tasca 2 y dónde está
@@ -15,7 +17,7 @@
 | Comparar los equipos e identificar los cuellos de botella | Apte | Apartados 3 y 4 | ✅ Hecho |
 | Proponer soluciones ajustadas al hardware disponible | Apte | Apartado 4 | ✅ Hecho |
 | Ejecutar tests de memoria, disco y red en los dos equipos | Apte+ | Apartado 5 | 🟡 Parcial: solo en el PC de casa |
-| Registrar la herramienta, las condiciones y los resultados | Apte+ | Apartado 5 · [evidencias](../evidencies/t2-casa-tests.txt) | ✅ Hecho |
+| Registrar la herramienta, las condiciones y los resultados | Apte+ | Apartado 5 · [evidencias](../evidencies/t2-diagnostico-pc-casa-20261121.txt) | ✅ Hecho |
 | Confirmar o descartar con datos los cuellos de botella | Apte+ | Apartado 5.1 | ✅ Hecho |
 
 > **Limitación.** El PC de clase no se pudo volver a examinar: la entrega es el domingo 22/11 y el aula

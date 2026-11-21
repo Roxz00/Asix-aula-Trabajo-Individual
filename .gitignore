@@ -1,14 +1,43 @@
-# Imágenes y discos (demasiado grandes para Git)
+# Imágenes y discos (demasiado grandes para Git; no van al repositorio)
 ISOS/
 *.iso
-*.vdi
-*.vmdk
 *.img
-*.zip
+*.qcow2
+*.vmdk
+*.vdi
+*.vhd
+*.vhdx
 *.ova
+*.ovf
+*.zip
+*.zst
 
-# Notas locales con credenciales (nunca al repositorio)
-Untitled
+# Credenciales y secretos (nunca al repositorio)
+CREDENCIALES*
 *credenciales*
-*CREDENCIALES*
 *.secret
+.env
+*.env
+*.key
+*.pem
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+secrets/
+*password*
+*contraseña*
+
+# Copias y temporales
+*.bak
+*.tmp
+*.swp
+~$*
+.~lock*
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

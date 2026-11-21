@@ -3,7 +3,7 @@
 # Uso:   sudo bash scripts/inventario-diagnostico.sh casa      (o: clase)
 # Paquetes necesarios (una vez):
 #   sudo apt install smartmontools nvme-cli fio memtester sysbench
-# Resultado: evidencies/t2-<equipo>-inventario.txt y evidencies/t2-<equipo>-tests.txt
+# Resultado: evidencies/t2-inventario-pc-<equipo>-<fecha>.txt y evidencies/t2-diagnostico-pc-<equipo>-<fecha>.txt
 # (los números de serie, UUID y MAC se ocultan)
 # Duración aproximada: 10-15 minutos. Mejor sin VMs encendidas y sin otros programas pesados.
 
@@ -12,7 +12,8 @@ EQUIPO="${1:?Indica el equipo: casa o clase}"
 [ "$(id -u)" -eq 0 ] || { echo "Ejecuta con sudo"; exit 1; }
 REPO="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="$REPO/evidencies"
-INV="$OUT/t2-$EQUIPO-inventario.txt"; TST="$OUT/t2-$EQUIPO-tests.txt"
+FECHA=$(date +%Y%m%d)
+INV="$OUT/t2-inventario-pc-$EQUIPO-$FECHA.txt"; TST="$OUT/t2-diagnostico-pc-$EQUIPO-$FECHA.txt"
 USUARIO="${SUDO_USER:-root}"
 HOME_USR="$(getent passwd "$USUARIO" | cut -d: -f6)"
 FIOFILE="$HOME_USR/.t2-fio-test"     # en /home → disco externo, donde están las VMs

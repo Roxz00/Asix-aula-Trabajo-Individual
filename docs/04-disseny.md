@@ -1,4 +1,6 @@
-# Tasca 4 · Diseño físico y lógico (individual)
+# 04 · Diseño físico y lógico
+
+Tasca 4 «Disseny físic i lògic» · RA principales: FDM RA4; ISO RA1 y RA3 · **Parte individual**.
 
 > Grupo 3 · Red interna `192.168.30.0/24` · Fechas: 17/11/2026 (diseño y montaje) y 21/11/2026 (verificación)
 

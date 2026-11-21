@@ -1,4 +1,6 @@
-# Tasca 0 · Montaje del entorno de pruebas (individual)
+# 00 · Montaje del entorno de pruebas
+
+Tasca 0 «Muntatge de l'entorn de proves a l'aula» · RA principal: FDM RA1 · **Parte individual**.
 
 > Grupo 3 · Red interna `192.168.30.0/24` · Fechas de montaje: 17/11/2026 (routers) y 19/11/2026 (resto)
 
@@ -165,13 +167,13 @@ ssh -p 2203 -L 8443:192.168.30.20:443  asix@127.0.0.1      # web de TrueNAS en h
 | Prueba | Resultado | Evidencia |
 |---|---|---|
 | Routers: IP, ruta, DNS y NAT | ✅ | [06 § 5](05-installacions.md#5-verificación) |
-| TrueNAS: IP fija, gateway, DNS, pool `copias` ONLINE, salida a Internet | ✅ | [t5-truenas-02-verificacion.txt](../evidencies/t5-truenas-02-verificacion.txt) · [captura](../evidencies/t5-truenas-01-instalacion-completada.png) |
-| Nodos Proxmox: IP fija, ping a `.1` y a `172.16.222.1`, DNS, HTTP 200 por R1 | ✅ (×3) | [t5-proxmox-03-cluster-y-red.txt](../evidencies/t5-proxmox-03-cluster-y-red.txt) |
-| Clúster `cluster-g3`: 3 nodos, 3 votos, quórum 2, *Quorate: Yes*, 0 VMs | ✅ | [t5-proxmox-03-cluster-y-red.txt](../evidencies/t5-proxmox-03-cluster-y-red.txt) |
-| Prueba de quórum (apagar nodos uno a uno y recuperar) | ✅ | [t5-proxmox-04-prueba-quorum.txt](../evidencies/t5-proxmox-04-prueba-quorum.txt) |
-| WS2025: IP `.21`, gateway, DNS, resolución y ping al router | ✅ | [t5-ws2025-02-verificacion-red.png](../evidencies/t5-ws2025-02-verificacion-red.png) · [captura](../evidencies/t5-ws2025-01-escritorio-instalado.png) |
-| W11: IP `.100`, gateway, DNS, resolución y ping al router | ✅ | [t5-w11-02-verificacion-red.png](../evidencies/t5-w11-02-verificacion-red.png) · [captura](../evidencies/t5-w11-01-escritorio-instalado.png) |
-| Debian GNOME: IP `.101` manual, DNS, ping a TrueNAS, HTTP 200 por R1 | ✅ | [t5-cliente-debian-02-verificacion.txt](../evidencies/t5-cliente-debian-02-verificacion.txt) · [captura](../evidencies/t5-cliente-debian-01-gnome-pantalla-login.png) |
+| TrueNAS: IP fija, gateway, DNS, pool `copias` ONLINE, salida a Internet | ✅ | [t5-truenas-estado-20261119.txt](../evidencies/t5-truenas-estado-20261119.txt) · [captura](../evidencies/t5-truenas-instalacion-completada-20261119.png) |
+| Nodos Proxmox: IP fija, ping a `.1` y a `172.16.222.1`, DNS, HTTP 200 por R1 | ✅ (×3) | [t5-proxmox-estado-cluster-y-red-20261119.txt](../evidencies/t5-proxmox-estado-cluster-y-red-20261119.txt) |
+| Clúster `cluster-g3`: 3 nodos, 3 votos, quórum 2, *Quorate: Yes*, 0 VMs | ✅ | [t5-proxmox-estado-cluster-y-red-20261119.txt](../evidencies/t5-proxmox-estado-cluster-y-red-20261119.txt) |
+| Prueba de quórum (apagar nodos uno a uno y recuperar) | ✅ | [t5-proxmox-prueba-quorum-20261119.txt](../evidencies/t5-proxmox-prueba-quorum-20261119.txt) |
+| WS2025: IP `.21`, gateway, DNS, resolución y ping al router | ✅ | [t5-ws2025-verificacion-red-20261119.png](../evidencies/t5-ws2025-verificacion-red-20261119.png) · [captura](../evidencies/t5-ws2025-escritorio-instalado-20261119.png) |
+| W11: IP `.100`, gateway, DNS, resolución y ping al router | ✅ | [t5-w11-verificacion-red-20261119.png](../evidencies/t5-w11-verificacion-red-20261119.png) · [captura](../evidencies/t5-w11-escritorio-instalado-20261119.png) |
+| Debian GNOME: IP `.101` manual, DNS, ping a TrueNAS, HTTP 200 por R1 | ✅ | [t5-cliente-linux-estado-20261119.txt](../evidencies/t5-cliente-linux-estado-20261119.txt) · [captura](../evidencies/t5-cliente-linux-gnome-login-20261119.png) |
 | Ningún DHCP en la LAN | ✅ | Todas las IPs son manuales; los routers no tienen servidor DHCP ([06 § 5](05-installacions.md#5-verificación)) |
 
 ### Prueba de quórum

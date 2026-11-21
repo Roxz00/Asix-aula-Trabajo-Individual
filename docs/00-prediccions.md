@@ -1,4 +1,6 @@
-# PREDICE · Predicciones iniciales
+# 00 · Predicciones iniciales
+
+PREDIU · se responde antes de buscar información y se revisa al final con las pruebas · **Parte individual**.
 
 > El enunciado pide que **cada persona responda antes de buscar información**. Estas respuestas son
 > mías y se revisarán al final, comparándolas con las pruebas que me hayan hecho cambiar de opinión.

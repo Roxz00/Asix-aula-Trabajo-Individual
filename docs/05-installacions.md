@@ -1,4 +1,6 @@
-# Tasca 5 · Servidores de comunicaciones (individual)
+# 05 · Instalaciones y comunicaciones
+
+Tasca 5 «Instal·lació i comunicacions» · RA principales: ISO RA1 d-h y FDM RA1 b-d · **Parte individual**.
 
 > MikroTik, OPNsense y Debian + nftables · Grupo 3 · Fecha: 17/11/2026
 > Diseño de red: [04-disseny.md](04-disseny.md) · Recursos: [05-recursos.md](05-recursos.md)
@@ -147,11 +149,11 @@ Al acabar cada prueba se borró la ruta temporal.
 > `172.16.222.1`.
 
 Evidencias:
-- ![R1 verificación](../evidencies/t5-r1-mikrotik-verificacion-ip-ruta-ping-dns.png)
-- ![R2 asignación de interfaces](../evidencies/t5-r2-opnsense-02-asignacion-interfaces.png)
-- ![R2 IPs en consola](../evidencies/t5-r2-opnsense-03-consola-ips.png)
-- ![R2 verificación](../evidencies/t5-r2-opnsense-04-verificacion-ping-dns.png)
-- [R3 · salida completa de la verificación](../evidencies/t5-r3-debian-nftables-verificacion.txt)
+- ![R1 verificación](../evidencies/t5-mikrotik-verificacion-ip-ruta-ping-dns-20261117.png)
+- ![R2 asignación de interfaces](../evidencies/t5-opnsense-asignacion-interfaces-20261117.png)
+- ![R2 IPs en consola](../evidencies/t5-opnsense-consola-ips-20261117.png)
+- ![R2 verificación](../evidencies/t5-opnsense-verificacion-ping-dns-20261117.png)
+- [R3 · salida completa de la verificación](../evidencies/t5-debian-nftables-verificacion-20261117.txt)
 
 ## 6. Problemas encontrados y solución
 

@@ -1,4 +1,6 @@
-# Recursos de las máquinas virtuales (individual)
+# 05 · Recursos de las máquinas virtuales
+
+Resultado de la Tasca 4 (*docs/05-recursos.md* según el enunciado) y base de la Tasca 7 · **Parte individual**.
 
 > Equipo anfitrión: Linux Mint 22.3 en disco externo · VirtualBox 7.2.18
 > Se arranca en el **PC de clase** (18 hilos, ~30 GB de RAM) y en el **PC de casa** (i7-8700, 16 GB de RAM).
