@@ -209,6 +209,9 @@ una bajada de la conexión de casa (no hay pico de CPU en R3), y la segunda tand
 5. **Medir sirve para optimizar.** Dos cambios pequeños, encontrados al mirar las medidas, dieron un arranque 6,5
    veces más rápido y un router 4 veces más rápido con una quinta parte de CPU.
 
-**Predicción** (antes de medir): «La CPU será el problema, porque hay 17 vCPU para 12 hilos». **No se cumplió:** la
-CPU sobra. El límite es la RAM, como ya indicaba la Tasca 2. Lo que no esperaba es que el disco externo frenara el PC
-en los arranques, ni que una tarjeta de red virtual cambiara tanto el rendimiento de un router.
+**Predicción** (antes de medir, a partir de la [Tasca 2](02-inventari.md#51-se-confirman-los-cuellos-de-botella)): «El
+límite será la RAM; la CPU sobrará aunque haya 17 vCPU para 12 hilos. El disco USB es el límite de E/S, pero con 20–30 k
+IOPS no se notará en el uso normal». **Se cumplió:** la RAM es el límite y la CPU no pasó del 38 %. El disco no se
+nota con las VMs trabajando, pero **sí en los arranques simultáneos** (`fsync` de 2 a 94 ms): ese matiz no lo había
+previsto. Lo que no esperaba es que una tarjeta de red virtual cambiara tanto el
+rendimiento de un router, ni que la RAM residente de VirtualBox no sirviera para medir lo que ocupa cada VM.

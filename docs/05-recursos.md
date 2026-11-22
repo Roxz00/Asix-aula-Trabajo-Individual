@@ -16,9 +16,9 @@ Todas en el grupo `/SOX-G3` de VirtualBox.
 | R2-OPNsense | Router / cortafuegos alternativo | OPNsense 26.7 (FreeBSD) | 1 | 1 GB | 10 GB (UFS) | NAT + LAN_G3 | VirtualBox | ✅ Funciona |
 | R3-Debian-nftables | Router / cortafuegos GNU/Linux | Debian 13 + nftables | 1 | 512 MB | 8 GB | NAT + LAN_G3 | VirtualBox | ✅ Funciona |
 | NAS-TrueNAS | Copias e imágenes | TrueNAS SCALE 25.10.7 | 2 | 3 GB | 16 GB sistema + 20 GB pool `copias` | LAN_G3 | VirtualBox | ✅ Funciona |
-| WS2025 | Centralización del dominio (fuera del clúster) | Windows Server 2025 Standard, escritorio | 2 | 2 GB | 40 GB | LAN_G3 | VirtualBox | ✅ Instalado (dominio pendiente) |
+| WS2025 | Centralización del dominio (fuera del clúster) | Windows Server 2025 Standard, escritorio | 2 | 2 GB | 40 GB | LAN_G3 | VirtualBox | ✅ Instalado (el dominio se monta en el trabajo de grupo) |
 | PVE-1 / PVE-2 / PVE-3 | Nodos del clúster `cluster-g3` (vacíos) | Proxmox VE 9.2 | 2 | 1,5 GB | 16 GB | LAN_G3 | VirtualBox (virtualización anidada) | ✅ Clúster con quórum |
-| CLI-W11-Direccion | Cliente de Dirección | Windows 11 Pro 22H2 | 2 | 4 GB | 64 GB | LAN_G3 | VirtualBox | ✅ Funciona |
+| CLI-W11-Direccion | Cliente de Dirección | Windows 11 Pro 23H2 | 2 | 4 GB | 64 GB | LAN_G3 | VirtualBox | ✅ Funciona |
 | CLI-Debian-Produccion | Cliente de Producción | Debian 13 + GNOME 48 | 2 | 2 GB | 20 GB | LAN_G3 | VirtualBox | ✅ Funciona |
 | Debian-servicios / Debian-datos / LXC | Servidores virtuales | Debian 13 | — | — | — | — | Clúster Proxmox | Solo en el trabajo de grupo |
 
@@ -62,6 +62,10 @@ RAM real ocupada en el anfitrión por cada VM encendida (proceso `VBoxHeadless`,
 | CLI-Debian-Produccion | 976 MB |
 | PVE-1 / PVE-2 / PVE-3 | ~1.365 MB cada uno |
 | **Todas encendidas (sin R2)** | **14.762 MB** |
+
+> Medida con la RAM residente del proceso VirtualBox. En la [Tasca 7](07-rendiment.md#2-cómo-se-ha-medido) se vio que ese dato **se
+> queda corto** en algunas VMs (el NAS, el cliente Debian). Con la diferencia de RAM disponible al encender cada VM, las 10
+> juntas ocupan **~18,5 GB**.
 
 | Concepto | RAM |
 |---|---|

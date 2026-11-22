@@ -221,7 +221,7 @@ Las contraseñas están fuera del repositorio, como pide el enunciado.
 | DNS | `172.16.222.1` | `172.16.222.1` (Unbound) | `172.16.222.1` |
 | Servidor DHCP | Ninguno | Ninguno (desactivado en la LAN) | Ninguno |
 
-Configuración de R1 ([`configs/R1-MikroTik/`](../configs/R1-MikroTik/)):
+Configuración de R1 ([`configs/R1-MikroTik/R1-MikroTik.rsc`](../configs/R1-MikroTik/R1-MikroTik.rsc), exportada con `hide-sensitive`):
 
 ```routeros
 /system identity set name=R1-MikroTik
@@ -295,7 +295,9 @@ R2  filterlog: 69,,,a84b8eb1-…,em1,match,block,in,4,…,tcp,60,192.168.30.101,
 
 **Diferencias entre los tres:** en MikroTik no se filtra nada hasta que se añaden reglas. OPNsense bloquea por defecto
 todo lo que entra por la WAN y deja salir todo desde la LAN, y además tiene dos sitios para las reglas, el modelo
-clásico y el nuevo, que se aplican en orden distinto ([I-06](../incidencies/I-06-opnsense-orden-reglas.md)). En Debian
+clásico y el nuevo, que se aplican en orden distinto ([I-06](../incidencies/I-06-opnsense-orden-reglas.md); las reglas se crearon con
+[`crear-reglas-tasca5.php`](../configs/R2-OPNsense/crear-reglas-tasca5.php) y quedan en
+[`reglas-lan-tasca5.xml`](../configs/R2-OPNsense/reglas-lan-tasca5.xml)). En Debian
 solo pasa lo que está escrito en `nftables.conf`.
 
 ### 4.5 Copia en el servidor de copias
@@ -346,7 +348,7 @@ recupera la configuración **con** las reglas de 4.4. Capturas de la recuperaci�
 | Usuarios de administración | `truenas_admin` (administrador; el instalador desactiva el acceso de `root` por contraseña) y `copias` (servicio: solo sus datasets, SMB y SFTP) |
 | Red | `enp0s3` 192.168.30.20/24, puerta de enlace .1, DNS 172.16.222.1, nombre `nas.grupo3.lan` |
 | Disco adicional para las copias | Disco de 20 GB aparte del de sistema (16 GB), con el pool `copias` (stripe de un disco) y los datasets del apartado 3.3 |
-| Servicios | NFS (solo `192.168.30.0/24`), SMB y SSH/SFTP con contraseña, activados al arrancar |
+| Servicios | NFS (solo `192.168.30.0/24`), SMB y SSH/SFTP con contraseña, activados al arrancar · desde la Tasca 6, también **iSCSI** (solo para el cliente Debian, [06-recuperacio](06-recuperacio.md#62-montaje-raid-1-entre-deb-produccion-y-el-nas)) |
 
 La configuración se instaló con la API REST de TrueNAS (`/api/v2.0/…`) desde el anfitrión, por un túnel SSH a través
 de R3: crear el usuario, los datasets con cuota, los permisos, los recursos compartidos, los servicios y la tarea de
@@ -358,7 +360,7 @@ instantáneas.
 
 | Qué se pide | Cómo está |
 |---|---|
-| Versión y funcionamiento | Proxmox VE 9.2.32, kernel 7.0.14, en 3 VMs de VirtualBox con virtualización anidada (2 vCPU y 1,5 GB cada una) |
+| Versión y funcionamiento | Proxmox VE 9.2.32, kernel 7.0.14, en 3 VMs de VirtualBox con virtualización anidada (2 vCPU y 1,5 GB cada una). Instalación: [resumen del instalador](../evidencies/t5-proxmox-resumen-instalacion-pve1-20261119.png) · [pve1 arrancado](../evidencies/t5-proxmox-pve1-arrancado-20261119.png) |
 | Usuarios de administración | `root@pam` (solo para lo imprescindible) y **`admin-g3@pve`**, en el grupo `administradores` con el rol *Administrator* en `/`. Comprobado pidiendo un ticket de acceso con `pvesh create /access/ticket` |
 | Red | Cada nodo: puente `vmbr0` sobre la tarjeta de `LAN_G3`, IP fija .32/.33/.34, puerta de enlace .1, DNS 172.16.222.1 |
 | Repositorios | `pve-no-subscription` activado y `enterprise` desactivado (sin suscripción) |
@@ -455,7 +457,7 @@ que el DNS de cada cliente se cambiaría a mano.
 | Qué se pide | Cómo está |
 |---|---|
 | Versión y funcionamiento | Windows 11 **Pro** (la edición Home no puede unirse a un dominio), versión 23H2, compilación 22631.2861. 2 vCPU, 4 GB, 64 GB, EFI + Secure Boot + TPM 2.0. Instalación desatendida. Arranca sin problemas después del apagado brusco del 19/11 ([captura](../evidencies/t5-w11-red-y-carpeta-nas-20261121.png)) |
-| Actualización | **Parcial.** De 5 pendientes se instalaron 4 (Windows Security, Defender y la herramienta de eliminación de software malintencionado): descarga en 9 min 15 s e instalación en 14 min 32 s. La **acumulativa 2025-11 (KB5068865) falló** con `0x800F0991`; después de `DISM /RestoreHealth`, Windows Update dejó de ofrecerla ([I-10](../incidencies/I-10-w11-acumulativa-0x800f0991.md)). Además, **la 23H2 ya no tiene soporte** (desde noviembre de 2025). En una empresa habría que subirlo a 24H2/25H2 antes de producción, pero la ISO de la actividad es de la rama 22H2/23H2 y no lo permite |
+| Actualización | **Parcial.** De 5 pendientes se instalaron 4 (Windows Security, Defender y la herramienta de eliminación de software malintencionado): descarga en 9 min 15 s e instalación en 14 min 32 s ([pendientes](../evidencies/t5-w11-actualizaciones-pendientes-20261122.png) · [instalación](../evidencies/t5-w11-actualizacion-20261122.png)). La **acumulativa 2025-11 (KB5068865) falló** con `0x800F0991`; después de `DISM /RestoreHealth`, Windows Update dejó de ofrecerla ([I-10](../incidencies/I-10-w11-acumulativa-0x800f0991.md)). Además, **la 23H2 ya no tiene soporte** (desde noviembre de 2025). En una empresa habría que subirlo a 24H2/25H2 antes de producción, pero la ISO de la actividad es de la rama 22H2/23H2 y no lo permite |
 | Usuarios de administración | `asix` (administrador local) y `Administrador` (integrado). El equipo está en `WORKGROUP`; al unirlo al dominio, los trabajadores entrarán con sus cuentas del dominio y `asix` quedará como cuenta local de emergencia |
 | Red | `Ethernet` 192.168.30.100/24, puerta de enlace .1, DNS 172.16.222.1 (manual, sin DHCP) |
 | Copia | Por SMB en `configuraciones\w11-direccion\20261121\`: lo mismo que el servidor (red, cortafuegos, directivas, usuarios, parches) más la lista de **aplicaciones** instaladas y los datos del equipo. 10 ficheros, 336 KB ([captura](../evidencies/t5-w11-copia-configuracion-nas-20261121.png)) |

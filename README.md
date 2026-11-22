@@ -10,7 +10,7 @@ Este es el trabajo individual sobre el proyecto que estamos haciendo en clase.
 | Límite de diseño | **16 GB de RAM** (PC de casa) |
 | LAN | `192.168.30.0/24` (red interna de VirtualBox `LAN_G3`) · puerta de enlace `.1` · DNS `172.16.222.1` · **sin DHCP interno** |
 | WAN de los routers | NAT de VirtualBox (`10.0.2.15`, puerta de enlace `10.0.2.2`) · [D-01](decisions/D-01-wan-por-nat.md) |
-| Periodo | 17 – 22 nov 2026 (entrega de la documentación el domingo 22/11) |
+| Periodo | Predicciones el 29/10/2026 · montaje y pruebas del 17 al 22/11/2026 (entrega de la documentación el domingo 22/11) · prueba final individual el 25/11, en clase |
 
 ## Alcance
 
@@ -60,7 +60,7 @@ Todo encendido ocupa ~14,8 GB según la Tasca 0 y ~18,5 GB medido en la Tasca 7:
 - [diagrames/](diagrames/): esquemas (Mermaid) y la referencia del grupo
 - [evidencies/](evidencies/): capturas saneadas y salidas de comandos (`<tarea>-<descripcion>-<fecha>`)
 - [configs/](configs/): configuraciones exportadas de cada equipo
-- [scripts/](scripts/): inventario y diagnóstico (Tasca 2), copia automática de la configuración (Tasca 5) y generador de los PDF de entrega
+- [scripts/](scripts/): inventario y diagnóstico (Tasca 2), copia automática de la configuración (Tasca 5), pruebas de RAID (Tasca 6), muestreador de rendimiento (Tasca 7) y generador de los PDF de entrega
 - [lliuraments/](lliuraments/): PDF de entrega de cada tarea
 
 ## Cómo trabajo

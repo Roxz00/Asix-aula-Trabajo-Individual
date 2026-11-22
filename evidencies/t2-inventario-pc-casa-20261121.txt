@@ -569,7 +569,7 @@ docker0          DOWN           <mac> <NO-CARRIER,BROADCAST,MULTICAST,UP>
 
 $ ip -br addr
 lo               UNKNOWN        127.0.0.1/8 ::1/128 
-enp4s0           UP             192.168.1.137/24 fe80::ea0f:4950:c73f:101c/64 
+enp4s0           UP             192.168.1.137/24 fe80::xxxx/64 
 docker0          DOWN           172.17.0.1/16 
 
 $ ethtool enp4s0

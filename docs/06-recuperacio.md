@@ -28,7 +28,7 @@ ficheros) y 4 (plan de contingencia) son del trabajo de grupo.
 | Discos | 9 discos virtuales de **256 MB** (VDI dinámicos) en los puertos SATA 1-9, marcados como *hot-pluggable* para poder quitarlos con la VM encendida |
 | Equipo remoto (Apte+) | NAS-TrueNAS (192.168.30.20), que sirve un disco por **iSCSI** |
 | Datos | `clientes-ficticios.csv` (20 000 filas inventadas) e `imagen-ficticia.bin` (60 MB aleatorios), con un fichero `SHA256SUMS` para comprobar después que no se ha perdido nada |
-| Memoria del PC | Encendidos R1, R3, NAS y cliente: unos **6,2 GB** de los 16 GB, siempre con más de 2 GB libres |
+| Memoria del PC | Encendidos R1, R3, NAS y cliente: unos **5,6 GB** de los 16 GB (medido como en la [Tasca 7](07-rendiment.md#4-qué-satura-cada-máquina-virtual)), siempre con más de 2 GB libres |
 
 **Por qué el cliente Debian.** El enunciado pide los RAID «en uno de los equipos». En el diseño, el sitio natural
 sería el Debian de datos (.23), pero ese servidor solo existe en el montaje del grupo

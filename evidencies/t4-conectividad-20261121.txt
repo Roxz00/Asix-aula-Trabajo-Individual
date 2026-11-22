@@ -81,8 +81,8 @@ Columns: ADDRESS, LOSS, SENT, LAST, AVG, BEST, WORST, STD-DEV
 
 ### R3-Debian-nftables · interfaces, rutas y reenvío
 lo               UNKNOWN        127.0.0.1/8 ::1/128 
-enp0s3           UP             10.0.2.15/24 fe80::a00:27ff:fe4d:9ff8/64 
-enp0s8           UP             192.168.30.3/24 fe80::a00:27ff:fefe:e06/64 
+enp0s3           UP             10.0.2.15/24 fe80::xxxx/64 
+enp0s8           UP             192.168.30.3/24 fe80::xxxx/64 
 
 default via 10.0.2.2 dev enp0s3 onlink 
 10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 
@@ -99,7 +99,7 @@ rtt min/avg/max/mdev = 10.575/10.781/10.988/0.206 ms
 
 =================== ANFITRIÓN ===================
 ### Anfitrión · no tiene interfaz ni ruta en LAN_G3 (192.168.30.0/24)
-enp4s0           UP             192.168.1.137/24 fe80::ea0f:4950:c73f:101c/64 
+enp4s0           UP             192.168.1.137/24 fe80::xxxx/64 
 
 default via 192.168.1.1 dev enp4s0 proto dhcp src 192.168.1.137 metric 100 
 172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown 
