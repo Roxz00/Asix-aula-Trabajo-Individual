@@ -10,7 +10,7 @@ Tasca 5 «Instal·lació i comunicacions» · RA principales: ISO RA1 d-h y FDM 
 | Lo que se pide | Nivel | Dónde está | Estado |
 |---|---|---|---|
 | General · Comprobar requisitos y origen de las imágenes y verificar su integridad | Apte | [3.1](#31-origen-e-integridad-de-las-imágenes) | ✅ Hecho |
-| General · Actualizar y comprobar el funcionamiento antes de producción | Apte | [3.2](#32-actualización-antes-de-pasar-a-producción) | ✅ Hecho · ⚠️ W11 parcial ([I-10](../incidencies/I-10-w11-acumulativa-0x800f0991.md)) |
+| General · Actualizar y comprobar el funcionamiento antes de producción | Apte | [3.2](#32-actualización-antes-de-pasar-a-producción) | ✅ Hecho · ⚠️ W11 parcial, sin solución con la ISO de la actividad ([I-10](../incidencies/I-10-w11-acumulativa-0x800f0991.md)) |
 | General · Problemas, configuraciones críticas y tiempo de respuesta ante una incidencia | Apte | [3.5](#35-problemas-configuraciones-críticas-y-tiempo-de-respuesta) | ✅ Hecho |
 | General · Preparar el espacio de copias en TrueNAS y justificar qué se copia, cómo y dónde | Apte | [3.3](#33-espacio-de-copias-en-truenas-qué-cómo-y-dónde) · [D-08](../decisions/D-08-copias-de-configuracion.md) | ✅ Hecho |
 | MikroTik · Instalación, versión, usuarios, red WAN y LAN, Internet desde la LAN | Apte | [4.1](#41-instalación) a [4.3](#43-red-wan-y-lan-e-internet-desde-la-lan) | ✅ Hecho |
@@ -87,7 +87,7 @@ Antes de dar un sistema por terminado se actualiza y se comprueba que sigue func
 | Proxmox (×3) | 9.2.2 · kernel 7.0.2 | **9.2.32** · kernel **7.0.14** | 224 por nodo | **De uno en uno**: el clúster nunca baja de 2 votos. Cada nodo vuelve con 3 votos en ~60 s |
 | TrueNAS | 25.10.7 | **25.10.7** (no se actualiza) | — | Ver abajo |
 | Windows Server 2025 | 26100.1742 | **26100.33438** | 4 (acumulativa 2026-09 y Defender) | IP, puerta de enlace y DNS iguales después de reiniciar |
-| Windows 11 Pro | 22631.2861 (23H2) | 22631.2861 · **parcial** | 4 de 5 (falla la acumulativa, [I-10](../incidencies/I-10-w11-acumulativa-0x800f0991.md)) | Red y carpeta del NAS iguales; **la 23H2 ya no tiene soporte**: hay que subirlo de versión |
+| Windows 11 Pro | 22631.2861 (23H2) | 22631.2861 · **parcial** | 4 de 5 (falla la acumulativa, [I-10](../incidencies/I-10-w11-acumulativa-0x800f0991.md)) | Red y carpeta del NAS iguales; **la 23H2 ya no tiene soporte** y la ISO de la actividad es de esa misma versión (no permite subirla) |
 
 - **TrueNAS no se actualiza a propósito.** La versión 25.10.8 (03/11/2026, 2 GB) ya existe, pero el perfil de
   actualización del NAS, *Mission Critical*, todavía no la recomienda (`new_version: null`). En un servidor de copias se
@@ -172,7 +172,7 @@ copian las rutas que existen en cada uno.
 | **El dataset de sistema de TrueNAS** se ha movido al pool `copias` (lo hace TrueNAS solo) | Registros y configuración de servicios del NAS comparten disco con las copias | Aceptado: el disco de sistema es pequeño |
 | **La contraseña del usuario `copias` está en el script de MikroTik** | Quien lea la configuración de R1 la ve | `copias` solo puede escribir en sus datasets. No se exporta al repositorio sin quitarla |
 | **Apagar el PC con VMs de Windows cerrándose** | Dejó WS2025 sin arranque ([I-09](../incidencies/I-09-ws2025-reinstalacion-sola.md)) | Medios de instalación quitados y apagado ordenado de las VMs |
-| **W11 en una versión sin soporte** (23H2) y sin la última acumulativa | El cliente de Dirección no recibe parches de seguridad | Sin resolver: actualización de características pendiente ([I-10](../incidencies/I-10-w11-acumulativa-0x800f0991.md)) |
+| **W11 en una versión sin soporte** (23H2) y sin la última acumulativa | El cliente de Dirección no recibe parches de seguridad | Sin resolver: la ISO de la actividad es 22H2/23H2 y no permite subir de versión ([I-10](../incidencies/I-10-w11-acumulativa-0x800f0991.md)) |
 | **WS2025 es una versión de evaluación** (180 días) | Pasado el plazo se apaga cada hora | Suficiente para el proyecto; en producción, activar con clave |
 | **OPNsense está en UTC** y el resto en hora de Madrid | Al comparar registros de varios equipos hay que sumar 1 h a OPNsense | Anotado en las evidencias |
 
@@ -455,7 +455,7 @@ que el DNS de cada cliente se cambiaría a mano.
 | Qué se pide | Cómo está |
 |---|---|
 | Versión y funcionamiento | Windows 11 **Pro** (la edición Home no puede unirse a un dominio), versión 23H2, compilación 22631.2861. 2 vCPU, 4 GB, 64 GB, EFI + Secure Boot + TPM 2.0. Instalación desatendida. Arranca sin problemas después del apagado brusco del 19/11 ([captura](../evidencies/t5-w11-red-y-carpeta-nas-20261121.png)) |
-| Actualización | **Parcial.** De 5 pendientes se instalaron 4 (Windows Security, Defender y la herramienta de eliminación de software malintencionado): descarga en 9 min 15 s e instalación en 14 min 32 s. La **acumulativa 2025-11 (KB5068865) falló** con `0x800F0991`; después de `DISM /RestoreHealth`, Windows Update dejó de ofrecerla ([I-10](../incidencies/I-10-w11-acumulativa-0x800f0991.md)). Además, **la 23H2 ya no tiene soporte** (desde noviembre de 2025): antes de producción hay que subirlo a 24H2/25H2 |
+| Actualización | **Parcial.** De 5 pendientes se instalaron 4 (Windows Security, Defender y la herramienta de eliminación de software malintencionado): descarga en 9 min 15 s e instalación en 14 min 32 s. La **acumulativa 2025-11 (KB5068865) falló** con `0x800F0991`; después de `DISM /RestoreHealth`, Windows Update dejó de ofrecerla ([I-10](../incidencies/I-10-w11-acumulativa-0x800f0991.md)). Además, **la 23H2 ya no tiene soporte** (desde noviembre de 2025). En una empresa habría que subirlo a 24H2/25H2 antes de producción, pero la ISO de la actividad es de la rama 22H2/23H2 y no lo permite |
 | Usuarios de administración | `asix` (administrador local) y `Administrador` (integrado). El equipo está en `WORKGROUP`; al unirlo al dominio, los trabajadores entrarán con sus cuentas del dominio y `asix` quedará como cuenta local de emergencia |
 | Red | `Ethernet` 192.168.30.100/24, puerta de enlace .1, DNS 172.16.222.1 (manual, sin DHCP) |
 | Copia | Por SMB en `configuraciones\w11-direccion\20261121\`: lo mismo que el servidor (red, cortafuegos, directivas, usuarios, parches) más la lista de **aplicaciones** instaladas y los datos del equipo. 10 ficheros, 336 KB ([captura](../evidencies/t5-w11-copia-configuracion-nas-20261121.png)) |
@@ -497,7 +497,7 @@ para cualquier Debian.
 | 13 | Los nodos Proxmox no cargaban el kernel nuevo | El reinicio lanzado en segundo plano moría al cerrarse la sesión SSH | Reinicio con `systemd-run --on-active=2`, uno a uno, comprobando el quórum |
 | 14 | La primera copia de Proxmox llevaba claves privadas | `/etc/pve` incluye `priv/` | Exclusiones en `copia-config.sh` y copias borradas |
 | 15 | WS2025 no arrancaba y se reinstalaba solo | Arranque dañado por un apagado brusco + disco auxiliar arrancable conectado | Reinstalación desatendida y medios quitados ([I-09](../incidencies/I-09-ws2025-reinstalacion-sola.md)) |
-| 16 | W11: la acumulativa falla con `0x800F0991` | Almacén de componentes y versión 23H2 sin soporte | `DISM /RestoreHealth`; sin resolver: subir de versión ([I-10](../incidencies/I-10-w11-acumulativa-0x800f0991.md)) |
+| 16 | W11: la acumulativa falla con `0x800F0991` | Almacén de componentes y versión 23H2 sin soporte | `DISM /RestoreHealth`; sin resolver: la ISO de la actividad no permite subir de versión ([I-10](../incidencies/I-10-w11-acumulativa-0x800f0991.md)) |
 
 ## 11. Predicción y análisis
 
