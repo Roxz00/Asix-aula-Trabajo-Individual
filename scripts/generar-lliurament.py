@@ -58,6 +58,7 @@ TAREAS = {
                     "se pueden usar sin bloquear el equipo y optimizaciones medidas antes y después.",
             docs=["docs/07-rendiment.md"],
             donde=[("docs/07-rendiment.md", "el documento completo"),
+                   ("scripts/t7-muestreo.py", "el muestreador de CPU, RAM, disco y respuesta del PC"),
                    ("evidencies/", "las medidas tal como salieron (t7-*)")]),
 }
 

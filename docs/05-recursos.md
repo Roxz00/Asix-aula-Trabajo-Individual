@@ -65,7 +65,7 @@ RAM real ocupada en el anfitrión por cada VM encendida (proceso `VBoxHeadless`,
 
 | Concepto | RAM |
 |---|---|
-| Reserva para el anfitrión (Linux Mint + VirtualBox) | ~3 GB (N/C, se medirá en la Tasca 7) |
+| Reserva para el anfitrión (Linux Mint + VirtualBox) | ~3 GB estimados · **4,5 GB medidos** con las aplicaciones de uso normal ([Tasca 7](07-rendiment.md#5-cuántas-vms-puedo-usar-sin-bloquear-el-equipo)) |
 | **Disponible para las VMs en casa** | **~13 GB** |
 | Todas las VMs a la vez | ~14,8 GB → **no cabe en casa** |
 
@@ -77,4 +77,4 @@ Escenarios de trabajo en casa:
 | B · Servidores y clientes | R1 + TrueNAS + WS2025 + W11 + Debian | ~10,3 GB |
 | C · Clúster y copias | R1 + R3 + PVE-1/2/3 + TrueNAS | ~7,1 GB |
 
-El análisis completo (CPU, disco y qué satura cada máquina) irá en la Tasca 7.
+El análisis completo (CPU, disco y qué satura cada máquina) está en la [Tasca 7](07-rendiment.md).

@@ -215,7 +215,7 @@ trabaja por escenarios:
 | C · Clúster y copias | R1 + R3 (salto) + PVE-1/2/3 + TrueNAS | ~7,1 GB | ✅ |
 | D · Todo a la vez | Las 10 VMs | ~15–16 GB | ❌ solo en clase |
 
-El análisis detallado (CPU, disco y saturación) se hará en la Tasca 7 ([07-rendiment.md](07-rendiment.md)).
+El análisis detallado (CPU, disco y saturación) está en la Tasca 7 ([07-rendiment.md](07-rendiment.md)). Con las aplicaciones de uso normal abiertas, el escenario B **no cabe** en casa ([07 § 5](07-rendiment.md#5-cuántas-vms-puedo-usar-sin-bloquear-el-equipo)).
 
 ## 9. Problemas encontrados y solución
 

@@ -1,0 +1,128 @@
+# Tasca 7 (Apte+) · Dos optimizaciones medidas antes y después · 22/11/2026
+
+######## OPTIMIZACIÓN 1 · el cliente Debian tarda 2 min en arrancar si el NAS está apagado (open-iscsi)
+== ANTES · arranque del cliente con el NAS apagado (open-iscsi por defecto: 8 reintentos de 15 s)
+Startup finished in 7.419s (kernel) + 2min 10.224s (userspace) = 2min 17.644s 
+2min 1.293s open-iscsi.service
+     4.929s plymouth-quit-wait.service
+     1.008s systemd-binfmt.service
+/srv/espejo sin montar
+SSH disponible tras 156 s
+== journalctl -b -u open-iscsi -u iscsid
+nov 22 14:12:09 deb-produccion systemd[1]: Starting open-iscsi.service - Login to default iSCSI targets...
+nov 22 14:12:09 deb-produccion systemd[1]: Starting iscsid.service - iSCSI initiator daemon (iscsid)...
+nov 22 14:12:09 deb-produccion iscsid[1024]: iSCSI logger with pid=1028 started!
+nov 22 14:12:09 deb-produccion systemd[1]: Started iscsid.service - iSCSI initiator daemon (iscsid).
+nov 22 14:14:11 deb-produccion iscsid[1028]: Connection-1:0 to [target: iqn.2005-10.org.freenas.ctl:espejo-deb, portal: 192.168.30.20,3260] through [iface: default] is shutdown.
+== valores del nodo
+node.startup = automatic
+node.session.initial_login_retry_max = 8
+node.conn[0].timeo.login_timeout = 15
+
+
+CAMBIO: node.session.initial_login_retry_max = 1
+CAMBIO: node.conn[0].timeo.login_timeout = 5
+== DESPUÉS · mismo arranque con initial_login_retry_max=1 y login_timeout=5
+Startup finished in 7.125s (kernel) + 13.912s (userspace) = 21.038s 
+7.129s open-iscsi.service
+3.884s plymouth-quit-wait.service
+ 866ms dev-sde1.device
+/srv/espejo sin montar
+SSH disponible tras 52 s desde la orden de reinicio
+
+-- con el NAS encendido otra vez, el espejo de la Tasca 6 vuelve:
+md10 : active raid1 sdj[0]
+      261120 blocks super 1.2 [2/1] [U_]
+      bitmap: 1/1 pages [4KB], 65536KB chunk
+Login to [iface: default, target: iqn.2005-10.org.freenas.ctl:espejo-deb, portal: 192.168.30.20,3260] successful.
+disco remoto: /dev/sdk
+mdadm: re-added /dev/sdk
+md10 : active raid1 sdk[1](W) sdj[0]
+      261120 blocks super 1.2 [2/2] [UU]
+      bitmap: 1/1 pages [4KB], 65536KB chunk
+clientes-ficticios.csv: La suma coincide
+imagen-ficticia.bin: La suma coincide
+
+
+######## OPTIMIZACIÓN 2 · R3 satura su vCPU al enrutar: tarjeta virtio -> Intel PRO/1000 (82540EM)
+
+# Tasca 7 · OPT2 ANTES · 3 descargas por R3 con tarjeta virtio (1 vCPU) · 22/11/2026 14:15:47 · 45 s cada 5 s · 12 hilos · disco sdb
+-- descargas de 100 MB desde el cliente por R3:
+descargados 104.9 MB en 5.6 s = 150.3 Mb/s
+descargados 104.9 MB en 5.0 s = 168.7 Mb/s
+descargados 104.9 MB en 5.1 s = 163.4 Mb/s
+## Resumen del anfitrión (9 muestras)
+dato        media    máximo   mínimo
+cpu%          16.5      29.1      8.2
+iow%           0.0       0.1      0.0
+disp_MB    10050.5   10080.6   9994.5
+swap_MB     2253.8    2253.8   2253.8
+psi_cpu        1.5       2.5      0.3
+psi_mem        0.0       0.0      0.0
+psi_io         0.0       0.0      0.0
+rd_MB/s        0.2       1.7      0.0
+wr_MB/s        0.4       2.3      0.0
+util%          0.5       1.8      0.1
+fork_ms        0.9       1.5      0.6
+fsync_ms       2.3       4.2      1.3
+
+## Por VM (CPU en % de un hilo: 100 = un hilo entero; RAM en MB)
+VM                                 cpu_media  cpu_max  RAM_res  en_swap   total
+CLI-Debian-Produccion                   31.4     62.3     1211        0    1211
+R1-MikroTik-CHR                          2.6      3.6      126       12     138
+R3-Debian-nftables                      99.3    251.3      304        0     304
+TOTAL VMs                              133.2              1641       12    1654
+
+# Tasca 7 · OPT2 DESPUÉS · 3 descargas por R3 con tarjeta Intel PRO/1000 82540EM (1 vCPU) · 22/11/2026 14:17:07 · 45 s cada 5 s · 12 hilos · disco sdb
+-- descargas de 100 MB desde el cliente por R3:
+descargados 104.9 MB en 3.0 s = 277.3 Mb/s
+descargados 104.9 MB en 1.1 s = 743.9 Mb/s
+descargados 104.9 MB en 6.3 s = 133.1 Mb/s
+## Resumen del anfitrión (9 muestras)
+dato        media    máximo   mínimo
+cpu%          10.6      14.3      8.1
+iow%           0.0       0.0      0.0
+disp_MB     9989.6   10002.7   9962.3
+swap_MB     2252.2    2252.5   2252.0
+psi_cpu        0.0       0.0      0.0
+psi_mem        0.0       0.0      0.0
+psi_io         0.0       0.0      0.0
+rd_MB/s        0.0       0.0      0.0
+wr_MB/s        0.1       0.5      0.0
+util%          0.2       0.4      0.1
+fork_ms        1.2       1.4      0.8
+fsync_ms       2.4       4.4      1.3
+
+## Por VM (CPU en % de un hilo: 100 = un hilo entero; RAM en MB)
+VM                                 cpu_media  cpu_max  RAM_res  en_swap   total
+CLI-Debian-Produccion                   18.6     47.7     1213        0    1213
+R1-MikroTik-CHR                          3.6      4.2      126       12     138
+R3-Debian-nftables                      19.7     44.3      301        0     301
+TOTAL VMs                               41.8              1640       12    1652
+
+# Tasca 7 · OPT2 DESPUÉS (2.ª tanda) · 3 descargas por R3 con 82540EM · 22/11/2026 14:18:00 · 45 s cada 5 s · 12 hilos · disco sdb
+-- descargas de 100 MB desde el cliente por R3:
+descargados 104.9 MB en 1.2 s = 690.5 Mb/s
+descargados 104.9 MB en 1.2 s = 691.1 Mb/s
+descargados 104.9 MB en 1.2 s = 708.2 Mb/s
+## Resumen del anfitrión (9 muestras)
+dato        media    máximo   mínimo
+cpu%          11.0      17.3      7.9
+iow%           0.0       0.0      0.0
+disp_MB     9993.3    9999.6   9989.6
+swap_MB     2251.3    2251.5   2251.0
+psi_cpu        0.0       0.0      0.0
+psi_mem        0.0       0.0      0.0
+psi_io         0.0       0.0      0.0
+rd_MB/s        0.0       0.1      0.0
+wr_MB/s        0.2       0.6      0.0
+util%          0.2       0.9      0.1
+fork_ms        1.1       1.4      0.6
+fsync_ms       2.1       3.6      1.5
+
+## Por VM (CPU en % de un hilo: 100 = un hilo entero; RAM en MB)
+VM                                 cpu_media  cpu_max  RAM_res  en_swap   total
+CLI-Debian-Produccion                   20.8     67.7     1213        0    1213
+R1-MikroTik-CHR                          3.6      4.2      126       12     138
+R3-Debian-nftables                      20.4     74.5      301        0     301
+TOTAL VMs                               44.9              1640       12    1652
