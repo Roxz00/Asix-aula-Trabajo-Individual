@@ -1,0 +1,94 @@
+# Tasca 5 · Actualización antes de pasar a producción (21/11/2026, PC de casa)
+# En casa el DNS del centro no existe (I-04): durante la actualización se usó 10.0.2.3 (DNS del NAT de VirtualBox)
+# y, en el cliente, R3 como puerta de enlace (R1 CHR está limitado a 1 Mbit/s, I-03). Al acabar se volvió a lo de siempre.
+
+######## R3-Debian-nftables · apt full-upgrade
+ANTES: 13.7 6.12.117+deb13-amd64
+Descargados 27,7 MB en 2s (12,9 MB/s)
+Leyendo lista de paquetes...
+PENDIENTES: 20
+base-files/stable 13.8+deb13u8 amd64 [actualizable desde: 13.8+deb13u7]
+dhcpcd-base/stable 1:10.1.0-11+deb13u5 amd64 [actualizable desde: 1:10.1.0-11+deb13u4]
+grub-common/stable 2.12-9+deb13u4 amd64 [actualizable desde: 2.12-9+deb13u2]
+grub-pc-bin/stable 2.12-9+deb13u4 amd64 [actualizable desde: 2.12-9+deb13u2]
+grub-pc/stable 2.12-9+deb13u4 amd64 [actualizable desde: 2.12-9+deb13u2]
+grub2-common/stable 2.12-9+deb13u4 amd64 [actualizable desde: 2.12-9+deb13u2]
+intel-microcode/stable 3.20260925.1~deb13u1 amd64 [actualizable desde: 3.20251111.1~deb13u1]
+libc-bin/stable 2.41-12+deb13u5 amd64 [actualizable desde: 2.41-12+deb13u4]
+libc-l10n/stable 2.41-12+deb13u5 all [actualizable desde: 2.41-12+deb13u4]
+libc6/stable 2.41-12+deb13u5 amd64 [actualizable desde: 2.41-12+deb13u4]
+libefiboot1t64/stable 38-3.1+deb13u1 amd64 [actualizable desde: 38-3.1+b1]
+libefivar1t64/stable 38-3.1+deb13u1 amd64 [actualizable desde: 38-3.1+b1]
+libfreetype6/stable 2.13.3+dfsg-1+deb13u2 amd64 [actualizable desde: 2.13.3+dfsg-1+deb13u1]
+libnghttp2-14/stable 1.64.0-1.1+deb13u2 amd64 [actualizable desde: 1.64.0-1.1+deb13u1]
+libssl3t64/stable 3.5.9-1~deb13u1 amd64 [actualizable desde: 3.5.7-1~deb13u3]
+locales/stable 2.41-12+deb13u5 all [actualizable desde: 2.41-12+deb13u4]
+openssl-provider-legacy/stable 3.5.9-1~deb13u1 amd64 [actualizable desde: 3.5.7-1~deb13u3]
+openssl/stable 3.5.9-1~deb13u1 amd64 [actualizable desde: 3.5.7-1~deb13u3]
+sudo/stable 1.9.16p2-3+deb13u5 amd64 [actualizable desde: 1.9.16p2-3+deb13u2]
+wireless-regdb/stable 2026.09.03-1~deb13u1 all [actualizable desde: 2026.05.30-1~deb13u1]
+Procesando disparadores para libc-bin (2.41-12+deb13u5) ...
+Procesando disparadores para initramfs-tools (0.148.4) ...
+update-initramfs: Generating /boot/initrd.img-6.12.117+deb13-amd64
+Procesando disparadores para man-db (2.13.1-1) ...
+Procesando disparadores para libc-bin (2.41-12+deb13u5) ...
+DESPUES: 13.8
+
+
+######## CLI-Debian-Produccion · apt full-upgrade
+ANTES: 13.7 6.12.117+deb13-amd64
+Leyendo lista de paquetes...
+PENDIENTES: 30
+Procesando disparadores para initramfs-tools (0.148.4) ...
+update-initramfs: Generating /boot/initrd.img-6.12.117+deb13-amd64
+Procesando disparadores para libc-bin (2.41-12+deb13u5) ...
+DESPUES: 13.8
+default via 192.168.30.1 dev enp0s3 
+
+
+######## R2-OPNsense · pkg upgrade + opnsense-update -bk (base y kernel) + reinicio
+ANTES: OPNsense 26.7 (amd64)
+PENDIENTES: 98
+You may need to manually remove /usr/local/etc/syslog-ng.conf if it is no longer needed.
+=====
+Message from opnsense-26.7.9_3:
+
+--
+Just a dream and the wind to carry me
+DESPUES: OPNsense 26.7.9_3 (amd64)
+BASE-PENDIENTE
+
+15.1-RELEASE-p1
+15.1-RELEASE-p1
+Installing kernel-26.7.9-amd64.txz... done
+Installing base-26.7.9-amd64.txz... done
+Cleaning obsolete files... done
+Please reboot.
+FIN-BASE
+15.1-RELEASE-p6
+
+Tras reiniciar: OPNsense 26.7.9_3 (amd64) · kernel 15.1-RELEASE-p6
+
+######## R1-MikroTik-CHR · /system package update
+installed-version: 7.24.5 · latest-version: 7.25.1 · status: New version is available
+Copia previa en el NAS (R1-2026-11-21.backup) -> /system package update download -> /system reboot
+Tras reiniciar: version: 7.25.1 (uptime 11s)
+
+######## NAS-TrueNAS · update/available_versions y update/status (API)
+Instalada: 25.10.7 · disponible: 25.10.8 (03/11/2026, 2 GB, tren TrueNAS-SCALE-Goldeye)
+Perfil de actualización: MISSION_CRITICAL -> new_version: null (el perfil aún no la recomienda)
+Decisión: no se actualiza; ver docs/05-installacions.md
+
+######## WS2025 · Windows Update (API COM de Windows Update, salida por R3 y DNS 10.0.2.3 temporales)
+Antes: 10.0.26100.1742 · pendientes 4: Windows Security platform KB5007651, MSRT KB890830, Defender KB2267602, 2026-09 Actualización de seguridad KB5122871 (26100.33438)
+INICIO 21/11/2026 23:37:16 · Descarga: código 2 (correcto) en 00:19:37 · Instalación: código 2 en 00:20:29 · reinicio=True
+Reinicio 00:18:28 -> escritorio ~00:26 · Después: 10.0.26100.33438 · Get-HotFix: KB5122870, KB5122871 (21/11/2026)
+Red después: 192.168.30.21/24, gw 192.168.30.1, DNS 172.16.222.1 (capturas t5-ws2025-*-20261122.png)
+
+######## CLI-W11-Direccion · Windows Update
+Antes: 10.0.22631.2861 (23H2) · pendientes 5: KB5007651, KB890830, KB2267602, KB4023057 (2023-11), 2025-11 Acumulativa KB5068865
+INICIO 22/11/2026 00:38:19 · Descarga: código 2 en 00:09:15 · Instalación: código 3 (correcto con errores) en 00:14:32 · reinicio=False
+Historial: KB5068865 código 4 (error) HResult 0x800F0991 · las otras 4, código 2
+DISM /Online /Cleanup-Image /RestoreHealth: 'La operación de restauración finalizó correctamente'
+Reintento: PENDIENTES: 0 (0x80240024, no hay actualizaciones ofrecidas) · sigue en 10.0.22631.2861, sin reinicio pendiente (I-10)
+Red después: 192.168.30.100/24, gw 192.168.30.1, DNS 172.16.222.1

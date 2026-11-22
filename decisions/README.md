@@ -12,3 +12,4 @@ los criterios y qué obligaría a cambiarla. Plantilla: [_plantilla.md](_plantil
 | [D-05](D-05-ws2025-fuera-del-cluster.md) | Windows Server 2025 fuera del clúster |
 | [D-06](D-06-clientes.md) | Un cliente de cada tipo: W11 Pro y Debian con GNOME |
 | [D-07](D-07-servidores-debian-vm.md) | Los Debian de servicios y datos, como VM (se montan en el grupo) |
+| [D-08](D-08-copias-de-configuracion.md) | Copias: configuración de cada equipo en el pool `copias` del NAS |

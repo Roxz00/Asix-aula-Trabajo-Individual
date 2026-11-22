@@ -1,0 +1,90 @@
+# Tasca 5 · Proxmox: actualización, usuarios, almacenamiento y copias (21/11/2026)
+
+== Actualización escalonada (un nodo cada vez, el clúster nunca baja de 2 votos)
+######## pve1 · ANTES: pve-manager/9.2.2/b9984c6d90a4bd80 (running kernel: 7.0.2-6-pve) · kernel 7.0.2-6-pve
+PENDIENTES: 224
+224 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+DESPUES: pve-manager/9.2.32/60a22e26e411402f (running kernel: 7.0.2-6-pve) · kernels: 7.0.14-30-pve 7.0.2-6-pve 
+######## pve2 · ANTES: pve-manager/9.2.2/b9984c6d90a4bd80 (running kernel: 7.0.2-6-pve) · kernel 7.0.2-6-pve
+PENDIENTES: 224
+224 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+DESPUES: pve-manager/9.2.32/60a22e26e411402f (running kernel: 7.0.2-6-pve) · kernels: 7.0.14-30-pve 7.0.2-6-pve 
+######## pve3 · ANTES: pve-manager/9.2.2/b9984c6d90a4bd80 (running kernel: 7.0.2-6-pve) · kernel 7.0.2-6-pve
+PENDIENTES: 224
+224 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+DESPUES: pve-manager/9.2.32/60a22e26e411402f (running kernel: 7.0.2-6-pve) · kernels: 7.0.14-30-pve 7.0.2-6-pve 
+pve1 tras reiniciar (62 s hasta volver con 3 votos): pve-manager/9.2.32/60a22e26e411402f (running kernel: 7.0.14-30-pve) · Quorate: Yes
+pve2 tras reiniciar (62 s hasta volver con 3 votos): pve-manager/9.2.32/60a22e26e411402f (running kernel: 7.0.14-30-pve) · Quorate: Yes
+pve3 tras reiniciar (59 s hasta volver con 3 votos): pve-manager/9.2.32/60a22e26e411402f (running kernel: 7.0.14-30-pve) · Quorate: Yes
+Nota: el primer reinicio programado no llegó a ejecutarse (igual que en I-07); se hizo después con systemd-run.
+Antes de reiniciar se liberaron 652 MB de caché de apt en cada nodo: disco raíz del 94 % al 83 %.
+
+== pvecm status
+Quorum information
+------------------
+Date:             Sat Nov 21 23:16:28 2026
+Quorum provider:  corosync_votequorum
+Nodes:            3
+Node ID:          0x00000001
+Ring ID:          1.79
+Quorate:          Yes
+
+Votequorum information
+----------------------
+Expected votes:   3
+Highest expected: 3
+Total votes:      3
+Quorum:           2  
+Flags:            Quorate 
+
+Membership information
+----------------------
+    Nodeid      Votes Name
+0x00000001          1 192.168.30.32 (local)
+0x00000002          1 192.168.30.33
+0x00000003          1 192.168.30.34
+
+== pveversion (los tres nodos)
+pve1 9.2.32 9.2
+pve2 9.2.32 9.2
+pve3 9.2.32 9.2
+
+== Usuarios y permisos
+[{"comment":"Administradores del grupo 3","groupid":"administradores","users":"admin-g3@pve"}]
+
+[{"path":"/","propagate":1,"roleid":"Administrator","type":"group","ugid":"administradores"}]
+
+== Almacenamiento
+Name              Type     Status     Total (KiB)      Used (KiB) Available (KiB)        %
+local              dir     active         7163064         5562412         1215424   77.65%
+local-lvm      lvmthin     active         5271552               0         5271552    0.00%
+nas-copias         nfs     active         4194304            1024         4193280    0.02%
+
+== /etc/pve/storage.cfg
+dir: local
+	path /var/lib/vz
+	content iso,vztmpl,import,backup
+
+lvmthin: local-lvm
+	thinpool data
+	vgname pve
+	content rootdir,images
+
+nfs: nas-copias
+	export /mnt/copias/configuraciones
+	path /mnt/pve/nas-copias
+	server 192.168.30.20
+	content backup
+	options vers=4
+	prune-backups keep-last=3
+
+
+== Disco raíz
+pve1: 6.9G 5.4G 83%
+pve2: 6.9G 5.4G 83%
+pve3: 6.9G 5.4G 83%
+
+== Temporizador de copia
+NEXT                            LEFT LAST PASSED UNIT               ACTIVATES
+Sun 2026-11-22 02:44:20 CET 3h 27min -         - copia-config.timer copia-config.service
+

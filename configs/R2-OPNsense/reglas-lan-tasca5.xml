@@ -1,0 +1,82 @@
+<!-- R2-OPNsense · Reglas de la LAN de la Tasca 5 (extracto de /conf/config.xml, modelo nuevo de reglas: OPNsense/Firewall/Filter/rules) -->
+<!-- El config.xml completo no se sube: contiene hashes de contraseñas y claves de certificados. Copia completa en el NAS. -->
+<rules>
+<rule uuid="a84b8eb1-6d27-43d3-98f7-0b4c244750ed">
+            <enabled>1</enabled>
+            <statetype>keep</statetype>
+            <sequence>10</sequence>
+            <action>block</action>
+            <quick>1</quick>
+            <interfacenot>0</interfacenot>
+            <interface>lan</interface>
+            <received-on-not>0</received-on-not>
+            <direction>in</direction>
+            <ipprotocol>inet</ipprotocol>
+            <protocol>TCP/UDP</protocol>
+            <source_net>lan</source_net>
+            <source_not>0</source_not>
+            <destination_net>172.16.222.1</destination_net>
+            <destination_not>1</destination_not>
+            <destination_port>53</destination_port>
+            <disablereplyto>0</disablereplyto>
+            <log>1</log>
+            <allowopts>0</allowopts>
+            <nosync>0</nosync>
+            <nopfsync>0</nopfsync>
+            <tcpflags_any>0</tcpflags_any>
+            <description>Tasca 5: DNS externo bloqueado</description>
+            </rule>
+          
+<rule uuid="79fca2a8-4ee1-45f1-87ff-8aeeed3d3b1d">
+            <enabled>1</enabled>
+            <statetype>keep</statetype>
+            <sequence>20</sequence>
+            <action>pass</action>
+            <quick>1</quick>
+            <interfacenot>0</interfacenot>
+            <interface>lan</interface>
+            <received-on-not>0</received-on-not>
+            <direction>in</direction>
+            <ipprotocol>inet</ipprotocol>
+            <protocol>TCP</protocol>
+            <source_net>lan</source_net>
+            <source_not>0</source_not>
+            <destination_net>any</destination_net>
+            <destination_not>0</destination_not>
+            <destination_port>80</destination_port>
+            <disablereplyto>0</disablereplyto>
+            <log>1</log>
+            <allowopts>0</allowopts>
+            <nosync>0</nosync>
+            <nopfsync>0</nopfsync>
+            <tcpflags_any>0</tcpflags_any>
+            <description>Tasca 5: HTTP permitido y registrado</description>
+            </rule>
+          
+<rule uuid="019cd9b3-bcea-4560-a1d5-7372934acd0f">
+            <enabled>1</enabled>
+            <statetype>keep</statetype>
+            <sequence>100</sequence>
+            <action>pass</action>
+            <quick>1</quick>
+            <interfacenot>0</interfacenot>
+            <interface>lan</interface>
+            <received-on-not>0</received-on-not>
+            <direction>in</direction>
+            <ipprotocol>inet</ipprotocol>
+            <protocol>any</protocol>
+            <source_net>lan</source_net>
+            <source_not>0</source_not>
+            <destination_net>any</destination_net>
+            <destination_not>0</destination_not>
+            <disablereplyto>0</disablereplyto>
+            <log>0</log>
+            <allowopts>0</allowopts>
+            <nosync>0</nosync>
+            <nopfsync>0</nopfsync>
+            <tcpflags_any>0</tcpflags_any>
+            <description>Default allow LAN to any rule</description>
+            </rule>
+          
+
+</rules>

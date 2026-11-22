@@ -1,0 +1,117 @@
+# Tasca 5 · Espacio de copias en TrueNAS (21/11/2026)
+
+== Sistema
+version: 25.10.7 · hostname: nas · RAM: 2978 MB
+
+== Pool
+copias estado: ONLINE · sano: True · discos: ['sdb']
+
+== Datasets (usado / disponible / cuota)
+copias                         68.9 MB usados   18.8 GB libres  cuota 0 GB
+copias/configuraciones          1.4 MB usados    4.0 GB libres  cuota 4 GB
+copias/imagenes                63.4 MB usados   13.9 GB libres  cuota 14 GB
+
+== Recursos compartidos
+NFS /mnt/copias/configuraciones redes ['192.168.30.0/24'] mapall copias activo True
+SMB configuraciones /mnt/copias/configuraciones activo True
+
+== Servicios
+cifs RUNNING arranque automatico: True
+nfs RUNNING arranque automatico: True
+ssh RUNNING arranque automatico: True
+
+== Usuario de copias
+copias uid 3000 grupo copias home /mnt/copias/configuraciones smb True ssh con contraseña True
+
+== Tareas de instantáneas
+copias recursiva a las 3:00 se guardan 2 WEEK
+
+== Contenido (ls -la de cada carpeta; actualizado el 22/11 tras las copias de Windows)
+--- configuraciones/deb-produccion
+-rw-r--r--  1 copias copias 66540 21/11-22:52 config-20261121-2252.tar.gz
+-rw-r--r--  1 copias copias    94 21/11-22:52 config-20261121-2252.tar.gz.sha256
+-rw-r--r--  1 copias copias 46739 21/11-22:52 paquetes-20261121-2252.txt
+--- configuraciones/dump
+--- configuraciones/nas
+-rw-r--r--  1 copias copias 835584 21/11-22:55 nas-config-20261121-2255.db
+--- configuraciones/pve1
+-rw-r--r--  1 copias copias 82016 21/11-23:15 config-20261121-2315.tar.gz
+-rw-r--r--  1 copias copias    94 21/11-23:15 config-20261121-2315.tar.gz.sha256
+-rw-r--r--  1 copias copias 81931 21/11-23:16 config-20261121-2316.tar.gz
+-rw-r--r--  1 copias copias    94 21/11-23:16 config-20261121-2316.tar.gz.sha256
+-rw-r--r--  1 copias copias 20682 21/11-23:15 paquetes-20261121-2315.txt
+-rw-r--r--  1 copias copias 20682 21/11-23:16 paquetes-20261121-2316.txt
+--- configuraciones/pve2
+-rw-r--r--  1 copias copias 81342 21/11-23:15 config-20261121-2315.tar.gz
+-rw-r--r--  1 copias copias    94 21/11-23:15 config-20261121-2315.tar.gz.sha256
+-rw-r--r--  1 copias copias 81271 21/11-23:16 config-20261121-2316.tar.gz
+-rw-r--r--  1 copias copias    94 21/11-23:16 config-20261121-2316.tar.gz.sha256
+-rw-r--r--  1 copias copias 20682 21/11-23:15 paquetes-20261121-2315.txt
+-rw-r--r--  1 copias copias 20682 21/11-23:16 paquetes-20261121-2316.txt
+--- configuraciones/pve3
+-rw-r--r--  1 copias copias 82139 21/11-23:15 config-20261121-2315.tar.gz
+-rw-r--r--  1 copias copias    94 21/11-23:15 config-20261121-2315.tar.gz.sha256
+-rw-r--r--  1 copias copias 82081 21/11-23:16 config-20261121-2316.tar.gz
+-rw-r--r--  1 copias copias    94 21/11-23:16 config-20261121-2316.tar.gz.sha256
+-rw-r--r--  1 copias copias 20682 21/11-23:15 paquetes-20261121-2315.txt
+-rw-r--r--  1 copias copias 20682 21/11-23:16 paquetes-20261121-2316.txt
+--- configuraciones/r1-mikrotik
+-rw-r--r--  1 copias copias 22842 21/11-22:48 R1-2026-11-21.backup
+-rw-r--r--  1 copias copias  2512 21/11-22:48 R1-2026-11-21.rsc
+--- configuraciones/r2-opnsense
+-rw-r-----  1 copias copias 38399 21/11-22:45 config-20261121-2145.xml
+-rw-r-----  1 copias copias 42317 21/11-22:48 config-20261121-2148.xml
+--- configuraciones/r3-debian
+-rw-r--r--  1 copias copias 65444 21/11-22:42 config-20261121-2242.tar.gz
+-rw-r--r--  1 copias copias    94 21/11-22:42 config-20261121-2242.tar.gz.sha256
+-rw-r--r--  1 copias copias 65780 21/11-22:48 config-20261121-2248.tar.gz
+-rw-r--r--  1 copias copias    94 21/11-22:48 config-20261121-2248.tar.gz.sha256
+-rw-r--r--  1 copias copias 65780 21/11-23:15 config-20261121-2315.tar.gz
+-rw-r--r--  1 copias copias    94 21/11-23:15 config-20261121-2315.tar.gz.sha256
+-rw-r--r--  1 copias copias  9363 21/11-22:42 paquetes-20261121-2242.txt
+-rw-r--r--  1 copias copias  9363 21/11-22:48 paquetes-20261121-2248.txt
+-rw-r--r--  1 copias copias  9363 21/11-23:15 paquetes-20261121-2315.txt
+--- configuraciones/w11-direccion
+--- configuraciones/ws2025
+--- configuraciones/ws2025/20261121
+-rw-rw-r-- 1 copias copias    954 21/11-23:33 actualizaciones.txt
+-rw-rw-r-- 1 copias copias 172032 21/11-23:33 cortafuegos.wfw
+-rw-rw-r-- 1 copias copias  16922 21/11-23:33 directivas-seguridad.inf
+-rw-rw-r-- 1 copias copias   1130 21/11-23:32 ipconfig.txt
+-rw-rw-r-- 1 copias copias   1085 21/11-23:32 red.txt
+-rw-rw-r-- 1 copias copias   2126 21/11-23:33 roles.txt
+-rw-rw-r-- 1 copias copias   3261 21/11-23:32 systeminfo.txt
+-rw-rw-r-- 1 copias copias  13028 21/11-23:32 tcpip.reg
+-rw-rw-r-- 1 copias copias    597 21/11-23:32 usuarios.txt
+--- configuraciones/w11-direccion/20261121
+-rw-rw-r-- 1 copias copias   1142 21/11-23:52 actualizaciones.txt
+-rw-rw-r-- 1 copias copias  12364 21/11-23:52 aplicaciones.txt
+-rw-rw-r-- 1 copias copias 286720 21/11-23:52 cortafuegos.wfw
+-rw-rw-r-- 1 copias copias  16608 21/11-23:52 directivas-seguridad.inf
+-rw-rw-r-- 1 copias copias    412 21/11-23:52 equipo.txt
+-rw-rw-r-- 1 copias copias   1138 21/11-23:52 ipconfig.txt
+-rw-rw-r-- 1 copias copias   1073 21/11-23:52 red.txt
+-rw-rw-r-- 1 copias copias   3000 21/11-23:52 systeminfo.txt
+-rw-rw-r-- 1 copias copias  13068 21/11-23:52 tcpip.reg
+-rw-rw-r-- 1 copias copias    604 21/11-23:52 usuarios.txt
+--- imagenes
+-rw------- 1 copias copias 66335232 21/11-23:22 R1-MikroTik-CHR-20261121.ova
+-rw-r--r-- 1 copias copias       95 21/11-23:22 R1-MikroTik-CHR-20261121.ova.sha256
+
+== Tamaño total
+2.4M	configuraciones
+64M	imagenes
+111K	configuraciones/deb-produccion
+2	configuraciones/dump
+817K	configuraciones/nas
+201K	configuraciones/pve1
+200K	configuraciones/pve2
+201K	configuraciones/pve3
+25K	configuraciones/r1-mikrotik
+79K	configuraciones/r2-opnsense
+221K	configuraciones/r3-debian
+329K	configuraciones/w11-direccion
+207K	configuraciones/ws2025
+
+(configuraciones/dump la crea Proxmox para las copias vzdump del almacenamiento nas-copias; está vacía)
+

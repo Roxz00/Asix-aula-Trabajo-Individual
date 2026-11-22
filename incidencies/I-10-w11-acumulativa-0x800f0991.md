@@ -1,0 +1,11 @@
+# I-10 · W11: la actualización acumulativa falla con 0x800F0991
+
+- **Síntoma:** de las 5 actualizaciones pendientes de W11, cuatro se instalan bien. La *2025-11 Actualización acumulativa para Windows 11 Version 23H2 (KB5068865)* termina con **código 4 (error)** y `HResult 0x800F0991` ([historial](../evidencies/t5-w11-historial-actualizaciones-20261122.png)).
+- **Impacto:** el cliente se queda en la compilación 22631.2861 (diciembre de 2023), sin dos años de parches de seguridad.
+- **Hipótesis:** (1) la descarga está dañada o la red ha cortado; (2) al almacén de componentes de Windows (CBS) le falta algo que esa acumulativa necesita.
+- **Prueba que las distingue:** la descarga terminó con código 2 (correcto) y las otras cuatro, que van por el mismo camino, se instalaron: no es la red. `0x800F0991` es un error del servicio de componentes (CBS), no de Windows Update. Es la hipótesis 2.
+- **Acción:** `DISM /Online /Cleanup-Image /RestoreHealth` ([captura](../evidencies/t5-w11-dism-restorehealth-20261122.png)), que repara el almacén de componentes descargando de Windows Update lo que falta, y volver a lanzar la actualización.
+- **Resultado:** DISM terminó bien, pero al repetir la búsqueda Windows Update ya **no ofrece** la acumulativa (`PENDIENTES: 0`, `0x80240024`), y el equipo sigue en 22631.2861 sin reinicio pendiente ([captura](../evidencies/t5-w11-reintento-sin-pendientes-20261122.png)). **Sin resolver.**
+- **Retorno:** puerta de enlace `.1` y DNS `172.16.222.1` otra vez en W11 al acabar; excepción temporal de R3 quitada.
+- **Siguiente paso:** instalar la actualización de características a 25H2 (con el Asistente de instalación o la ISO), en el aula, por la red sin límite. Es de varios GB y con R1 de puerta de enlace iría a 1 Mbit/s ([I-03](I-03-descargas-lentas-por-r1.md)).
+- **Medida para evitar que se repita:** no dejar los clientes dos años sin actualizar. Además, la **versión 23H2 de Windows 11 Pro ya no tiene soporte** desde noviembre de 2025 (KB5068865 es su última acumulativa): antes de pasar a producción hay que subir el cliente a una versión con soporte (24H2/25H2) con la actualización de características.

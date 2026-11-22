@@ -1,0 +1,8 @@
+[Unit]
+Description=Copia de la configuración en el NAS (TrueNAS)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/copia-config.sh

@@ -1,0 +1,87 @@
+# Tasca 5 · Conexión permitida y bloqueada en los tres routers (21/11/2026, PC de casa)
+# Cliente: CLI-Debian-Produccion 192.168.30.101. Se usa cada router como puerta de enlace con una ruta temporal (prueba-cli.sh).
+# Permitida: HTTP (TCP 80) a 1.1.1.1 · Bloqueada: DNS (TCP/UDP 53) a cualquier servidor que no sea el de la empresa 172.16.222.1
+# Las horas de OPNsense están en UTC (CET = UTC+1).
+
+################ R3 ################
+--- Antes de añadir las reglas
+default via 192.168.30.1 dev enp0s3 proto static metric 100 
+== 22:46:06 · ruta usada hacia Internet: 1.1.1.1 via 192.168.30.3
+PERMITIDA  HTTP 1.1.1.1:80 -> HTTP/1.1 301 Moved Permanently
+BLOQUEADA  DNS  8.8.8.8:53 -> CONECTA (abierta)
+
+--- Después de añadir las reglas
+== 22:46:21 · ruta usada hacia Internet: 1.1.1.1 via 192.168.30.3
+PERMITIDA  HTTP 1.1.1.1:80 -> HTTP/1.1 301 Moved Permanently
+BLOQUEADA  DNS  8.8.8.8:53 -> NO CONECTA (descartada)
+
+--- Registro del router
+2026-11-21T22:46:21+01:00 r3-debian kernel: R3-PERMITE-HTTP IN=enp0s8 OUT=enp0s3 MAC=xx:xx:xx:xx:xx:xx SRC=192.168.30.101 DST=1.1.1.1 LEN=60 TOS=0x00 PREC=0x00 TTL=63 ID=18277 DF PROTO=TCP SPT=47396 DPT=80 WINDOW=64240 RES=0x00 SYN URGP=0 
+2026-11-21T22:46:21+01:00 r3-debian kernel: R3-BLOQ-DNS-EXT IN=enp0s8 OUT=enp0s3 MAC=xx:xx:xx:xx:xx:xx SRC=192.168.30.101 DST=8.8.8.8 LEN=60 TOS=0x00 PREC=0x00 TTL=63 ID=29523 DF PROTO=TCP SPT=40120 DPT=53 WINDOW=64240 RES=0x00 SYN URGP=0 
+2026-11-21T22:46:22+01:00 r3-debian kernel: R3-BLOQ-DNS-EXT IN=enp0s8 OUT=enp0s3 MAC=xx:xx:xx:xx:xx:xx SRC=192.168.30.101 DST=8.8.8.8 LEN=60 TOS=0x00 PREC=0x00 TTL=63 ID=29524 DF PROTO=TCP SPT=40120 DPT=53 WINDOW=64240 RES=0x00 SYN URGP=0 
+2026-11-21T22:46:23+01:00 r3-debian kernel: R3-BLOQ-DNS-EXT IN=enp0s8 OUT=enp0s3 MAC=xx:xx:xx:xx:xx:xx SRC=192.168.30.101 DST=8.8.8.8 LEN=60 TOS=0x00 PREC=0x00 TTL=63 ID=29525 DF PROTO=TCP SPT=40120 DPT=53 WINDOW=64240 RES=0x00 SYN URGP=0 
+2026-11-21T22:46:24+01:00 r3-debian kernel: R3-BLOQ-DNS-EXT IN=enp0s8 OUT=enp0s3 MAC=xx:xx:xx:xx:xx:xx SRC=192.168.30.101 DST=8.8.8.8 LEN=60 TOS=0x00 PREC=0x00 TTL=63 ID=29526 DF PROTO=TCP SPT=40120 DPT=53 WINDOW=64240 RES=0x00 SYN URGP=0 
+
+
+################ R1 ################
+--- Antes de añadir las reglas
+== 22:46:34 · ruta usada hacia Internet: 1.1.1.1 via 192.168.30.1
+PERMITIDA  HTTP 1.1.1.1:80 -> HTTP/1.1 301 Moved Permanently
+BLOQUEADA  DNS  8.8.8.8:53 -> CONECTA (abierta)
+
+--- Después de añadir las reglas
+== 22:46:54 · ruta usada hacia Internet: 1.1.1.1 via 192.168.30.1
+PERMITIDA  HTTP 1.1.1.1:80 -> HTTP/1.1 301 Moved Permanently
+BLOQUEADA  DNS  8.8.8.8:53 -> NO CONECTA (descartada)
+
+--- Registro del router
+ 2026-11-21 22:46:39 system,info filter rule added by ssh-cmd:admin@10.0.2.2 (*1 = /ip firewall filter add action=drop chain=forward comment="Tasca 5: DNS externo bloqueado (TCP)" dst-address=!172.16.222.1 dst-port=53 in-interface=ether2-LAN log=yes log-prefix=R1-BLOQ-DNS-EXT protocol=tcp)
+ 2026-11-21 22:46:39 system,info filter rule added by ssh-cmd:admin@10.0.2.2 (*2 = /ip firewall filter add action=drop chain=forward comment="Tasca 5: DNS externo bloqueado (UDP)" dst-address=!172.16.222.1 dst-port=53 in-interface=ether2-LAN log=yes log-prefix=R1-BLOQ-DNS-EXT protocol=udp)
+ 2026-11-21 22:46:39 system,info filter rule added by ssh-cmd:admin@10.0.2.2 (*3 = /ip firewall filter add action=accept chain=forward comment="Tasca 5: HTTP permitido y registrado" connection-state=new dst-port=80 in-interface=ether2-LAN log=yes log-prefix=R1-PERMITE-HTTP out-interface=ether1-WAN protocol=tcp src-address=192.168.30.0/24)
+ 2026-11-21 22:46:40 firewall,info R1-BLOQ-DNS-EXT forward: in:ether2-LAN out:ether1-WAN, connection-state:new src-mac xx:xx:xx:xx:xx:xx, proto TCP (SYN), 192.168.30.101:35508->8.8.8.8:53, len 60
+ 2026-11-21 22:46:41 firewall,info R1-BLOQ-DNS-EXT forward: in:ether2-LAN out:ether1-WAN, connection-state:new src-mac xx:xx:xx:xx:xx:xx, proto TCP (SYN), 192.168.30.101:35508->8.8.8.8:53, len 60
+ 2026-11-21 22:46:42 firewall,info R1-BLOQ-DNS-EXT forward: in:ether2-LAN out:ether1-WAN, connection-state:new src-mac xx:xx:xx:xx:xx:xx, proto TCP (SYN), 192.168.30.101:35508->8.8.8.8:53, len 60
+ 2026-11-21 22:46:43 firewall,info R1-BLOQ-DNS-EXT forward: in:ether2-LAN out:ether1-WAN, connection-state:new src-mac xx:xx:xx:xx:xx:xx, proto TCP (SYN), 192.168.30.101:35508->8.8.8.8:53, len 60
+ 2026-11-21 22:46:43 firewall,info R1-BLOQ-DNS-EXT forward: in:ether2-LAN out:ether1-WAN, connection-state:invalid src-mac xx:xx:xx:xx:xx:xx, proto TCP (RST), 192.168.30.101:41788->8.8.8.8:53, len 40
+ 2026-11-21 22:46:56 firewall,info R1-BLOQ-DNS-EXT forward: in:ether2-LAN out:ether1-WAN, connection-state:invalid src-mac xx:xx:xx:xx:xx:xx, proto TCP (RST), 192.168.30.101:41788->8.8.8.8:53, len 40
+ 2026-11-21 22:46:58 firewall,info R1-PERMITE-HTTP forward: in:ether2-LAN out:ether1-WAN, connection-state:new src-mac xx:xx:xx:xx:xx:xx, proto TCP (SYN), 192.168.30.101:52640->1.1.1.1:80, len 60
+ 2026-11-21 22:46:58 firewall,info R1-BLOQ-DNS-EXT forward: in:ether2-LAN out:ether1-WAN, connection-state:new src-mac xx:xx:xx:xx:xx:xx, proto TCP (SYN), 192.168.30.101:48968->8.8.8.8:53, len 60
+ 2026-11-21 22:46:59 firewall,info R1-BLOQ-DNS-EXT forward: in:ether2-LAN out:ether1-WAN, connection-state:new src-mac xx:xx:xx:xx:xx:xx, proto TCP (SYN), 192.168.30.101:48968->8.8.8.8:53, len 60
+ 2026-11-21 22:47:00 firewall,info R1-BLOQ-DNS-EXT forward: in:ether2-LAN out:ether1-WAN, connection-state:new src-mac xx:xx:xx:xx:xx:xx, proto TCP (SYN), 192.168.30.101:48968->8.8.8.8:53, len 60
+ 2026-11-21 22:47:01 firewall,info R1-BLOQ-DNS-EXT forward: in:ether2-LAN out:ether1-WAN, connection-state:new src-mac xx:xx:xx:xx:xx:xx, proto TCP (SYN), 192.168.30.101:48968->8.8.8.8:53, len 60
+
+Columns: CHAIN, ACTION, BYTES, PACKETS
+# CHAIN    ACTION  BYTES  PACKETS
+;;; Tasca 5: DNS externo bloqueado (TCP)
+0 forward  drop      560       10
+;;; Tasca 5: DNS externo bloqueado (UDP)
+1 forward  drop        0        0
+;;; Tasca 5: HTTP permitido y registrado
+2 forward  accept     60        1
+
+
+
+################ R2 ################
+--- Antes de añadir las reglas
+== 22:47:18 · ruta usada hacia Internet: 1.1.1.1 via 192.168.30.2
+PERMITIDA  HTTP 1.1.1.1:80 -> HTTP/1.1 301 Moved Permanently
+BLOQUEADA  DNS  8.8.8.8:53 -> CONECTA (abierta)
+
+--- Después de añadir las reglas
+== 22:48:11 · ruta usada hacia Internet: 1.1.1.1 via 192.168.30.2
+PERMITIDA  HTTP 1.1.1.1:80 -> HTTP/1.1 301 Moved Permanently
+BLOQUEADA  DNS  8.8.8.8:53 -> NO CONECTA (descartada)
+
+--- Registro del router
+<134>1 2026-11-21T21:48:12+00:00 OPNsense.internal filterlog 74323 - [meta sequenceId="77"] 73,,,79fca2a8-4ee1-45f1-87ff-8aeeed3d3b1d,em1,match,pass,in,4,0x0,,64,56279,0,DF,6,tcp,60,192.168.30.101,1.1.1.1,39350,80,0,S,385119753,,64240,,mss;sackOK;TS;nop;wscale
+<134>1 2026-11-21T21:48:12+00:00 OPNsense.internal filterlog 74323 - [meta sequenceId="79"] 69,,,a84b8eb1-6d27-43d3-98f7-0b4c244750ed,em1,match,block,in,4,0x0,,64,49590,0,DF,6,tcp,60,192.168.30.101,8.8.8.8,56994,53,0,S,3491339366,,64240,,mss;sackOK;TS;nop;wscale
+<134>1 2026-11-21T21:48:13+00:00 OPNsense.internal filterlog 74323 - [meta sequenceId="80"] 69,,,a84b8eb1-6d27-43d3-98f7-0b4c244750ed,em1,match,block,in,4,0x0,,64,49591,0,DF,6,tcp,60,192.168.30.101,8.8.8.8,56994,53,0,S,3491339366,,64240,,mss;sackOK;TS;nop;wscale
+<134>1 2026-11-21T21:48:14+00:00 OPNsense.internal filterlog 74323 - [meta sequenceId="81"] 69,,,a84b8eb1-6d27-43d3-98f7-0b4c244750ed,em1,match,block,in,4,0x0,,64,49592,0,DF,6,tcp,60,192.168.30.101,8.8.8.8,56994,53,0,S,3491339366,,64240,,mss;sackOK;TS;nop;wscale
+<134>1 2026-11-21T21:48:15+00:00 OPNsense.internal filterlog 74323 - [meta sequenceId="82"] 69,,,a84b8eb1-6d27-43d3-98f7-0b4c244750ed,em1,match,block,in,4,0x0,,64,49593,0,DF,6,tcp,60,192.168.30.101,8.8.8.8,56994,53,0,S,3491339366,,64240,,mss;sackOK;TS;nop;wscale
+
+
+--- Reglas añadidas en OPNsense (pfctl -sr generado a partir del modelo de reglas)
+block drop in log quick on em1 inet proto tcp from (em1:network) to ! 172.16.222.1 port = domain label "a84b8eb1-..."   <- Tasca 5: DNS externo bloqueado
+block drop in log quick on em1 inet proto udp from (em1:network) to ! 172.16.222.1 port = domain label "a84b8eb1-..."
+pass in log quick on em1 inet proto tcp from (em1:network) to any port = http flags S/SA keep state label "79fca2a8-..." <- Tasca 5: HTTP permitido
+pass in quick on em1 inet from (em1:network) to any flags S/SA keep state label "019cd9b3-..."                         <- Default allow LAN to any

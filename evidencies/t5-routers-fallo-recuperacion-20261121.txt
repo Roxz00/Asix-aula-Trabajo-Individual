@@ -1,0 +1,98 @@
+# Tasca 5 · Fallo controlado y recuperación desde la copia del NAS (21/11/2026)
+
+################ R3 ################
+FALLO 22:49:08
+'/etc/nftables.conf' borrado
+'/etc/sysctl.d/99-enrutador.conf' borrado
+
+22:49:30 tras reiniciar
+failed
+0
+bash: línea 1: sysctl: orden no encontrada
+
+== 22:49:31 · ruta usada hacia Internet: 1.1.1.1 via 192.168.30.3
+PERMITIDA  HTTP 1.1.1.1:80 -> SIN RESPUESTA
+BLOQUEADA  DNS  8.8.8.8:53 -> NO CONECTA (descartada)
+
+RECUPERACION 22:49:49
+copia: /mnt/copias/r3-debian/config-20261121-2248.tar.gz
+config-20261121-2248.tar.gz: La suma coincide
+etc/nftables.conf
+etc/sysctl.d/
+etc/sysctl.d/99-enrutador.conf
+etc/sysctl.d/README.sysctl
+net.ipv4.ip_forward = 1
+active
+TIEMPO DE RECUPERACION: 1 s
+
+== 22:49:50 · ruta usada hacia Internet: 1.1.1.1 via 192.168.30.3
+PERMITIDA  HTTP 1.1.1.1:80 -> HTTP/1.1 301 Moved Permanently
+BLOQUEADA  DNS  8.8.8.8:53 -> NO CONECTA (descartada)
+
+
+################ R1 ################
+FALLO 22:50:05
+
+
+
+== 22:50:02 · ruta usada hacia Internet: 1.1.1.1 via 192.168.30.1
+PERMITIDA  HTTP 1.1.1.1:80 -> SIN RESPUESTA
+BLOQUEADA  DNS  8.8.8.8:53 -> NO CONECTA (descartada)
+
+RECUPERACION 22:50:15
+  status: connecting
+
+      status: finished
+  downloaded: 22KiB   
+       total: 22KiB   
+    duration: 0s      
+
+Columns: NAME, TYPE, SIZE, LAST-MODIFIED
+# NAME                 TYPE    SIZE     LAST-MODIFIED      
+0 R1-restaurar.backup  backup  22.3KiB  2026-11-21 22:50:15
+
+System configuration restored, rebooting now
+
+R1 vuelve a responder con ruta: 17 s
+0  ;;; NAT LAN -> WAN
+   chain=srcnat action=masquerade out-interface=ether1-WAN
+
+Flags: A - ACTIVE; s - STATIC
+Columns: DST-ADDRESS, GATEWAY, ROUTING-TABLE, DISTANCE
+#    DST-ADDRESS  GATEWAY   ROUTING-TABLE  DISTANCE
+;;; Default via NAT VirtualBox
+0 As 0.0.0.0/0    10.0.2.2  main                  1
+
+
+== 22:50:29 · ruta usada hacia Internet: 1.1.1.1 via 192.168.30.1
+PERMITIDA  HTTP 1.1.1.1:80 -> HTTP/1.1 301 Moved Permanently
+BLOQUEADA  DNS  8.8.8.8:53 -> NO CONECTA (descartada)
+
+
+################ R2 ################
+FALLO 21:50:44 UTC
+      <ipaddr>192.168.30.222</ipaddr>
+
+2 packets transmitted, 0 received, 100% packet loss, time 1004ms
+
+== 22:50:55 · ruta usada hacia Internet: 1.1.1.1 via 192.168.30.2
+PERMITIDA  HTTP 1.1.1.1:80 -> HTTP/1.1 301 Moved Permanently
+BLOQUEADA  DNS  8.8.8.8:53 -> NO CONECTA (descartada)
+
+192.168.30.2 dev enp0s3 lladdr xx:xx:xx:xx:xx:xx REACHABLE 
+-- caché ARP vaciada
+== 22:51:07 · ruta usada hacia Internet: 1.1.1.1 via 192.168.30.2
+PERMITIDA  HTTP 1.1.1.1:80 -> SIN RESPUESTA
+BLOQUEADA  DNS  8.8.8.8:53 -> NO CONECTA (descartada)
+192.168.30.2 dev enp0s3 FAILED 
+
+-- Recuperación en la consola de VirtualBox (capturas t5-opnsense-recuperacion-consola-*.png):
+   login root · opción 8 (Shell)
+   scp copias@192.168.30.20:/mnt/copias/configuraciones/r2-opnsense/config-20261121-2148.xml /tmp/restaurar.xml
+   cp /tmp/restaurar.xml /conf/config.xml && configctl interface reconfigure lan && configctl filter reload
+   -> em1 vuelve a 192.168.30.2 · RECUPERADO 21:52:06 UTC
+Tiempo de recuperación en consola: 57 s · corte total (de 21:50:44 a 21:52:06 UTC): 82 s
+== 22:52:17 · ruta usada hacia Internet: 1.1.1.1 via 192.168.30.2
+PERMITIDA  HTTP 1.1.1.1:80 -> HTTP/1.1 301 Moved Permanently
+BLOQUEADA  DNS  8.8.8.8:53 -> NO CONECTA (descartada)
+
