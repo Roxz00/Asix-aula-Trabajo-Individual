@@ -46,10 +46,12 @@ TAREAS = {
                    ("configs/", "configuraciones exportadas de cada equipo"),
                    ("evidencies/", "el estado leído de cada equipo (t5-*)")]),
     6: dict(titulo="Almacenamiento y recuperación",
-            resumen="Tres tipos de RAID creados y probados en el entorno individual: qué aporta cada uno y "
-                    "qué pasa cuando falla un disco.",
+            resumen="Tres tipos de RAID creados y probados en el entorno individual, qué aporta cada uno y "
+                    "qué pasa cuando falla un disco, y un espejo entre dos equipos (cliente Debian y NAS por iSCSI).",
             docs=["docs/06-recuperacio.md"],
             donde=[("docs/06-recuperacio.md", "el documento completo"),
+                   ("scripts/t6-raid.sh", "el script de las pruebas"),
+                   ("decisions/D-09-espejo-entre-equipos-iscsi.md", "por qué el espejo se hace con iSCSI"),
                    ("evidencies/", "los comandos y sus salidas (t6-*)")]),
     7: dict(titulo="Rendimiento y diagnóstico",
             resumen="Análisis de los recursos del PC con distintas cargas de VMs: qué se satura, cuántas VMs "
@@ -94,7 +96,9 @@ def enlaces_a_github(texto, origen):
             return m.group(0)
         ruta, _, ancla = destino.partition("#")
         absoluta = (base / ruta).resolve()
-        rel = absoluta.relative_to(REPO).as_posix()
+        if not absoluta.exists():      # no es un enlace (p. ej. «sde[1](F)» de /proc/mdstat dentro de código)
+            return m.group(0)
+        rel =absoluta.relative_to(REPO).as_posix()
         tipo = "tree" if absoluta.is_dir() else "blob"
         return f"[{etiqueta}]({GITHUB}/{tipo}/main/{rel}{'#' + ancla if ancla else ''})"
     return re.sub(r"\[([^\]]*)\]\(([^)\s]+)\)", cambia, texto)

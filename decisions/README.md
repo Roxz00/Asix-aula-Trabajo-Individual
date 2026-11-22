@@ -13,3 +13,4 @@ los criterios y qué obligaría a cambiarla. Plantilla: [_plantilla.md](_plantil
 | [D-06](D-06-clientes.md) | Un cliente de cada tipo: W11 Pro y Debian con GNOME |
 | [D-07](D-07-servidores-debian-vm.md) | Los Debian de servicios y datos, como VM (se montan en el grupo) |
 | [D-08](D-08-copias-de-configuracion.md) | Copias: configuración de cada equipo en el pool `copias` del NAS |
+| [D-09](D-09-espejo-entre-equipos-iscsi.md) | Espejo entre dos equipos: RAID 1 de mdadm con un disco iSCSI del NAS |

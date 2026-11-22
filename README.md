@@ -30,7 +30,7 @@ clúster Proxmox VE de 3 nodos (anidado y vacío), Windows Server 2025 fuera del
 | Tasca 3 «Rack i interconnexió» | Solo grupal | — | — |
 | Tasca 4 «Disseny físic i lògic» | [04-disseny](docs/04-disseny.md), [diagrames/](diagrames/) | [PDF](lliuraments/Tasca4_Lliurament_Individual.pdf) | Ejecutado (con ping, traceroute y tablas de rutas) |
 | Tasca 5 «Instal·lació i comunicacions» | [05-installacions](docs/05-installacions.md) | [PDF](lliuraments/Tasca5_Lliurament_Individual.pdf) | Ejecutado (migración y servidores Debian: en el grupo) |
-| Tasca 6 «Emmagatzematge i recuperació» | `06-recuperacio` | — | Pendiente |
+| Tasca 6 «Emmagatzematge i recuperació» | [06-recuperacio](docs/06-recuperacio.md) | [PDF](lliuraments/Tasca6_Lliurament_Individual.pdf) | Ejecutado (RAID 0, 1 y 5 + espejo iSCSI entre dos equipos) |
 | Tasca 7 «Rendiment i diagnòstic» | `07-rendiment` | — | Pendiente (hay medidas de RAM en [05-recursos](docs/05-recursos.md)) |
 | Tasca 8 (Final) | — | — | El 25/11, en clase |
 
@@ -43,11 +43,11 @@ Estados posibles: Pendiente · En curso · Ejecutado · Simulado.
 | R1-MikroTik-CHR | RouterOS 7.25.1 CHR · WAN NAT 10.0.2.15 | 192.168.30.1 | 256 MB | ✅ |
 | R2-OPNsense | OPNsense 26.7.9 · WAN NAT 10.0.2.15 | 192.168.30.2 | 1 GB | ✅ |
 | R3-Debian-nftables | Debian 13.8 + nftables · WAN NAT 10.0.2.15 | 192.168.30.3 | 512 MB | ✅ |
-| NAS-TrueNAS | TrueNAS SCALE 25.10.7 (pool `copias`: configuraciones e imágenes) | 192.168.30.20 | 3 GB | ✅ |
+| NAS-TrueNAS | TrueNAS SCALE 25.10.7 (pool `copias`: configuraciones, imágenes y el disco iSCSI `espejo-deb` de la Tasca 6) | 192.168.30.20 | 3 GB | ✅ |
 | WS2025 | Windows Server 2025 (fuera del clúster) | 192.168.30.21 | 2 GB | ✅ |
 | PVE-1 / PVE-2 / PVE-3 | Proxmox VE 9.2.32 · clúster `cluster-g3` vacío | 192.168.30.32 / .33 / .34 | 1,5 GB c/u | ✅ |
 | CLI-W11-Direccion | Windows 11 Pro | 192.168.30.100 | 4 GB | ✅ |
-| CLI-Debian-Produccion | Debian 13.8 + GNOME | 192.168.30.101 | 2 GB | ✅ |
+| CLI-Debian-Produccion | Debian 13.8 + GNOME · RAID de la Tasca 6 (9 discos de 256 MB) | 192.168.30.101 | 2 GB | ✅ |
 
 Todo encendido ocupa ~14,8 GB: en casa se trabaja por escenarios
 ([00-entorno-pruebas § 8](docs/00-entorno-pruebas.md#8-cuántas-máquinas-se-pueden-arrancar-a-la-vez)).

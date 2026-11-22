@@ -1,0 +1,258 @@
+# Tasca 6 (Apte+) · RAID 1 entre dos equipos: disco local de deb-produccion + LUN iSCSI de NAS-TrueNAS · 22/11/2026
+# NAS (API REST de TrueNAS): zvol copias/espejo-deb (256 MiB, sparse) · portal 192.168.30.20:3260 · iniciador permitido
+#   iqn.2026-11.local.g3:deb-produccion · destino iqn.2005-10.org.freenas.ctl:espejo-deb · extent DISK · LUN 0 · servicio iscsitarget RUNNING
+# Cliente: open-iscsi (replacement_timeout 15 s, inicio automático) + mdadm RAID 1 con bitmap interno y el disco remoto en write-mostly.
+######## APTE+ · RAID 1 ENTRE DOS EQUIPOS (deb-produccion + NAS-TrueNAS por iSCSI) (12:55:21)
+
+== 12:55:22 · Iniciador iSCSI de deb-produccion y conexión al NAS (192.168.30.20)
+192.168.30.20:3260,1 iqn.2005-10.org.freenas.ctl:espejo-deb
+Login to [iface: default, target: iqn.2005-10.org.freenas.ctl:espejo-deb, portal: 192.168.30.20,3260] successful.
+NAME  SIZE TRAN   VENDOR   MODEL
+sde   256M iscsi  TrueNAS  iSCSI Disk
+sdj   256M sata   ATA      VBOX HARDDISK
+
+== 12:55:25 · RAID 1 (md10): sdj local + /dev/sde remoto (write-mostly: se lee del disco local)
+mdadm: array /dev/md10 started.
+Sincronización inicial por la red: 1,6 s
+
+== 12:55:28 · /proc/mdstat
+Personalities : [raid0] [raid1] [raid6] [raid5] [raid4] 
+md10 : active raid1 sde[1](W) sdj[0]
+      261120 blocks super 1.2 [2/2] [UU]
+      bitmap: 1/1 pages [4KB], 65536KB chunk
+
+md0 : active raid0 sdk[1] sdb[0]
+      520192 blocks super 1.2 512k chunks
+      
+md5 : active raid5 sdg[4] sdh[3] sdf[0]
+      520192 blocks super 1.2 level 5, 512k chunk, algorithm 2 [3/3] [UUU]
+      
+md1 : active raid1 sdc[3](S) sdi[2] sdd[0]
+      261120 blocks super 1.2 [2/2] [UU]
+      
+unused devices: <none>
+
+== 12:55:28 · mdadm --detail /dev/md10
+        Raid Level : raid1
+        Array Size : 261120 (255.00 MiB 267.39 MB)
+      Raid Devices : 2
+     Intent Bitmap : Internal
+             State : active 
+    Active Devices : 2
+   Working Devices : 2
+    Failed Devices : 0
+     Spare Devices : 0
+Consistency Policy : bitmap
+       0       8      144        0      active sync   /dev/sdj
+       1       8       64        1      active sync writemostly   /dev/sde
+
+
+== 12:55:34 · Sesión iSCSI
+tcp: [1] 192.168.30.20:3260,1 iqn.2005-10.org.freenas.ctl:espejo-deb (non-flash)
+
+== 12:55:34 · /proc/mdstat
+Personalities : [raid0] [raid1] [raid6] [raid5] [raid4] 
+md10 : active raid1 sde[1](W) sdj[0]
+      261120 blocks super 1.2 [2/2] [UU]
+      bitmap: 1/1 pages [4KB], 65536KB chunk
+
+md0 : active raid0 sdk[1] sdb[0]
+      520192 blocks super 1.2 512k chunks
+      
+md5 : active raid5 sdg[4] sdh[3] sdf[0]
+      520192 blocks super 1.2 level 5, 512k chunk, algorithm 2 [3/3] [UUU]
+      
+md1 : active raid1 sdc[3](S) sdi[2] sdd[0]
+      261120 blocks super 1.2 [2/2] [UU]
+      
+unused devices: <none>
+
+== 12:55:34 · mdadm --detail /dev/md10
+        Raid Level : raid1
+        Array Size : 261120 (255.00 MiB 267.39 MB)
+      Raid Devices : 2
+     Intent Bitmap : Internal
+             State : clean 
+    Active Devices : 2
+   Working Devices : 2
+    Failed Devices : 0
+     Spare Devices : 0
+Consistency Policy : bitmap
+       0       8      144        0      active sync   /dev/sdj
+       1       8       64        1      active sync writemostly   /dev/sde
+
+== 12:55:34 · Datos
+clientes-ficticios.csv: La suma coincide
+imagen-ficticia.bin: La suma coincide
+clientes-ficticios.csv	imagen-ficticia.bin  lost+found  SHA256SUMS
+
+NAS (API de TrueNAS) · zvol copias/espejo-deb · tamaño 256 MiB · ocupado 60.86 MiB
+
+######## PRUEBA 1 · se cae el otro equipo: anfitrión: VBoxManage controlvm NAS-TrueNAS setlinkstate1 off (12:55:43)
+
+== 12:55:46 · Escritura en /srv/espejo con el enlace al NAS cortado
+La escritura terminó en 20,4 s
+
+== 12:56:07 · /proc/mdstat
+Personalities : [raid0] [raid1] [raid6] [raid5] [raid4] 
+md10 : active raid1 sde[1](W)(F) sdj[0]
+      261120 blocks super 1.2 [2/1] [U_]
+      bitmap: 1/1 pages [4KB], 65536KB chunk
+
+md0 : active raid0 sdk[1] sdb[0]
+      520192 blocks super 1.2 512k chunks
+      
+md5 : active raid5 sdg[4] sdh[3] sdf[0]
+      520192 blocks super 1.2 level 5, 512k chunk, algorithm 2 [3/3] [UUU]
+      
+md1 : active raid1 sdc[3](S) sdi[2] sdd[0]
+      261120 blocks super 1.2 [2/2] [UU]
+      
+unused devices: <none>
+
+== 12:56:07 · mdadm --detail /dev/md10
+        Raid Level : raid1
+        Array Size : 261120 (255.00 MiB 267.39 MB)
+      Raid Devices : 2
+     Intent Bitmap : Internal
+             State : active, degraded 
+    Active Devices : 1
+   Working Devices : 1
+    Failed Devices : 1
+     Spare Devices : 0
+Consistency Policy : bitmap
+       0       8      144        0      active sync   /dev/sdj
+       -       0        0        1      removed
+       1       8       64        -      faulty writemostly   /dev/sde
+
+== 12:56:07 · Mensajes del núcleo
+[  516.880296]  connection1:0: ping timeout of 5 secs expired, recv timeout 5, last rx 4295018945, last ping 4295020224, now 4295021504
+[  516.880363]  connection1:0: detected conn error (1022)
+[  531.981745]  session1: session recovery timed out after 15 secs
+[  531.997853] md/raid1:md10: Disk failure on sde, disabling device.
+               md/raid1:md10: Operation continuing on 1 devices.
+
+-- 20 MB nuevos escritos con el NAS caído: /srv/espejo/cambios-sin-nas.bin
+
+-- anfitrión: VBoxManage controlvm NAS-TrueNAS setlinkstate1 on (12:56:18)
+-- 12:56:22 · iSCSI Session State: LOGGED_IN
+-- 12:56:22 · Attached scsi disk sde		State: running
+
+== 12:56:26 · Se vuelve a añadir /dev/sde (el bitmap hace que solo se copie lo cambiado)
+mdadm: re-added /dev/sde
+Resincronización: 1,0 s
+
+== 12:56:28 · /proc/mdstat
+Personalities : [raid0] [raid1] [raid6] [raid5] [raid4] 
+md10 : active raid1 sde[1](W) sdj[0]
+      261120 blocks super 1.2 [2/2] [UU]
+      bitmap: 1/1 pages [4KB], 65536KB chunk
+
+md0 : active raid0 sdk[1] sdb[0]
+      520192 blocks super 1.2 512k chunks
+      
+md5 : active raid5 sdg[4] sdh[3] sdf[0]
+      520192 blocks super 1.2 level 5, 512k chunk, algorithm 2 [3/3] [UUU]
+      
+md1 : active raid1 sdc[3](S) sdi[2] sdd[0]
+      261120 blocks super 1.2 [2/2] [UU]
+      
+unused devices: <none>
+
+== 12:56:28 · mdadm --detail /dev/md10
+        Raid Level : raid1
+        Array Size : 261120 (255.00 MiB 267.39 MB)
+      Raid Devices : 2
+     Intent Bitmap : Internal
+             State : clean 
+    Active Devices : 2
+   Working Devices : 2
+    Failed Devices : 0
+     Spare Devices : 0
+Consistency Policy : bitmap
+       0       8      144        0      active sync   /dev/sdj
+       1       8       64        1      active sync writemostly   /dev/sde
+
+
+######## PRUEBA 2 · se avería el disco local: anfitrión: VBoxManage storageattach … --port 9 --medium none (12:56:34)
+
+== 12:56:46 · Sesión iSCSI
+tcp: [1] 192.168.30.20:3260,1 iqn.2005-10.org.freenas.ctl:espejo-deb (non-flash)
+
+== 12:56:46 · /proc/mdstat
+Personalities : [raid0] [raid1] [raid6] [raid5] [raid4] 
+md10 : active raid1 sde[1](W) sdj[0](F)
+      261120 blocks super 1.2 [2/1] [_U]
+      bitmap: 1/1 pages [4KB], 65536KB chunk
+
+md0 : active raid0 sdk[1] sdb[0]
+      520192 blocks super 1.2 512k chunks
+      
+md5 : active raid5 sdg[4] sdh[3] sdf[0]
+      520192 blocks super 1.2 level 5, 512k chunk, algorithm 2 [3/3] [UUU]
+      
+md1 : active raid1 sdc[3](S) sdi[2] sdd[0]
+      261120 blocks super 1.2 [2/2] [UU]
+      
+unused devices: <none>
+
+== 12:56:46 · mdadm --detail /dev/md10
+        Raid Level : raid1
+        Array Size : 261120 (255.00 MiB 267.39 MB)
+      Raid Devices : 2
+     Intent Bitmap : Internal
+             State : clean, degraded 
+    Active Devices : 1
+   Working Devices : 1
+    Failed Devices : 1
+     Spare Devices : 0
+Consistency Policy : bitmap
+       -       0        0        0      removed
+       1       8       64        1      active sync writemostly   /dev/sde
+
+== 12:56:46 · Datos
+clientes-ficticios.csv: La suma coincide
+imagen-ficticia.bin: La suma coincide
+cambios-sin-nas.bin	imagen-ficticia.bin  SHA256SUMS   solo-nas.txt
+clientes-ficticios.csv	lost+found	     sin-nas.txt
+
+
+-- disco local reconectado: /dev/sdj
+
+== 12:57:01 · Se vuelve a añadir /dev/sdj (el bitmap hace que solo se copie lo cambiado)
+mdadm: re-added /dev/sdj
+Resincronización: 1,0 s
+
+== 12:57:02 · /proc/mdstat
+Personalities : [raid0] [raid1] [raid6] [raid5] [raid4] 
+md10 : active raid1 sdj[0] sde[1](W)
+      261120 blocks super 1.2 [2/2] [UU]
+      bitmap: 1/1 pages [4KB], 65536KB chunk
+
+md0 : active raid0 sdk[1] sdb[0]
+      520192 blocks super 1.2 512k chunks
+      
+md5 : active raid5 sdg[4] sdh[3] sdf[0]
+      520192 blocks super 1.2 level 5, 512k chunk, algorithm 2 [3/3] [UUU]
+      
+md1 : active raid1 sdc[3](S) sdi[2] sdd[0]
+      261120 blocks super 1.2 [2/2] [UU]
+      
+unused devices: <none>
+
+== 12:57:02 · mdadm --detail /dev/md10
+        Raid Level : raid1
+        Array Size : 261120 (255.00 MiB 267.39 MB)
+      Raid Devices : 2
+     Intent Bitmap : Internal
+             State : clean 
+    Active Devices : 2
+   Working Devices : 2
+    Failed Devices : 0
+     Spare Devices : 0
+Consistency Policy : bitmap
+       0       8      144        0      active sync   /dev/sdj
+       1       8       64        1      active sync writemostly   /dev/sde
+
+
+# NAS · destino espejo-deb grupos [{'portal': 1, 'initiator': 1, 'authmethod': 'NONE', 'auth': None}]

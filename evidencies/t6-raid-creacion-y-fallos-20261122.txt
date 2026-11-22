@@ -1,0 +1,302 @@
+# Tasca 6 · Tres tipos de RAID con mdadm en deb-produccion (Debian 13.8) · 22/11/2026
+# Discos virtuales de 256 MB con datos ficticios (clientes-ficticios.csv + imagen-ficticia.bin de 60 MB, con SHA256SUMS).
+# Script: scripts/t6-raid.sh · Los fallos de hardware se provocan desde el anfitrión quitando el disco con VBoxManage.
+
+== 12:50:44 · Discos disponibles
+NAME  SIZE TYPE
+sdb   256M disk
+sdc   256M disk
+sdd   256M disk
+sde   256M disk
+sdf   256M disk
+sdg   256M disk
+sdh   256M disk
+sdi   256M disk
+sdj   256M disk
+
+== 12:50:44 · RAID 0 (md0) con sdb + sdc
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md0 started.
+
+== 12:50:44 · RAID 1 (md1) con sdd + sde
+mdadm: array /dev/md1 started.
+
+== 12:50:44 · RAID 5 (md5) con sdf + sdg + sdh
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md5 started.
+Sincronización inicial de md1 y md5: 2,1 s
+
+== 12:50:48 · Estado
+Personalities : [raid0] [raid1] [raid6] [raid5] [raid4] 
+md5 : active raid5 sdh[3] sdg[1] sdf[0]
+      520192 blocks super 1.2 level 5, 512k chunk, algorithm 2 [3/3] [UUU]
+      
+md1 : active raid1 sde[1] sdd[0]
+      261120 blocks super 1.2 [2/2] [UU]
+      
+md0 : active raid0 sdc[1] sdb[0]
+      520192 blocks super 1.2 512k chunks
+      
+unused devices: <none>
+
+== 12:50:48 · Capacidad útil (3 tipos con discos de 256 MB)
+S.ficheros     Tamaño Usados  Disp Montado en
+/dev/md0         466M    61M  376M /srv/raid0
+/dev/md1         233M    61M  156M /srv/raid1
+/dev/md5         466M    61M  376M /srv/raid5
+
+
+== 12:50:53 · /proc/mdstat
+Personalities : [raid0] [raid1] [raid6] [raid5] [raid4] 
+md5 : active raid5 sdh[3] sdg[1] sdf[0]
+      520192 blocks super 1.2 level 5, 512k chunk, algorithm 2 [3/3] [UUU]
+      
+md1 : active raid1 sde[1] sdd[0]
+      261120 blocks super 1.2 [2/2] [UU]
+      
+md0 : active raid0 sdc[1] sdb[0]
+      520192 blocks super 1.2 512k chunks
+      
+unused devices: <none>
+
+== 12:50:53 · mdadm --detail /dev/md0
+        Raid Level : raid0
+        Array Size : 520192 (508.00 MiB 532.68 MB)
+      Raid Devices : 2
+             State : clean 
+    Active Devices : 2
+   Working Devices : 2
+    Failed Devices : 0
+     Spare Devices : 0
+Consistency Policy : none
+       0       8       16        0      active sync   /dev/sdb
+       1       8       32        1      active sync   /dev/sdc
+
+== 12:50:53 · mdadm --detail /dev/md1
+        Raid Level : raid1
+        Array Size : 261120 (255.00 MiB 267.39 MB)
+      Raid Devices : 2
+             State : clean 
+    Active Devices : 2
+   Working Devices : 2
+    Failed Devices : 0
+     Spare Devices : 0
+Consistency Policy : resync
+       0       8       48        0      active sync   /dev/sdd
+       1       8       64        1      active sync   /dev/sde
+
+== 12:50:53 · mdadm --detail /dev/md5
+        Raid Level : raid5
+        Array Size : 520192 (508.00 MiB 532.68 MB)
+      Raid Devices : 3
+             State : active 
+    Active Devices : 3
+   Working Devices : 3
+    Failed Devices : 0
+     Spare Devices : 0
+Consistency Policy : resync
+       0       8       80        0      active sync   /dev/sdf
+       1       8       96        1      active sync   /dev/sdg
+       3       8      112        2      active sync   /dev/sdh
+
+
+
+== 12:51:11 · Velocidad secuencial (100 MB, oflag/iflag=direct)
+Volumen                   Escritura      Lectura
+Un disco solo (sdi)        1.2 GB/s     2.9 GB/s
+RAID 0 (md0)               779 MB/s     1.6 GB/s
+RAID 1 (md1)               397 MB/s     1.1 GB/s
+RAID 5 (md5)               328 MB/s     1.2 GB/s
+
+
+== 12:51:14 · Velocidad secuencial (100 MB, oflag/iflag=direct)
+Volumen                   Escritura      Lectura
+Un disco solo (sdi)        2.0 GB/s     1.0 GB/s
+RAID 0 (md0)               705 MB/s     1.4 GB/s
+RAID 1 (md1)               277 MB/s     1.6 GB/s
+RAID 5 (md5)               308 MB/s     1.3 GB/s
+
+
+######## FALLO EN RAID 0 · anfitrión: VBoxManage storageattach … --port 2 --medium none  (12:51:22)
+
+== 12:51:28 · Tras quitar sdc (puerto SATA 2) del RAID 0
+Personalities : [raid0] [raid1] [raid6] [raid5] [raid4] 
+md5 : active raid5 sdh[3] sdg[1] sdf[0]
+      520192 blocks super 1.2 level 5, 512k chunk, algorithm 2 [3/3] [UUU]
+      
+md1 : active raid1 sde[1] sdd[0]
+      261120 blocks super 1.2 [2/2] [UU]
+      
+md0 : active raid0 sdc[1] sdb[0]
+      520192 blocks super 1.2 512k chunks
+      
+unused devices: <none>
+
+== 12:51:28 · Lectura de los datos de /srv/raid0
+clientes-ficticios.csv: La suma coincide
+sha256sum: imagen-ficticia.bin: Error de entrada/salida
+imagen-ficticia.bin: FAILED open or read
+sha256sum: WARNING: 1 listed file could not be read
+
+== 12:51:34 · Mensajes del núcleo
+[  259.148191] I/O error, dev sdc, sector 0 op 0x1:(WRITE) flags 0x800 phys_seg 0 prio class 2
+[  259.148236] I/O error, dev sdc, sector 12806 op 0x0:(READ) flags 0x0 phys_seg 1 prio class 2
+[  259.148245] I/O error, dev sdc, sector 11786 op 0x1:(WRITE) flags 0x103000 phys_seg 1 prio class 2
+[  259.148248] Buffer I/O error on dev md0, logical block 7941, lost async page write
+[  259.148260] I/O error, dev sdc, sector 11732 op 0x1:(WRITE) flags 0x103000 phys_seg 1 prio class 2
+[  259.148263] Buffer I/O error on dev md0, logical block 7914, lost async page write
+
+
+-- disco reconectado (aparece como sdk); /proc/mdstat: md0 : broken raid0 sdc[1] sdb[0]
+mdadm: stopped /dev/md0
+
+== 12:51:54 · RAID 0 perdido: se rehace vacío (los datos solo se recuperarían de una copia)
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md0 started.
+/dev/md0 contains a ext4 file system labelled 'raid0'
+	last mounted on /srv/raid0 on Sun Nov 22 12:50:47 2026
+Proceed anyway? (y,N) Terminado
+-- mkfs se quedó esperando la confirmación (el ext4 viejo seguía en la zona de datos): se cortó y se repitió con mkfs.ext4 -F
+
+
+== 12:54:11 · /proc/mdstat
+Personalities : [raid0] [raid1] [raid6] [raid5] [raid4] 
+md0 : active raid0 sdk[1] sdb[0]
+      520192 blocks super 1.2 512k chunks
+      
+md5 : active raid5 sdh[3] sdg[1] sdf[0]
+      520192 blocks super 1.2 level 5, 512k chunk, algorithm 2 [3/3] [UUU]
+      
+md1 : active raid1 sde[1] sdd[0]
+      261120 blocks super 1.2 [2/2] [UU]
+      
+unused devices: <none>
+
+== 12:54:11 · mdadm --detail /dev/md0
+        Raid Level : raid0
+        Array Size : 520192 (508.00 MiB 532.68 MB)
+      Raid Devices : 2
+             State : clean 
+    Active Devices : 2
+   Working Devices : 2
+    Failed Devices : 0
+     Spare Devices : 0
+Consistency Policy : none
+       0       8       16        0      active sync   /dev/sdb
+       1       8      160        1      active sync   /dev/sdk
+
+-- mkfs.ext4 -F -q -L raid0 /dev/md0 && mount /dev/md0 /srv/raid0
+/dev/md0 contains a ext4 file system labelled 'raid0'
+	last mounted on /srv/raid0 on Sun Nov 22 12:50:47 2026
+lost+found
+S.ficheros     Tamaño Montado en
+/dev/md0         466M /srv/raid0
+
+
+######## FALLO EN RAID 1 · anfitrión: VBoxManage storageattach … --port 4 --medium none  (12:54:33)
+
+== 12:54:38 · RAID 1 tras quitar sde (puerto SATA 4) en caliente
+md1 : active raid1 sde[1](F) sdd[0]
+      261120 blocks super 1.2 [2/1] [U_]
+      
+unused devices: <none>
+             State : active, degraded 
+    Active Devices : 1
+   Working Devices : 1
+    Failed Devices : 1
+       0       8       48        0      active sync   /dev/sdd
+       -       0        0        1      removed
+
+== 12:54:44 · Los datos siguen ahí
+clientes-ficticios.csv: La suma coincide
+imagen-ficticia.bin: La suma coincide
+escritura con un disco menos
+
+== 12:54:45 · Sustitución por el disco nuevo sdi
+mdadm: added /dev/sdi
+Reconstrucción de md1 (256 MB): 1,3 s
+             State : clean 
+    Active Devices : 2
+   Working Devices : 2
+       0       8       48        0      active sync   /dev/sdd
+       2       8      128        1      active sync   /dev/sdi
+
+-- disco reconectado: /dev/sdc (se borra y queda de repuesto en md1)
+mdadm: added /dev/sdc
+             State : clean 
+     Spare Devices : 1
+       0       8       48        0      active sync   /dev/sdd
+       2       8      128        1      active sync   /dev/sdi
+       3       8       32        -      spare   /dev/sdc
+
+
+######## FALLO EN RAID 5 (12:55:05)
+
+== 12:55:06 · RAID 5: se marca sdg como averiado y se saca
+mdadm: hot removed /dev/sdg from /dev/md5
+             State : clean, degraded 
+    Active Devices : 2
+   Working Devices : 2
+    Failed Devices : 0
+       0       8       80        0      active sync   /dev/sdf
+       -       0        0        1      removed
+       3       8      112        2      active sync   /dev/sdh
+
+== 12:55:06 · Los datos se leen calculando la paridad
+clientes-ficticios.csv: La suma coincide
+imagen-ficticia.bin: La suma coincide
+
+
+== 12:55:07 · sdg se borra (como si fuera un disco nuevo) y se añade
+mdadm: added /dev/sdg
+Reconstrucción de md5 (2 x 256 MB útiles): 7,1 s
+             State : clean 
+    Active Devices : 3
+   Working Devices : 3
+       0       8       80        0      active sync   /dev/sdf
+       4       8       96        1      active sync   /dev/sdg
+       3       8      112        2      active sync   /dev/sdh
+clientes-ficticios.csv: La suma coincide
+imagen-ficticia.bin: La suma coincide
+
+
+
+######## PERSISTENCIA Y REINICIO (12:57:07)
+
+== 12:57:08 · Configuración permanente: mdadm.conf, initramfs y fstab (nofail)
+ARRAY /dev/md1 metadata=1.2 spares=1 UUID=85df89a1:6bb587a2:00276a31:91cbef62
+ARRAY /dev/md5 metadata=1.2 UUID=acd86155:c67b8ab7:8c16cf1b:a5594dd1
+ARRAY /dev/md0 metadata=1.2 UUID=fc1ac3bd:5ecb6c1f:7d2d5705:50499ff8
+ARRAY /dev/md10 metadata=1.2 UUID=e6b0f6b0:c7ff9f12:946bcace:fdcff96c
+update-initramfs: Generating /boot/initrd.img-6.12.117+deb13-amd64
+LABEL=raid0 /srv/raid0 ext4 defaults,nofail 0 2
+LABEL=raid1 /srv/raid1 ext4 defaults,nofail 0 2
+LABEL=raid5 /srv/raid5 ext4 defaults,nofail 0 2
+LABEL=espejo /srv/espejo ext4 defaults,nofail,_netdev,x-systemd.requires=iscsi.service 0 2
+
+-- reinicio 12:57:19 (systemd-run --on-active=2 systemctl reboot) · tras el arranque (los nombres sdX cambian; mdadm usa los UUID):
+2026-11-22 12:57:39
+Personalities : [raid1] [raid0] [raid6] [raid5] [raid4] [raid10] 
+md10 : active raid1 sdk[1](W) sdj[0]
+      261120 blocks super 1.2 [2/2] [UU]
+      bitmap: 0/1 pages [0KB], 65536KB chunk
+
+md1 : active raid1 sdd[0] sdi[2] sde[3](S)
+      261120 blocks super 1.2 [2/2] [UU]
+      
+md0 : active raid0 sdb[0] sdc[1]
+      520192 blocks super 1.2 512k chunks
+      
+md5 : active raid5 sdh[3] sdg[0] sdf[4]
+      520192 blocks super 1.2 level 5, 512k chunk, algorithm 2 [3/3] [UUU]
+      
+unused devices: <none>
+/srv/raid1 /dev/md1
+/srv/raid0 /dev/md0
+/srv/raid5 /dev/md5
+/srv/espejo /dev/md10
+tcp: [1] 192.168.30.20:3260,1 iqn.2005-10.org.freenas.ctl:espejo-deb (non-flash)
+sha256sum: SHA256SUMS: No existe el fichero o el directorio   <- md0 se rehízo vacío tras el fallo (esperado)
+raid1: datos OK
+raid5: datos OK
+espejo: datos OK
