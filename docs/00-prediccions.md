@@ -4,7 +4,7 @@ PREDIU · se responde antes de buscar información y se revisa al final con las 
 
 > El enunciado pide que **cada persona responda antes de buscar información**. Estas respuestas son
 > mías y se revisarán al final, comparándolas con las pruebas que me hayan hecho cambiar de opinión.
-> Fecha: ____ / ____ / 2026
+> Fecha: 29 / 10 / 2026
 
 ## 1. ¿Qué sistema pondrías en…
 
