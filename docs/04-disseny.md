@@ -113,14 +113,14 @@ Por qué la LAN queda aislada:
 - La única salida posible es atravesar un router.
 - Si los tres routers están apagados, no hay ningún camino hacia fuera.
 
-Verificación de cada router: [05-installacions.md § Verificación](05-installacions.md#5-verificación).
+Verificación de cada router: [05-installacions.md § 4.3](05-installacions.md#43-red-wan-y-lan-e-internet-desde-la-lan).
 
 ## 7. Verificación de la conectividad (Apte+)
 
 > 21/11/2026, en el PC de casa · VMs encendidas: R1, R3 y el cliente Debian (`.101`) ·
 > Evidencia completa: [evidencies/t4-conectividad-20261121.txt](../evidencies/t4-conectividad-20261121.txt).
 > La verificación inicial de los tres routers (17/11) está en
-> [05-installacions.md § 5](05-installacions.md#5-verificación).
+> [05-installacions.md § 4.3](05-installacions.md#43-red-wan-y-lan-e-internet-desde-la-lan).
 
 ### 7.1 Tablas de rutas
 

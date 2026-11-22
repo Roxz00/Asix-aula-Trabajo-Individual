@@ -84,7 +84,7 @@ DNS `172.16.222.1` (el del centro), dominio de nombres `grupo3.lan`.
 
 ### 6.1 Routers (17/11/2026)
 
-Detallado en [05-installacions.md § 4](05-installacions.md#4-implementación).
+Detallado en [05-installacions.md § 4.1](05-installacions.md#41-instalación).
 Cada router tiene el adaptador 1 en NAT (WAN) y el adaptador 2 en la red interna `LAN_G3`.
 
 ### 6.2 TrueNAS SCALE (.20)
@@ -166,7 +166,7 @@ ssh -p 2203 -L 8443:192.168.30.20:443  asix@127.0.0.1      # web de TrueNAS en h
 
 | Prueba | Resultado | Evidencia |
 |---|---|---|
-| Routers: IP, ruta, DNS y NAT | ✅ | [06 § 5](05-installacions.md#5-verificación) |
+| Routers: IP, ruta, DNS y NAT | ✅ | [05 § 4.3](05-installacions.md#43-red-wan-y-lan-e-internet-desde-la-lan) |
 | TrueNAS: IP fija, gateway, DNS, pool `copias` ONLINE, salida a Internet | ✅ | [t5-truenas-estado-20261119.txt](../evidencies/t5-truenas-estado-20261119.txt) · [captura](../evidencies/t5-truenas-instalacion-completada-20261119.png) |
 | Nodos Proxmox: IP fija, ping a `.1` y a `172.16.222.1`, DNS, HTTP 200 por R1 | ✅ (×3) | [t5-proxmox-estado-cluster-y-red-20261119.txt](../evidencies/t5-proxmox-estado-cluster-y-red-20261119.txt) |
 | Clúster `cluster-g3`: 3 nodos, 3 votos, quórum 2, *Quorate: Yes*, 0 VMs | ✅ | [t5-proxmox-estado-cluster-y-red-20261119.txt](../evidencies/t5-proxmox-estado-cluster-y-red-20261119.txt) |
@@ -174,7 +174,7 @@ ssh -p 2203 -L 8443:192.168.30.20:443  asix@127.0.0.1      # web de TrueNAS en h
 | WS2025: IP `.21`, gateway, DNS, resolución y ping al router | ✅ | [t5-ws2025-verificacion-red-20261119.png](../evidencies/t5-ws2025-verificacion-red-20261119.png) · [captura](../evidencies/t5-ws2025-escritorio-instalado-20261119.png) |
 | W11: IP `.100`, gateway, DNS, resolución y ping al router | ✅ | [t5-w11-verificacion-red-20261119.png](../evidencies/t5-w11-verificacion-red-20261119.png) · [captura](../evidencies/t5-w11-escritorio-instalado-20261119.png) |
 | Debian GNOME: IP `.101` manual, DNS, ping a TrueNAS, HTTP 200 por R1 | ✅ | [t5-cliente-linux-estado-20261119.txt](../evidencies/t5-cliente-linux-estado-20261119.txt) · [captura](../evidencies/t5-cliente-linux-gnome-login-20261119.png) |
-| Ningún DHCP en la LAN | ✅ | Todas las IPs son manuales; los routers no tienen servidor DHCP ([06 § 5](05-installacions.md#5-verificación)) |
+| Ningún DHCP en la LAN | ✅ | Todas las IPs son manuales; los routers no tienen servidor DHCP ([05 § 4.3](05-installacions.md#43-red-wan-y-lan-e-internet-desde-la-lan)) |
 
 ### Prueba de quórum
 
@@ -220,7 +220,7 @@ El análisis detallado (CPU, disco y saturación) se hará en la Tasca 7 ([07-re
 ## 9. Problemas encontrados y solución
 
 Los problemas 1 a 8 son de los routers y están en
-[05-installacions.md § 6](05-installacions.md#6-problemas-encontrados-y-solución).
+[05-installacions.md § 10](05-installacions.md#10-problemas-encontrados-y-solución).
 
 | # | Problema | Causa | Solución |
 |---|---|---|---|
