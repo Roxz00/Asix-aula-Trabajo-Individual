@@ -234,9 +234,14 @@ Los problemas 1 a 8 son de los routers y están en
 | 16 | Al borrar el perfil DHCP del cliente Debian se cortó la sesión SSH | Era la conexión activa | Previsto: después se apagó la VM y se cambió el adaptador a `LAN_G3` |
 | 17 | Las Guest Additions no quedaron activas en los Windows (`guestcontrol` no responde) | Sin confirmar: no se ejecutaron en la postinstalación desatendida | No afectan a la red. La verificación se hizo desde la consola (`cmd`) con capturas. Se pueden instalar a mano desde *Dispositivos → Insertar imagen de CD de las Guest Additions* |
 
-## 10. Pendiente (Tasca 5 y siguientes)
+## 10. Qué quedaba pendiente al montar el entorno y cómo terminó
 
-- Promover el **WS2025** a controlador de dominio y unir los dos clientes al dominio.
-- **Copias** de las configuraciones de routers, nodos, WS2025 y clientes al pool `copias` de TrueNAS.
-- Pruebas de **fallo y recuperación** de cada equipo.
-- OPNsense: cambiar el nombre de equipo y exportar `config.xml` desde la web (ya hay clientes en la LAN).
+Al cerrar la Tasca 0 quedaban estos puntos para las tareas siguientes:
+
+| Punto | Estado | Dónde está |
+|---|---|---|
+| **Copias** de las configuraciones de routers, nodos, WS2025 y clientes en el pool `copias` de TrueNAS | ✅ Hecho y automatizado | [05-installacions § 3.3–3.4](05-installacions.md#33-espacio-de-copias-en-truenas-qué-cómo-y-dónde) · [D-08](../decisions/D-08-copias-de-configuracion.md) |
+| Pruebas de **fallo y recuperación** de cada equipo | ✅ Hecho en los tres routers (1–57 s) y en WS2025 (reinstalación) | [05-installacions § 4.6](05-installacions.md#46-fallo-controlado-y-recuperación) · [I-09](../incidencies/I-09-ws2025-reinstalacion-sola.md) |
+| OPNsense: exportar `config.xml` | ✅ Hecho, copiado al NAS por `scp` | [05-installacions § 4.5](05-installacions.md#45-copia-en-el-servidor-de-copias) |
+| OPNsense: cambiar el nombre de equipo | ❌ No se hizo: sigue como `OPNsense.internal`. No afecta al funcionamiento ni a las copias, que se guardan en la carpeta `r2-opnsense` | — |
+| Promover **WS2025** a controlador de dominio y unir los clientes | ➖ No se hace en esta actividad: el enunciado deja la implantación de dominios para los RA4 y RA5 de ISO, y unir los clientes es opcional («si així ho considereu»). Se explica qué es un dominio y qué aporta | [05-installacions § 7.3](05-installacions.md#73-qué-es-un-dominio-y-qué-aporta-a-la-empresa) |

@@ -23,7 +23,7 @@ clúster Proxmox VE de 3 nodos (anidado y vacío), Windows Server 2025 fuera del
 
 | Tarea del enunciado | Documento | Entrega | Estado |
 |---|---|---|---|
-| PREDIU «Prediccions» | [00-prediccions](docs/00-prediccions.md) | — | Pendiente: las respuestas las escribo yo |
+| PREDIU «Prediccions» | [00-prediccions](docs/00-prediccions.md) | — | Hecho (29/10/2026) y revisado al final |
 | Tasca 0 «Muntatge de l'entorn de proves» | [00-entorno-pruebas](docs/00-entorno-pruebas.md), [05-recursos](docs/05-recursos.md) | [PDF](lliuraments/Tasca0_Lliurament_Individual.pdf) | Ejecutado |
 | Tasca 1 «Necessitats i sistemes» | Solo grupal | — | — |
 | Tasca 2 «Equips i perifèrics» | [02-inventari](docs/02-inventari.md) | [PDF](lliuraments/Tasca2_Lliurament_Individual.pdf) | Ejecutado (tests solo en el PC de casa; el de clase con los datos del montaje) |
