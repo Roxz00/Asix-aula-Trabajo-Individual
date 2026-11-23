@@ -33,6 +33,7 @@ clúster Proxmox VE de 3 nodos (anidado y vacío), Windows Server 2025 fuera del
 | Tasca 6 «Emmagatzematge i recuperació» | [06-recuperacio](docs/06-recuperacio.md) | [PDF](lliuraments/Tasca6_Lliurament_Individual.pdf) | Ejecutado (RAID 0, 1 y 5 + espejo iSCSI entre dos equipos) |
 | Tasca 7 «Rendiment i diagnòstic» | [07-rendiment](docs/07-rendiment.md) | [PDF](lliuraments/Tasca7_Lliurament_Individual.pdf) | Ejecutado (10 escenarios medidos y 2 optimizaciones con antes/después) |
 | Tasca 8 (Final) | — | — | El 25/11, en clase |
+| Registro de uso de IA | [ia-log](docs/ia-log.md) | — | Hecho: propuestas, cómo se contrastaron y qué se decidió |
 
 Estados posibles: Pendiente · En curso · Ejecutado · Simulado.
 
